@@ -1,0 +1,2 @@
+:HL["/brachilenos-site/_next/static/chunks/0akuo8294rbxc.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":8,"slots":{"children":{"name":"lang","param":{"type":"d","key":"pt-br","siblings":null},"prefetchHints":24,"slots":{"children":{"name":"carreiras","param":null,"prefetchHints":4,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"FRKzMwwdIFUaXE_SJk0Fq"}

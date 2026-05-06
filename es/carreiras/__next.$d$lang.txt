@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[39756,["/brachilenos-site/_next/static/chunks/01xlw8hd842-c.js","/brachilenos-site/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+3:I[37457,["/brachilenos-site/_next/static/chunks/01xlw8hd842-c.js","/brachilenos-site/_next/static/chunks/0d3shmwh5_nmn.js"],"default"]
+:HL["/brachilenos-site/_next/static/chunks/0akuo8294rbxc.css","style"]
+0:{"rsc":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/brachilenos-site/_next/static/chunks/0akuo8294rbxc.css","precedence":"next"}]],["$","html",null,{"lang":"es","data-scroll-behavior":"smooth","children":["$","body",null,{"children":["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"FRKzMwwdIFUaXE_SJk0Fq"}

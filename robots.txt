@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://tognolli0.github.io/brachilenos-site/sitemap.xml
