@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import "../globals.css";
+import { assetPath } from "@/lib/assets";
 import { getHtmlLang, isLocale, locales, type Locale } from "@/lib/dictionaries";
 
 export const metadata: Metadata = {
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
   description:
     "Consultoria contábil, financeira e tributária para brasileiros, empresas e operações entre Brasil e Chile.",
   icons: {
-    icon: "/assets/logo-brachilenos.jpeg",
+    icon: assetPath("/assets/logo-brachilenos.jpeg"),
   },
   openGraph: {
     type: "website",
@@ -20,14 +21,14 @@ export const metadata: Metadata = {
     title: "BRACHILENOS | Contabilidade Brasil x Chile",
     description:
       "Consultoria contábil, financeira e tributária para brasileiros, empresas e operações entre Brasil e Chile.",
-    images: [{ url: "/assets/santiago-hero.png", width: 1024, height: 1536, alt: "BRACHILENOS Brasil x Chile" }],
+    images: [{ url: assetPath("/assets/santiago-hero.png"), width: 1024, height: 1536, alt: "BRACHILENOS Brasil x Chile" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "BRACHILENOS | Contabilidade Brasil x Chile",
     description:
       "Consultoria contábil, financeira e tributária para brasileiros, empresas e operações entre Brasil e Chile.",
-    images: ["/assets/santiago-hero.png"],
+    images: [assetPath("/assets/santiago-hero.png")],
   },
   robots: {
     index: true,

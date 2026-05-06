@@ -35,6 +35,7 @@ import { ButtonLink } from "@/components/ButtonLink";
 import { CommercialLeadForm } from "@/components/CommercialLeadForm";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { assetPath } from "@/lib/assets";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/dictionaries";
 
 type PageProps = {
@@ -136,7 +137,7 @@ export default async function HomePage({ params }: PageProps) {
 
             <div className="relative min-h-[310px] min-w-0 overflow-hidden border border-[#071f3b]/10 bg-white shadow-[0_18px_50px_rgba(7,31,59,.12)] sm:min-h-[390px] lg:min-h-[500px]">
               <Image
-                src="/assets/santiago-hero.png"
+                src={assetPath("/assets/santiago-hero.png")}
                 alt="Santiago do Chile com referência Brasil e Chile"
                 fill
                 priority
@@ -349,7 +350,7 @@ export default async function HomePage({ params }: PageProps) {
                   <article key={card.title} className="min-w-0 overflow-hidden border border-[#d9e0e6] bg-white shadow-[0_12px_32px_rgba(7,31,59,.06)]">
                     <div className="relative h-56">
                       <Image
-                        src={card.image}
+                        src={assetPath(card.image)}
                         alt={card.title}
                         fill
                         sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"

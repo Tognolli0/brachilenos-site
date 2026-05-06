@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, MessageCircle, UploadCloud, X } from "lucide-react";
 import { useState } from "react";
+import { assetPath } from "@/lib/assets";
 import { localeLabels, locales, type Dictionary, type Locale } from "@/lib/dictionaries";
 
 type HeaderProps = {
@@ -56,7 +57,7 @@ export function Header({ lang, dict, page }: HeaderProps) {
           className="display-serif flex min-w-0 items-center gap-3 font-bold text-[#071f3b]"
         >
           <Image
-            src="/assets/logo-brachilenos.jpeg"
+            src={assetPath("/assets/logo-brachilenos.jpeg")}
             width={52}
             height={52}
             alt="BRACHILENOS"

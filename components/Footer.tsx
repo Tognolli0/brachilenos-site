@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { assetPath } from "@/lib/assets";
 import type { Dictionary, Locale } from "@/lib/dictionaries";
 
 type FooterProps = {
@@ -13,7 +14,7 @@ export function Footer({ lang, dict }: FooterProps) {
       <div className="shell grid gap-9 md:grid-cols-2 lg:grid-cols-[1.4fr_0.65fr_0.75fr_1fr]">
         <div>
           <Link href={`/${lang}`} className="display-serif mb-4 flex items-center gap-3 text-lg font-bold text-white">
-            <Image src="/assets/logo-brachilenos.jpeg" width={48} height={48} alt="BRACHILENOS" className="h-12 w-12 object-cover" />
+            <Image src={assetPath("/assets/logo-brachilenos.jpeg")} width={48} height={48} alt="BRACHILENOS" className="h-12 w-12 object-cover" />
             <span>BRACHILENOS</span>
           </Link>
           <p className="max-w-sm text-sm leading-6">{dict.footer.text}</p>
