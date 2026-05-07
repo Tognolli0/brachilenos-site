@@ -10,5 +10,6 @@ out/
 dev-server*.log
 prod-server*.log
 tsconfig.tsbuildinfo
+deno.lock
 
 /assets/
