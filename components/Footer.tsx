@@ -22,7 +22,8 @@ export function Footer({ lang, dict }: FooterProps) {
 
         <div>
           <h3 className="mb-3 font-bold text-white">{dict.footer.clients}</h3>
-          <FooterLink href={`/${lang}#solucoes`}>{dict.nav.solutions}</FooterLink>
+          <FooterLink href={`/${lang}/servicos`}>{dict.nav.solutions}</FooterLink>
+          <FooterLink href={`/${lang}/sobre`}>{dict.nav.about}</FooterLink>
           <FooterLink href={`/${lang}#processo`}>{dict.nav.process}</FooterLink>
           <FooterLink href={`/${lang}#contato`}>{dict.nav.contact}</FooterLink>
         </div>

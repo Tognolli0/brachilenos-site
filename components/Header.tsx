@@ -11,7 +11,7 @@ import { localeLabels, locales, type Dictionary, type Locale } from "@/lib/dicti
 type HeaderProps = {
   lang: Locale;
   dict: Dictionary;
-  page: "home" | "careers";
+  page: "home" | "about" | "services" | "careers";
 };
 
 export function Header({ lang, dict, page }: HeaderProps) {
@@ -54,12 +54,11 @@ export function Header({ lang, dict, page }: HeaderProps) {
   };
 
   const navItems = [
-    { href: `/${lang}#quem-somos`, label: dict.nav.about },
-    { href: `/${lang}#solucoes`, label: dict.nav.solutions },
+    { href: `/${lang}/sobre`, label: dict.nav.about, page: "about" },
+    { href: `/${lang}/servicos`, label: dict.nav.solutions, page: "services" },
     { href: `/${lang}#perfis`, label: dict.nav.audiences },
     { href: `/${lang}#processo`, label: dict.nav.process },
-    { href: `/${lang}/carreiras`, label: dict.nav.careers },
-    { href: `/${lang}#conteudo`, label: dict.nav.content },
+    { href: `/${lang}/carreiras`, label: dict.nav.careers, page: "careers" },
     { href: `/${lang}#contato`, label: dict.nav.contact },
   ];
 
@@ -123,7 +122,7 @@ export function Header({ lang, dict, page }: HeaderProps) {
           className={`${open ? "flex" : "hidden"} fixed left-0 right-0 top-[64px] z-50 max-h-[calc(100dvh-64px)] flex-col gap-1 overflow-y-auto border-t border-[#071f3b]/10 bg-white px-5 pb-6 pt-3 text-sm font-semibold text-[#5c6b78] shadow-[0_18px_42px_rgba(7,31,59,0.18)] xl:static xl:col-span-1 xl:flex xl:max-h-none xl:w-auto xl:flex-row xl:items-center xl:justify-center xl:gap-5 xl:overflow-visible xl:border-t-0 xl:bg-transparent xl:p-0 xl:shadow-none`}
         >
           {navItems.map((item) => {
-            const active = page === "careers" && item.href.includes("carreiras");
+            const active = item.page === page;
             return (
               <Link
                 key={item.href}
