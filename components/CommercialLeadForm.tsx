@@ -1,26 +1,70 @@
 "use client";
 
-import { Send } from "lucide-react";
-import { useState } from "react";
+import { AlertCircle, CheckCircle2, Send } from "lucide-react";
+import { useMemo, useState } from "react";
 import type { Dictionary } from "@/lib/dictionaries";
 
 type Props = {
   dict: Dictionary;
 };
 
+type FormValues = {
+  name: string;
+  whatsapp: string;
+  email: string;
+  country: string;
+  need: string;
+  message: string;
+};
+
+type FieldName = keyof FormValues;
+type Errors = Partial<Record<FieldName, string>>;
+
+const initialValues: FormValues = {
+  name: "",
+  whatsapp: "",
+  email: "",
+  country: "",
+  need: "",
+  message: "",
+};
+
 export function CommercialLeadForm({ dict }: Props) {
+  const [values, setValues] = useState<FormValues>(initialValues);
+  const [touched, setTouched] = useState<Partial<Record<FieldName, boolean>>>({});
   const [status, setStatus] = useState("");
   const [statusType, setStatusType] = useState<"success" | "error" | "">("");
   const [submitting, setSubmitting] = useState(false);
+
+  const labels = useMemo(
+    () => ({
+      name: dict.forms.name,
+      whatsapp: "WhatsApp",
+      email: "E-mail",
+      country: dict.forms.country,
+      need: dict.forms.clientNeed,
+      message: dict.forms.message,
+    }),
+    [dict],
+  );
+
+  const errors = validate(values, dict);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (submitting) return;
 
-    const form = event.currentTarget;
-    const payload = Object.fromEntries(new FormData(form).entries());
-    setSubmitting(true);
+    const nextErrors = validate(values, dict);
+    setTouched({ name: true, whatsapp: true, email: true, country: true, need: true, message: true });
 
+    if (Object.keys(nextErrors).length > 0) {
+      setStatus("");
+      setStatusType("");
+      event.currentTarget.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
+      return;
+    }
+
+    setSubmitting(true);
     setStatus("");
     setStatusType("");
 
@@ -28,19 +72,20 @@ export function CommercialLeadForm({ dict }: Props) {
       const response = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(values),
       });
 
       if (!response.ok) {
         throw new Error("Lead request failed");
       }
 
-      saveLocalLead("brachilenos.clientLeads", payload);
+      saveLocalLead("brachilenos.clientLeads", values);
       setStatus(dict.forms.successClient);
       setStatusType("success");
-      form.reset();
+      setValues(initialValues);
+      setTouched({});
     } catch {
-      saveLocalLead("brachilenos.clientLeads", payload);
+      saveLocalLead("brachilenos.clientLeads", values);
       setStatus(dict.forms.error);
       setStatusType("error");
     } finally {
@@ -48,49 +93,52 @@ export function CommercialLeadForm({ dict }: Props) {
     }
   }
 
+  function updateField(name: FieldName, value: string) {
+    setValues((current) => ({ ...current, [name]: value }));
+  }
+
+  function markTouched(name: FieldName) {
+    setTouched((current) => ({ ...current, [name]: true }));
+  }
+
   return (
-    <form
-      onSubmit={onSubmit}
-      aria-busy={submitting}
-      className="min-w-0 border border-[#d9e0e6] bg-white p-4 shadow-[0_12px_32px_rgba(7,31,59,0.06)] sm:p-6"
-    >
+    <form onSubmit={onSubmit} aria-busy={submitting} noValidate className="form-panel">
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label={dict.forms.name} name="name" autoComplete="name" required />
-        <Field label="WhatsApp" name="whatsapp" type="tel" autoComplete="tel" inputMode="tel" required />
+        <Field label={labels.name} name="name" value={values.name} error={touched.name ? errors.name : ""} onChange={updateField} onBlur={markTouched} autoComplete="name" required />
+        <Field label={labels.whatsapp} name="whatsapp" value={values.whatsapp} error={touched.whatsapp ? errors.whatsapp : ""} onChange={updateField} onBlur={markTouched} type="tel" autoComplete="tel" inputMode="tel" required />
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="E-mail" name="email" type="email" autoComplete="email" required />
-        <Select label={dict.forms.country} name="country" options={["Brasil", "Chile", dict.forms.other]} placeholder={dict.forms.choose} required />
+        <Field label={labels.email} name="email" value={values.email} error={touched.email ? errors.email : ""} onChange={updateField} onBlur={markTouched} type="email" autoComplete="email" required />
+        <Select label={labels.country} name="country" value={values.country} error={touched.country ? errors.country : ""} onChange={updateField} onBlur={markTouched} options={["Brasil", "Chile", dict.forms.other]} placeholder={dict.forms.choose} required />
       </div>
-      <Select label={dict.forms.clientNeed} name="need" options={[...dict.forms.clientOptions]} placeholder={dict.forms.choose} required />
-      <label className="mb-4 grid gap-2 text-sm font-extrabold text-[#071f3b]">
-        {dict.forms.message}
-        <textarea
-          name="message"
-          rows={4}
-          placeholder={dict.forms.clientPlaceholder}
-          className="focus-ring min-h-32 min-w-0 w-full border border-[#cbd5df] bg-white px-3 py-3 font-normal text-[#102235]"
-        />
-      </label>
-      <button
-        type="submit"
-        disabled={submitting}
-        className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-5 text-center text-sm font-extrabold leading-tight text-white transition hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-wait disabled:opacity-70"
-      >
+      <Select label={labels.need} name="need" value={values.need} error={touched.need ? errors.need : ""} onChange={updateField} onBlur={markTouched} options={[...dict.forms.clientOptions]} placeholder={dict.forms.choose} required />
+      <Textarea label={labels.message} name="message" value={values.message} error={touched.message ? errors.message : ""} onChange={updateField} onBlur={markTouched} placeholder={dict.forms.clientPlaceholder} />
+      <button type="submit" disabled={submitting} className="focus-ring btn-submit">
         <Send className="h-5 w-5" aria-hidden />
         <span>{submitting ? dict.forms.sending : dict.forms.clientSubmit}</span>
       </button>
-      <p
-        className={`mt-3 min-h-6 text-sm font-bold ${statusType === "error" ? "text-[#c91f28]" : "text-[#0f6f43]"}`}
-        aria-live="polite"
-      >
-        {status}
-      </p>
+      <StatusMessage status={status} statusType={statusType} />
     </form>
   );
 }
 
-function saveLocalLead(key: string, payload: Record<string, FormDataEntryValue>) {
+function validate(values: FormValues, dict: Dictionary): Errors {
+  const errors: Errors = {};
+
+  for (const name of ["name", "whatsapp", "email", "country", "need"] as FieldName[]) {
+    if (!values[name].trim()) {
+      errors[name] = dict.forms.requiredField;
+    }
+  }
+
+  if (values.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
+    errors.email = dict.forms.invalidEmail;
+  }
+
+  return errors;
+}
+
+function saveLocalLead(key: string, payload: FormValues) {
   try {
     const current = JSON.parse(localStorage.getItem(key) || "[]");
     localStorage.setItem(key, JSON.stringify([...current, { ...payload, createdAt: new Date().toISOString() }]));
@@ -102,29 +150,45 @@ function saveLocalLead(key: string, payload: Record<string, FormDataEntryValue>)
 function Field({
   label,
   name,
+  value,
+  error,
+  onChange,
+  onBlur,
   type = "text",
   autoComplete,
   inputMode,
   required,
 }: {
   label: string;
-  name: string;
+  name: FieldName;
+  value: string;
+  error?: string;
+  onChange: (name: FieldName, value: string) => void;
+  onBlur: (name: FieldName) => void;
   type?: string;
   autoComplete?: string;
   inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
   required?: boolean;
 }) {
+  const errorId = `${name}-error`;
+
   return (
-    <label className="mb-4 grid gap-2 text-sm font-extrabold text-[#071f3b]">
+    <label className="field-label">
       {label}
       <input
         name={name}
         type={type}
+        value={value}
         autoComplete={autoComplete}
         inputMode={inputMode}
         required={required}
-        className="focus-ring h-12 min-w-0 w-full border border-[#cbd5df] bg-white px-3 font-normal text-[#102235]"
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? errorId : undefined}
+        onChange={(event) => onChange(name, event.target.value)}
+        onBlur={() => onBlur(name)}
+        className="focus-ring field-control field-input"
       />
+      {error ? <FieldError id={errorId}>{error}</FieldError> : null}
     </label>
   );
 }
@@ -132,25 +196,107 @@ function Field({
 function Select({
   label,
   name,
+  value,
+  error,
+  onChange,
+  onBlur,
   options,
   placeholder,
   required,
 }: {
   label: string;
-  name: string;
+  name: FieldName;
+  value: string;
+  error?: string;
+  onChange: (name: FieldName, value: string) => void;
+  onBlur: (name: FieldName) => void;
   options: string[];
   placeholder: string;
   required?: boolean;
 }) {
+  const errorId = `${name}-error`;
+
   return (
-    <label className="mb-4 grid gap-2 text-sm font-extrabold text-[#071f3b]">
+    <label className="field-label">
       {label}
-      <select name={name} required={required} className="focus-ring h-12 min-w-0 w-full border border-[#cbd5df] bg-white px-3 font-normal text-[#102235]">
+      <select
+        name={name}
+        value={value}
+        required={required}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? errorId : undefined}
+        onChange={(event) => onChange(name, event.target.value)}
+        onBlur={() => onBlur(name)}
+        className="focus-ring field-control field-select"
+      >
         <option value="">{placeholder}</option>
         {options.map((option) => (
           <option key={option}>{option}</option>
         ))}
       </select>
+      {error ? <FieldError id={errorId}>{error}</FieldError> : null}
     </label>
+  );
+}
+
+function Textarea({
+  label,
+  name,
+  value,
+  error,
+  onChange,
+  onBlur,
+  placeholder,
+}: {
+  label: string;
+  name: FieldName;
+  value: string;
+  error?: string;
+  onChange: (name: FieldName, value: string) => void;
+  onBlur: (name: FieldName) => void;
+  placeholder: string;
+}) {
+  const errorId = `${name}-error`;
+
+  return (
+    <label className="field-label">
+      {label}
+      <textarea
+        name={name}
+        rows={4}
+        value={value}
+        placeholder={placeholder}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? errorId : undefined}
+        onChange={(event) => onChange(name, event.target.value)}
+        onBlur={() => onBlur(name)}
+        className="focus-ring field-control field-textarea"
+      />
+      {error ? <FieldError id={errorId}>{error}</FieldError> : null}
+    </label>
+  );
+}
+
+function FieldError({ id, children }: { id: string; children: React.ReactNode }) {
+  return (
+    <span id={id} className="field-error">
+      <AlertCircle className="h-4 w-4 shrink-0" aria-hidden />
+      {children}
+    </span>
+  );
+}
+
+function StatusMessage({ status, statusType }: { status: string; statusType: "success" | "error" | "" }) {
+  if (!status) {
+    return <p className="status-note" aria-live="polite" />;
+  }
+
+  const success = statusType === "success";
+
+  return (
+    <p className={`status-note flex items-start gap-2 ${success ? "text-[#0f6f43]" : "text-[#c91f28]"}`} aria-live="polite">
+      {success ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" aria-hidden /> : <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />}
+      <span>{status}</span>
+    </p>
   );
 }

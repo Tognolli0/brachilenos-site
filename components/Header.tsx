@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, MessageCircle, UploadCloud, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { assetPath } from "@/lib/assets";
 import { localeLabels, locales, type Dictionary, type Locale } from "@/lib/dictionaries";
 
@@ -17,6 +17,34 @@ type HeaderProps = {
 export function Header({ lang, dict, page }: HeaderProps) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname() || `/${lang}`;
+
+  useEffect(() => {
+    if (!open) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+      }
+    };
+
+    const onResize = () => {
+      if (window.innerWidth >= 1280) {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [open]);
 
   const switchHref = (target: Locale) => {
     const parts = pathname.split("/");
@@ -78,9 +106,20 @@ export function Header({ lang, dict, page }: HeaderProps) {
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
 
+        {open ? (
+          <button
+            type="button"
+            aria-label="Fechar menu"
+            className="fixed inset-0 top-[72px] z-40 bg-[#071f3b]/45 xl:hidden"
+            onClick={() => setOpen(false)}
+          />
+        ) : null}
+
         <nav
           id="menu-principal"
-          className={`${open ? "flex" : "hidden"} col-span-2 flex-col gap-1 border-t border-[#071f3b]/10 pb-3 pt-3 text-sm font-semibold text-[#5c6b78] xl:col-span-1 xl:flex xl:flex-row xl:items-center xl:justify-center xl:gap-5 xl:border-t-0 xl:pb-0 xl:pt-0`}
+          role={open ? "dialog" : undefined}
+          aria-modal={open ? true : undefined}
+          className={`${open ? "flex" : "hidden"} fixed bottom-0 right-0 top-[72px] z-50 w-[min(88vw,360px)] flex-col gap-1 overflow-y-auto border-l border-[#071f3b]/10 bg-white px-5 pb-5 pt-4 text-sm font-semibold text-[#5c6b78] shadow-[-18px_0_42px_rgba(7,31,59,0.18)] xl:static xl:col-span-1 xl:flex xl:w-auto xl:flex-row xl:items-center xl:justify-center xl:gap-5 xl:overflow-visible xl:border-l-0 xl:bg-transparent xl:p-0 xl:shadow-none`}
         >
           {navItems.map((item) => {
             const active = page === "careers" && item.href.includes("carreiras");
@@ -98,11 +137,33 @@ export function Header({ lang, dict, page }: HeaderProps) {
               </Link>
             );
           })}
+          <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-[#071f3b]/10 pt-5 xl:hidden">
+            <div className="inline-flex border border-[#d9e0e6] bg-white">
+              {locales.map((locale) => (
+                <Link
+                  key={locale}
+                  href={switchHref(locale)}
+                  onClick={() => setOpen(false)}
+                  className={`focus-ring grid h-9 min-w-10 place-items-center px-2 text-xs font-extrabold ${
+                    locale === lang ? "bg-[#071f3b] text-white" : "text-[#5c6b78] hover:text-[#071f3b]"
+                  }`}
+                >
+                  {localeLabels[locale]}
+                </Link>
+              ))}
+            </div>
+            <Link
+              href={ctaHref}
+              onClick={() => setOpen(false)}
+              className="focus-ring inline-flex min-h-10 w-full items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-4 text-center text-sm font-extrabold leading-tight text-white transition hover:-translate-y-0.5 hover:shadow-lg"
+            >
+              <CtaIcon className="h-4 w-4" />
+              <span>{page === "careers" ? dict.nav.careersCta : dict.nav.commercialCta}</span>
+            </Link>
+          </div>
         </nav>
 
-        <div
-          className={`${open ? "flex" : "hidden"} col-span-2 flex-wrap items-center gap-3 pb-4 xl:col-span-1 xl:flex xl:justify-end xl:pb-0`}
-        >
+        <div className="hidden flex-wrap items-center gap-3 xl:col-span-1 xl:flex xl:justify-end">
           <div className="inline-flex border border-[#d9e0e6] bg-white">
             {locales.map((locale) => (
               <Link

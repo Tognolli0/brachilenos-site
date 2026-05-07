@@ -437,6 +437,12 @@ export const dictionaries = {
       successClient: "Contato enviado como lead comercial. Próxima etapa: integrar CRM, planilha ou e-mail.",
       successTalent: "Cadastro enviado para o banco de talentos separado por perfil.",
       error: "Não foi possível enviar agora. Os dados foram mantidos localmente para teste.",
+      requiredField: "Campo obrigatório.",
+      invalidEmail: "Informe um e-mail válido.",
+      fileTooLarge: "Arquivo muito grande. O limite é 5 MB.",
+      fileHint: "PDF, DOC, DOCX, PNG ou JPG até 5 MB.",
+      removeFile: "Remover arquivo",
+      applicationReceived: "Recebemos seus dados.",
     },
     footer: {
       text:
@@ -754,6 +760,12 @@ export const dictionaries = {
       successClient: "Contacto enviado como lead comercial. Próxima etapa: integrar CRM, planilla o e-mail.",
       successTalent: "Registro enviado al banco de talentos separado por perfil.",
       error: "No fue posible enviar ahora. Los datos se mantuvieron localmente para prueba.",
+      requiredField: "Campo obligatorio.",
+      invalidEmail: "Ingresa un e-mail válido.",
+      fileTooLarge: "Archivo demasiado grande. El límite es 5 MB.",
+      fileHint: "PDF, DOC, DOCX, PNG o JPG hasta 5 MB.",
+      removeFile: "Quitar archivo",
+      applicationReceived: "Recibimos tus datos.",
     },
     footer: {
       text:
@@ -1049,6 +1061,12 @@ export const dictionaries = {
       successClient: "Contact sent as a commercial lead. Next step: integrate CRM, spreadsheet or e-mail.",
       successTalent: "Profile sent to the talent bank separated by category.",
       error: "It was not possible to send now. The data was kept locally for testing.",
+      requiredField: "Required field.",
+      invalidEmail: "Enter a valid e-mail.",
+      fileTooLarge: "File too large. The limit is 5 MB.",
+      fileHint: "PDF, DOC, DOCX, PNG or JPG up to 5 MB.",
+      removeFile: "Remove file",
+      applicationReceived: "We received your details.",
     },
     footer: {
       text: "Accounting, financial advisory and international tax planning for Brazilians between Brazil and Chile.",

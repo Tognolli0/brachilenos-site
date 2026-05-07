@@ -335,7 +335,7 @@ export default async function HomePage({ params }: PageProps) {
               </h2>
               <p className="mt-4 max-w-3xl text-white/75">{dict.home.careerBand.text}</p>
             </div>
-            <ButtonLink href={`/${lang}/carreiras`} icon={Send} className="shrink-0 border-white bg-white text-[#071f3b]">
+            <ButtonLink href={`/${lang}/carreiras`} icon={Send} variant="gold" className="shrink-0">
               {dict.home.careerBand.cta}
             </ButtonLink>
           </div>

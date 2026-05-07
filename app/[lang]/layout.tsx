@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import "../globals.css";
+import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { assetPath } from "@/lib/assets";
 import { getHtmlLang, isLocale, locales, type Locale } from "@/lib/dictionaries";
 
@@ -59,7 +60,10 @@ export default async function LocaleLayout({
 
   return (
     <html lang={getHtmlLang(lang as Locale)} data-scroll-behavior="smooth">
-      <body>{children}</body>
+      <body>
+        {children}
+        <WhatsAppFloat />
+      </body>
     </html>
   );
 }

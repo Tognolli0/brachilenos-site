@@ -84,11 +84,21 @@
   }
 
   .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
     color: #b88228;
     font-size: 0.78rem;
     font-weight: 850;
-    letter-spacing: 0;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 2px;
+    background: currentColor;
   }
 
   .focus-ring {
@@ -97,5 +107,114 @@
 
   .focus-ring:focus-visible {
     box-shadow: 0 0 0 3px rgba(184, 130, 40, 0.26);
+  }
+
+  .form-panel {
+    min-width: 0;
+    border: 1px solid #d9e0e6;
+    border-top: 4px solid #b88228;
+    background: white;
+    padding: 1rem;
+    box-shadow: 0 14px 36px rgba(7, 31, 59, 0.07);
+  }
+
+  .field-label {
+    margin-bottom: 1rem;
+    display: grid;
+    gap: 0.5rem;
+    color: #071f3b;
+    font-size: 0.875rem;
+    font-weight: 800;
+  }
+
+  .field-control {
+    min-width: 0;
+    width: 100%;
+    border: 1px solid #cbd5df;
+    background: white;
+    color: #102235;
+    font-weight: 400;
+    transition:
+      border-color 160ms ease,
+      box-shadow 160ms ease,
+      background-color 160ms ease;
+  }
+
+  .field-control:hover {
+    border-color: #9aabb8;
+  }
+
+  .field-control[aria-invalid="true"] {
+    border-color: #c91f28;
+    background: #fffafa;
+  }
+
+  .field-input,
+  .field-select {
+    height: 3rem;
+    padding-inline: 0.75rem;
+  }
+
+  .field-textarea {
+    min-height: 8rem;
+    padding: 0.75rem;
+  }
+
+  .field-error {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: #c91f28;
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  .status-note {
+    margin-top: 0.8rem;
+    min-height: 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 800;
+    line-height: 1.45;
+  }
+
+  .btn-submit {
+    min-height: 3rem;
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid #071f3b;
+    background: #071f3b;
+    padding-inline: 1.25rem;
+    color: white;
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 850;
+    line-height: 1.2;
+    transition:
+      transform 160ms ease,
+      box-shadow 160ms ease,
+      background-color 160ms ease;
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    background: #0b345b;
+    box-shadow: 0 14px 28px rgba(7, 31, 59, 0.18);
+  }
+
+  .btn-submit:disabled {
+    cursor: wait;
+    opacity: 0.7;
+    transform: none;
+    box-shadow: none;
+  }
+
+  @media (min-width: 640px) {
+    .form-panel {
+      padding: 1.5rem;
+    }
   }
 }

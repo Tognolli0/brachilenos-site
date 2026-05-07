@@ -78,15 +78,17 @@ export default async function CareersPage({ params }: PageProps) {
               </div>
             </div>
 
-            <div className="relative min-h-[340px] min-w-0 overflow-hidden border border-white/20 bg-white/5 sm:min-h-[360px] lg:min-h-[400px]">
-              <div className="absolute left-[18%] right-[18%] top-[28%] h-1 bg-[linear-gradient(90deg,#0f6f43,#b88228,#c91f28)] sm:top-[46%]" />
-              <div className="display-serif absolute left-[8%] top-[16%] grid h-20 w-20 place-items-center rounded-full border-[3px] border-white/80 bg-[#0f6f43] text-2xl font-black text-white sm:left-[10%] sm:top-[34%] sm:h-24 sm:w-24 sm:text-3xl">
-                BR
+            <div className="min-w-0 overflow-hidden border border-white/20 bg-white/5 shadow-[0_18px_44px_rgba(0,0,0,.14)]">
+              <div className="relative min-h-40 border-b border-white/10 bg-[linear-gradient(135deg,rgba(248,250,249,.08),rgba(31,107,143,.16))] sm:min-h-48">
+                <div className="absolute left-[18%] right-[18%] top-1/2 h-1 -translate-y-1/2 bg-[linear-gradient(90deg,#0f6f43,#b88228,#c91f28)]" />
+                <div className="display-serif absolute left-[8%] top-1/2 grid h-20 w-20 -translate-y-1/2 place-items-center rounded-full border-[3px] border-white/85 bg-[#0f6f43] text-2xl font-black text-white shadow-lg sm:left-[10%] sm:h-24 sm:w-24 sm:text-3xl">
+                  BR
+                </div>
+                <div className="display-serif absolute right-[8%] top-1/2 grid h-20 w-20 -translate-y-1/2 place-items-center rounded-full border-[3px] border-white/85 bg-[#c91f28] text-2xl font-black text-white shadow-lg sm:right-[10%] sm:h-24 sm:w-24 sm:text-3xl">
+                  CL
+                </div>
               </div>
-              <div className="display-serif absolute right-[8%] top-[16%] grid h-20 w-20 place-items-center rounded-full border-[3px] border-white/80 bg-[#c91f28] text-2xl font-black text-white sm:right-[10%] sm:top-[34%] sm:h-24 sm:w-24 sm:text-3xl">
-                CL
-              </div>
-              <div className="absolute inset-x-5 bottom-5 sm:inset-x-7 sm:bottom-7">
+              <div className="p-5 sm:p-7">
                 <span className="text-xs font-black uppercase text-[#d7aa52]">{dict.careers.hero.networkLabel}</span>
                 <strong className="display-serif mt-2 block text-balance text-2xl leading-tight text-white sm:text-3xl">
                   {dict.careers.hero.networkTitle}
