@@ -54,6 +54,7 @@ export function Header({ lang, dict, page }: HeaderProps) {
   };
 
   const navItems = [
+    { href: `/${lang}#quem-somos`, label: lang === "pt-br" ? "Quem somos" : lang === "es" ? "Quiénes somos" : "About" },
     { href: `/${lang}#solucoes`, label: dict.nav.solutions },
     { href: `/${lang}#perfis`, label: dict.nav.audiences },
     { href: `/${lang}#processo`, label: dict.nav.process },
@@ -81,18 +82,18 @@ export function Header({ lang, dict, page }: HeaderProps) {
       <div className="shell grid min-h-[72px] grid-cols-[minmax(0,auto)_auto] items-center justify-between gap-4 xl:grid-cols-[auto_minmax(0,1fr)_auto]">
         <Link
           href={`/${lang}`}
-          aria-label="BRACHILENOS - página inicial"
+          aria-label="Contabilidade Brachilenos - página inicial"
           className="display-serif flex min-w-0 items-center gap-3 font-bold text-[#071f3b]"
         >
           <Image
             src={assetPath("/assets/logo-brachilenos.jpeg")}
             width={52}
             height={52}
-            alt="BRACHILENOS"
+            alt="Contabilidade Brachilenos"
             className="h-11 w-11 shrink-0 border border-[#b88228]/40 object-cover sm:h-12 sm:w-12"
             priority
           />
-          <span className="truncate text-base sm:text-lg">BRACHILENOS</span>
+          <span className="truncate text-base sm:text-lg">Contabilidade Brachilenos</span>
         </Link>
 
         <button

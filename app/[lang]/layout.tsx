@@ -8,8 +8,8 @@ import { getHtmlLang, isLocale, locales, type Locale } from "@/lib/dictionaries"
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://brachilenos.com"),
   title: {
-    default: "BRACHILENOS | Contabilidade Brasil x Chile",
-    template: "%s | BRACHILENOS",
+    default: "Contabilidade Brachilenos | Brasil x Chile",
+    template: "%s | Contabilidade Brachilenos",
   },
   description:
     "Consultoria contábil, financeira e tributária para brasileiros, empresas e operações entre Brasil e Chile.",
@@ -19,14 +19,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "BRACHILENOS",
-    title: "BRACHILENOS | Contabilidade Brasil x Chile",
+    title: "Contabilidade Brachilenos | Brasil x Chile",
     description:
       "Consultoria contábil, financeira e tributária para brasileiros, empresas e operações entre Brasil e Chile.",
-    images: [{ url: assetPath("/assets/santiago-hero.png"), width: 1024, height: 1536, alt: "BRACHILENOS Brasil x Chile" }],
+    images: [{ url: assetPath("/assets/santiago-hero.png"), width: 1024, height: 1536, alt: "Contabilidade Brachilenos Brasil x Chile" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "BRACHILENOS | Contabilidade Brasil x Chile",
+    title: "Contabilidade Brachilenos | Brasil x Chile",
     description:
       "Consultoria contábil, financeira e tributária para brasileiros, empresas e operações entre Brasil e Chile.",
     images: [assetPath("/assets/santiago-hero.png")],

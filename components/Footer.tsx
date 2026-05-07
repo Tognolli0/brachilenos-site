@@ -14,8 +14,8 @@ export function Footer({ lang, dict }: FooterProps) {
       <div className="shell grid gap-9 py-12 md:grid-cols-2 lg:grid-cols-[1.4fr_0.65fr_0.75fr_1fr]">
         <div>
           <Link href={`/${lang}`} className="display-serif mb-4 flex items-center gap-3 text-lg font-bold text-white">
-            <Image src={assetPath("/assets/logo-brachilenos.jpeg")} width={48} height={48} alt="BRACHILENOS" className="h-12 w-12 border border-[#d7aa52]/35 object-cover" />
-            <span>BRACHILENOS</span>
+            <Image src={assetPath("/assets/logo-brachilenos.jpeg")} width={48} height={48} alt="Contabilidade Brachilenos" className="h-12 w-12 border border-[#d7aa52]/35 object-cover" />
+            <span>Contabilidade Brachilenos</span>
           </Link>
           <p className="max-w-sm text-sm leading-6">{dict.footer.text}</p>
         </div>
@@ -41,7 +41,7 @@ export function Footer({ lang, dict }: FooterProps) {
       </div>
       <div className="border-t border-white/10 py-4">
         <div className="shell flex flex-col gap-2 text-xs font-semibold text-white/50 sm:flex-row sm:items-center sm:justify-between">
-          <span>BRACHILENOS</span>
+          <span>Contabilidade Brachilenos</span>
           <span>Brasil x Chile</span>
         </div>
       </div>

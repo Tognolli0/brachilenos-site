@@ -70,6 +70,281 @@ const contactIcons = [MessageCircle, Languages, Database];
 const audienceIcons = [Building2, MapPin, Globe2, BriefcaseBusiness];
 const controlIcons = [CalendarDays, ReceiptText, FolderCheck, ClipboardList, LineChart, ShieldCheck];
 const complianceIcons = [Scale, FileText, AlertTriangle, CheckCircle2];
+const serviceGroupIcons = [UsersRound, Building2, UsersRound, Landmark, Globe2];
+
+const aboutParagraphs = [
+  "A Brachilenos é uma empresa especializada em soluções contábeis, financeiras e estratégicas para brasileiros no Chile e chilenos no Brasil.",
+  "Atuamos conectando pessoas, empresas e profissionais aos dois mercados através de uma estrutura integrada de assessoria empresarial, tributária e financeira, oferecendo suporte para quem deseja empreender, investir, expandir operações ou regularizar sua situação entre Brasil e Chile.",
+  "Nossa atuação combina conhecimento técnico, planejamento estratégico e uma rede de profissionais parceiros nos dois países, permitindo um atendimento alinhado às legislações, exigências fiscais e particularidades operacionais de cada mercado.",
+  "Oferecemos soluções para pessoa física e jurídica, incluindo abertura e regularização de empresas, planejamento tributário, assessoria contábil, estruturação financeira, organização patrimonial e consultoria internacional para operações binacionais.",
+  "Mais do que executar processos, nosso objetivo é proporcionar segurança, organização e eficiência para clientes que buscam crescer de forma estruturada no cenário internacional.",
+  "Brasil e Chile conectados através de estratégia, contabilidade, finanças e oportunidades.",
+];
+
+const whatWeDoText =
+  "Na Brachilenos, oferecemos soluções estratégicas para brasileiros no Chile e chilenos no Brasil, conectando contabilidade, finanças, tributação e estruturação empresarial de forma integrada entre os dois países. Nossa atuação é voltada para pessoas físicas, empresários, investidores, prestadores de serviços e empresas que desejam operar com mais segurança, organização e planejamento no cenário internacional.";
+
+const serviceGroups = [
+  {
+    label: "Pessoa Física — Brasil",
+    country: "Brasil",
+    accent: "border-t-[#0f6f43]",
+    cards: [
+      {
+        title: "Contabilidade Pessoa Física",
+        text:
+          "Assessoria fiscal e tributária para brasileiros no Brasil ou residentes no exterior, com foco em regularização, planejamento e conformidade junto à Receita Federal.",
+        services: [
+          "IRPF",
+          "Carnê-Leão",
+          "Ganho de Capital",
+          "Regularização de CPF",
+          "Declaração de Saída Definitiva",
+          "Declaração de Bens no Exterior",
+          "Planejamento Tributário PF",
+          "Regularização Fiscal",
+          "Consultoria para Residentes no Exterior",
+          "Análise de Bitributação Brasil x Chile",
+        ],
+      },
+      {
+        title: "Finanças Pessoa Física",
+        text:
+          "Organização financeira e patrimonial para brasileiros que desejam estruturar sua vida financeira no Brasil ou no exterior.",
+        services: [
+          "Planejamento Financeiro",
+          "Diagnóstico Financeiro",
+          "Organização Financeira",
+          "Fluxo de Caixa Pessoal",
+          "Planejamento Patrimonial",
+          "Reserva de Emergência",
+          "Organização de Dívidas",
+          "Educação Financeira",
+          "Mudança Internacional",
+          "Planejamento de Aposentadoria",
+          "Consultoria para Investimentos",
+          "Estruturação de Carteira",
+          "Diversificação Patrimonial",
+          "Planejamento Sucessório",
+        ],
+      },
+    ],
+  },
+  {
+    label: "Pessoa Jurídica — Brasil",
+    country: "Brasil",
+    accent: "border-t-[#0f6f43]",
+    cards: [
+      {
+        title: "Contabilidade Empresarial",
+        text:
+          "Soluções contábeis, fiscais e societárias para empresas brasileiras e operações com sócios ou estruturas internacionais.",
+        services: [
+          "Abertura de Empresas",
+          "Alteração Contratual",
+          "Encerramento de Empresas",
+          "MEI, ME, LTDA e SLU",
+          "Regularização de CNPJ",
+          "DAS / Simples Nacional",
+          "DASN",
+          "Emissão de Notas Fiscais",
+          "Apuração de Impostos",
+          "Folha de Pagamento",
+          "Pró-labore",
+          "Escrituração Contábil",
+          "Escrituração Fiscal",
+          "Conciliação Bancária",
+          "Balanço Patrimonial",
+          "DRE",
+          "Distribuição de Lucros",
+          "Parcelamentos Fiscais",
+          "DEFIS",
+          "DCTFWeb",
+          "SPED",
+          "ECD",
+          "ECF",
+          "Consultoria para Sócios no Exterior",
+          "Estruturação Fiscal Brasil x Chile",
+        ],
+      },
+      {
+        title: "Finanças Empresariais",
+        text: "Estruturação financeira e suporte estratégico para crescimento, gestão e expansão empresarial.",
+        services: [
+          "BPO Financeiro",
+          "Fluxo de Caixa",
+          "Controle Financeiro",
+          "DRE Gerencial",
+          "Planejamento Financeiro Empresarial",
+          "Precificação",
+          "Margem e Rentabilidade",
+          "Contas a Pagar e Receber",
+          "Projeção de Caixa",
+          "Planejamento de Crescimento",
+          "KPIs Financeiros",
+          "Diagnóstico Financeiro",
+          "Reestruturação Financeira",
+          "Valuation Básico",
+          "Apoio à Tomada de Decisão",
+        ],
+      },
+    ],
+  },
+  {
+    label: "Pessoa Física — Chile",
+    country: "Chile",
+    accent: "border-t-[#c91f28]",
+    cards: [
+      {
+        title: "Contabilidade Pessoa Física Chile",
+        text: "Assessoria tributária e regularização fiscal para brasileiros residentes no Chile e contribuintes perante o SII.",
+        services: [
+          "Operación Renta (F22)",
+          "Declaração Anual de Renda",
+          "Regularização Tributária no SII",
+          "Inicio de Actividades",
+          "Emissão de Boletas",
+          "Honorarios",
+          "Planejamento Tributário",
+          "Consultoria para Brasileiros no Chile",
+          "Regularização de RUT",
+          "Residência Fiscal",
+          "Declaração de Renda Exterior",
+          "Créditos Tributários",
+          "APV e DFL2",
+        ],
+      },
+      {
+        title: "Finanças Pessoa Física Chile",
+        text: "Planejamento financeiro e organização patrimonial para brasileiros vivendo no Chile.",
+        services: [
+          "Organização Financeira no Chile",
+          "Planejamento para Expatriados",
+          "Educação Financeira",
+          "Orçamento em CLP",
+          "Planejamento Patrimonial Internacional",
+          "Reserva de Emergência",
+          "Organização de Dívidas",
+          "Planejamento de Metas",
+          "Análise de Custo de Vida",
+        ],
+      },
+    ],
+  },
+  {
+    label: "Pessoa Jurídica — Chile",
+    country: "Chile",
+    accent: "border-t-[#c91f28]",
+    cards: [
+      {
+        title: "Contabilidade Empresarial Chile",
+        text: "Estruturação empresarial e assessoria tributária para empresas operando no Chile.",
+        services: [
+          "Abertura de Empresa no Chile",
+          "Constitución de SpA",
+          "EIRL",
+          "Persona Natural con Giro",
+          "Inicio de Actividades",
+          "RUT Empresa",
+          "Patente Comercial",
+          "Facturas",
+          "Boletas",
+          "F29 Mensal",
+          "F22 Anual",
+          "Contabilidade Mensal",
+          "Apuração de Impostos",
+          "Planejamento Tributário",
+          "Escrituração Contábil",
+          "Conciliação Bancária",
+          "Remunerações",
+          "Estrutura Administrativa",
+          "Regularização no SII",
+          "Encerramento de Empresa",
+          "Consultoria para Brasileiros no Chile",
+        ],
+      },
+      {
+        title: "Finanças Empresariais Chile",
+        text: "Gestão financeira e planejamento estratégico para empresas no mercado chileno.",
+        services: [
+          "Estruturação Financeira",
+          "Fluxo de Caixa",
+          "Controle Financeiro",
+          "DRE Gerencial",
+          "Precificação",
+          "Margem e Rentabilidade",
+          "Organização de Custos",
+          "Planejamento para Expansão",
+          "KPIs Financeiros",
+          "Diagnóstico Financeiro",
+          "Reestruturação Financeira",
+          "Apoio Estratégico",
+        ],
+      },
+    ],
+  },
+  {
+    label: "Serviços Internacionais — Brasil x Chile",
+    country: "Internacional",
+    accent: "border-t-[#b88228]",
+    cards: [
+      {
+        title: "Consultoria Tributária Internacional",
+        text: "Estruturação fiscal e tributária para operações, patrimônio e rendimentos entre Brasil e Chile.",
+        services: [
+          "Planejamento Tributário Internacional",
+          "Consultoria Fiscal Brasil x Chile",
+          "Residência Fiscal",
+          "Estruturação Patrimonial Internacional",
+          "Estruturação Societária",
+          "Bitributação",
+          "Acordo Brasil-Chile",
+          "Rendimentos no Exterior",
+          "Retirada de Lucros",
+          "Pró-labore Internacional",
+          "Empresas Binacionais",
+          "Prestadores Internacionais",
+        ],
+      },
+      {
+        title: "Planejamento Financeiro Internacional",
+        text: "Organização patrimonial e financeira para pessoas e empresas com operações entre países.",
+        services: [
+          "Planejamento Financeiro Internacional",
+          "Organização Patrimonial",
+          "Estruturação Financeira Internacional",
+          "Gestão para Expatriados",
+          "Mudança Internacional",
+          "Proteção Patrimonial",
+          "Remessas Internacionais",
+          "Estruturação de Recebimentos",
+          "Estratégia Financeira Binacional",
+        ],
+      },
+      {
+        title: "Assessoria Financeira & Investimentos",
+        text: "Consultoria estratégica para crescimento patrimonial, investimentos e internacionalização de ativos.",
+        services: [
+          "Planejamento de Investimentos",
+          "Perfil de Investidor",
+          "Construção de Carteira",
+          "Diversificação de Investimentos",
+          "Estratégia de Alocação",
+          "Internacionalização Patrimonial",
+          "Estratégia de Dolarização",
+          "Planejamento de Longo Prazo",
+          "Organização Financeira do Sócio",
+          "Separação PF x PJ",
+          "Retirada de Lucros",
+          "Estruturação de Capital",
+          "Estratégia de Reinvestimento",
+        ],
+      },
+    ],
+  },
+];
+
+type ServiceCardData = (typeof serviceGroups)[number]["cards"][number];
 
 export default async function HomePage({ params }: PageProps) {
   const { lang: paramLang } = await params;
@@ -85,7 +360,7 @@ export default async function HomePage({ params }: PageProps) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "AccountingService",
-            name: "BRACHILENOS",
+            name: "Contabilidade Brachilenos",
             areaServed: ["Brazil", "Chile"],
             serviceType: [
               "Accounting",
@@ -165,6 +440,34 @@ export default async function HomePage({ params }: PageProps) {
           </div>
         </section>
 
+        <section id="quem-somos" className="section-pad bg-white">
+          <div className="shell grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+            <div className="lg:sticky lg:top-28">
+              <p className="eyebrow mb-3">Quem somos</p>
+              <h2 className="display-serif text-balance text-[clamp(2rem,4vw,3.35rem)] font-bold leading-tight text-[#071f3b]">
+                Estratégia, contabilidade e finanças para operar entre Brasil e Chile
+              </h2>
+              <div className="mt-7 grid gap-3">
+                {["Brasil", "Chile", "Operações binacionais"].map((item) => (
+                  <span key={item} className="flex min-h-14 items-center gap-3 border border-[#d9e0e6] bg-[#f8faf9] p-3 font-extrabold text-[#071f3b]">
+                    <CheckCircle2 className="h-5 w-5 shrink-0 text-[#0f6f43]" />
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="border border-[#d9e0e6] border-t-4 border-t-[#b88228] bg-[#f8faf9] p-5 shadow-[0_12px_32px_rgba(7,31,59,.06)] sm:p-8">
+              <div className="columns-1 gap-8 lg:columns-2">
+                {aboutParagraphs.map((paragraph) => (
+                  <p key={paragraph} className="mb-5 break-inside-avoid text-[1rem] leading-8 text-[#31465a]">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section id="modelo" className="section-pad bg-[#eef4f2]">
           <div className="shell">
             <SectionHeading eyebrow={dict.home.model.eyebrow} title={dict.home.model.title} text={dict.home.model.text} />
@@ -220,16 +523,37 @@ export default async function HomePage({ params }: PageProps) {
 
         <section id="solucoes" className="section-pad bg-white">
           <div className="shell">
-            <SectionHeading align="left" eyebrow={dict.home.solutions.eyebrow} title={dict.home.solutions.title} text={dict.home.solutions.text} />
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {dict.home.solutions.items.map((service, index) => {
-                const Icon = serviceIcons[index];
+            <div className="mb-10 grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
+              <div>
+                <p className="eyebrow mb-3">O que fazemos</p>
+                <h2 className="display-serif text-balance text-[clamp(2rem,4vw,3.35rem)] font-bold leading-tight text-[#071f3b]">
+                  Serviços por perfil, país e tipo de operação
+                </h2>
+              </div>
+              <p className="max-w-3xl text-lg leading-8 text-[#5c6b78]">{whatWeDoText}</p>
+            </div>
+            <div className="grid gap-7">
+              {serviceGroups.map((group, index) => {
+                const Icon = serviceGroupIcons[index];
                 return (
-                  <article key={service.title} className="min-h-60 min-w-0 border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)]">
-                    <Icon className="mb-5 h-9 w-9 text-[#b88228]" />
-                    <h3 className="text-lg font-extrabold text-[#071f3b]">{service.title}</h3>
-                    <p className="mt-3 leading-7 text-[#5c6b78]">{service.text}</p>
-                  </article>
+                  <section key={group.label} className={`min-w-0 border border-[#d9e0e6] border-t-4 ${group.accent} bg-[#f8faf9] p-4 sm:p-6`}>
+                    <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                      <div className="flex min-w-0 items-center gap-3">
+                        <span className="grid h-11 w-11 shrink-0 place-items-center bg-white text-[#b88228] shadow-sm">
+                          <Icon className="h-6 w-6" aria-hidden />
+                        </span>
+                        <div className="min-w-0">
+                          <span className="text-xs font-black uppercase tracking-[0.08em] text-[#5c6b78]">{group.country}</span>
+                          <h3 className="display-serif text-balance text-2xl font-bold leading-tight text-[#071f3b]">{group.label}</h3>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="grid gap-4 lg:grid-cols-2">
+                      {group.cards.map((card) => (
+                        <ServiceCard key={card.title} card={card} />
+                      ))}
+                    </div>
+                  </section>
                 );
               })}
             </div>
@@ -425,6 +749,28 @@ export default async function HomePage({ params }: PageProps) {
       </main>
       <Footer lang={lang} dict={dict} />
     </>
+  );
+}
+
+function ServiceCard({ card }: { card: ServiceCardData }) {
+  return (
+    <article className="min-w-0 border border-[#d9e0e6] bg-white p-5 shadow-[0_12px_32px_rgba(7,31,59,.06)] sm:p-6">
+      <div className="mb-4 flex items-start justify-between gap-4">
+        <div className="min-w-0">
+          <h4 className="text-xl font-extrabold leading-tight text-[#071f3b]">{card.title}</h4>
+          <p className="mt-3 leading-7 text-[#5c6b78]">{card.text}</p>
+        </div>
+        <Calculator className="h-7 w-7 shrink-0 text-[#b88228]" aria-hidden />
+      </div>
+      <div className="mt-5 grid gap-2 sm:grid-cols-2">
+        {card.services.map((service) => (
+          <span key={service} className="flex min-h-10 items-start gap-2 border border-[#d9e0e6] bg-[#f8faf9] px-3 py-2 text-sm font-semibold leading-5 text-[#102235]">
+            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0f6f43]" aria-hidden />
+            {service}
+          </span>
+        ))}
+      </div>
+    </article>
   );
 }
 

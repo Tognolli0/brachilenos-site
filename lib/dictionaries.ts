@@ -19,7 +19,7 @@ export const localeLabels: Record<Locale, string> = {
 export const dictionaries = {
   "pt-br": {
     meta: {
-      homeTitle: "Contabilidade Brasil x Chile",
+      homeTitle: "Contabilidade Brachilenos",
       careersTitle: "Carreiras e Parceiros",
       homeDescription:
         "Contabilidade, gestão financeira e planejamento tributário para brasileiros que empreendem entre Brasil e Chile.",
@@ -39,7 +39,7 @@ export const dictionaries = {
     home: {
       hero: {
         eyebrow: "Operação contábil Brasil x Chile",
-        title: "BRACHILENOS",
+        title: "Contabilidade Brachilenos",
         subtitle:
           "Contabilidade, gestão financeira e planejamento tributário para brasileiros que empreendem, investem ou estruturam operações entre Brasil e Chile.",
         primary: "Solicitar diagnóstico",
@@ -458,7 +458,7 @@ export const dictionaries = {
   },
   es: {
     meta: {
-      homeTitle: "Contabilidad Brasil x Chile",
+      homeTitle: "Contabilidad Brachilenos",
       careersTitle: "Carreras y Socios",
       homeDescription:
         "Contabilidad, gestión financiera y planificación tributaria para brasileños que emprenden entre Brasil y Chile.",
@@ -478,7 +478,7 @@ export const dictionaries = {
     home: {
       hero: {
         eyebrow: "Operación contable Brasil x Chile",
-        title: "BRACHILENOS",
+        title: "Contabilidad Brachilenos",
         subtitle:
           "Contabilidad, gestión financiera y planificación tributaria para brasileños que emprenden, invierten o estructuran operaciones entre Brasil y Chile.",
         primary: "Solicitar diagnóstico",
@@ -780,7 +780,7 @@ export const dictionaries = {
   },
   en: {
     meta: {
-      homeTitle: "Brazil x Chile Accounting",
+      homeTitle: "Brachilenos Accounting",
       careersTitle: "Careers and Partners",
       homeDescription:
         "Accounting, financial management and tax planning for Brazilians building between Brazil and Chile.",
@@ -800,7 +800,7 @@ export const dictionaries = {
     home: {
       hero: {
         eyebrow: "Brazil x Chile accounting operation",
-        title: "BRACHILENOS",
+        title: "Brachilenos Accounting",
         subtitle:
           "Accounting, financial management and tax planning for Brazilians building, investing or structuring operations between Brazil and Chile.",
         primary: "Request diagnosis",
