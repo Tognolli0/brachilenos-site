@@ -496,15 +496,9 @@ export default async function HomePage({ params }: PageProps) {
 
         <section id="perfis" className="section-pad bg-white">
           <div className="shell">
-            <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
+            <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
               <SectionHeading align="left" eyebrow={dict.home.audiences.eyebrow} title={dict.home.audiences.title} text={dict.home.audiences.text} />
-              <div className="grid gap-3 sm:grid-cols-3">
-                {dict.home.audiences.proofs.map((proof) => (
-                  <div key={proof} className="border border-[#d9e0e6] bg-[#f8faf9] p-4 text-sm font-extrabold text-[#071f3b]">
-                    {proof}
-                  </div>
-                ))}
-              </div>
+              <AccountingProfilePanel proofs={[...dict.home.audiences.proofs]} />
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {dict.home.audiences.cards.map((card, index) => {
@@ -771,6 +765,54 @@ function ServiceCard({ card }: { card: ServiceCardData }) {
         ))}
       </div>
     </article>
+  );
+}
+
+function AccountingProfilePanel({ proofs }: { proofs: string[] }) {
+  const rows = [
+    { label: "Fiscal", value: "IRPF, SII e impostos", icon: ReceiptText },
+    { label: "Financeiro", value: "caixa, custos e margem", icon: LineChart },
+    { label: "Estratégia", value: "Brasil x Chile", icon: Globe2 },
+  ];
+
+  return (
+    <div className="relative min-h-[360px] overflow-hidden border border-[#d9e0e6] bg-[linear-gradient(135deg,#071f3b,#0b345b_52%,#0f6f43)] p-5 text-white shadow-[0_18px_44px_rgba(7,31,59,.14)] sm:p-7">
+      <div className="absolute right-0 top-0 h-28 w-28 border-l border-b border-white/10 bg-white/5" />
+      <div className="relative flex items-start justify-between gap-4">
+        <div>
+          <span className="text-xs font-black uppercase tracking-[0.08em] text-[#d7aa52]">Mapa de atendimento</span>
+          <h3 className="display-serif mt-2 max-w-md text-balance text-3xl font-bold leading-tight text-white">
+            Contabilidade, finanças e tributação em uma visão integrada
+          </h3>
+        </div>
+        <Calculator className="h-10 w-10 shrink-0 text-[#d7aa52]" aria-hidden />
+      </div>
+
+      <div className="relative mt-7 grid gap-3">
+        {rows.map((row) => {
+          const Icon = row.icon;
+          return (
+            <div key={row.label} className="flex items-center gap-3 border border-white/15 bg-white/10 p-3 backdrop-blur">
+              <span className="grid h-10 w-10 shrink-0 place-items-center bg-white text-[#071f3b]">
+                <Icon className="h-5 w-5" aria-hidden />
+              </span>
+              <div className="min-w-0">
+                <strong className="block text-sm text-white">{row.label}</strong>
+                <span className="block text-sm text-white/70">{row.value}</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="relative mt-6 grid gap-2 sm:grid-cols-3">
+        {proofs.map((proof) => (
+          <span key={proof} className="min-h-16 border border-white/15 bg-white px-3 py-3 text-sm font-extrabold leading-5 text-[#071f3b] shadow-sm">
+            {proof}
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }
 

@@ -100,9 +100,9 @@ export const dictionaries = {
       },
       audiences: {
         eyebrow: "Perfis atendidos",
-        title: "O site fala com quem realmente precisa de contabilidade internacional",
+        title: "Atendimento para quem precisa de contabilidade internacional",
         text:
-          "A comunicação foi organizada para atrair leads mais qualificados, reduzindo dúvida inicial e mostrando rapidamente onde a BRACHILENOS consegue ajudar.",
+          "A atuação foi organizada para atender pessoas, empresas e profissionais que precisam de orientação clara entre Brasil e Chile.",
         proofs: ["Empresas com faturamento no Chile", "Brasileiros com empresa no Brasil", "Rede técnica para execução local"],
         cards: [
           {
