@@ -72,15 +72,6 @@ const controlIcons = [CalendarDays, ReceiptText, FolderCheck, ClipboardList, Lin
 const complianceIcons = [Scale, FileText, AlertTriangle, CheckCircle2];
 const serviceGroupIcons = [UsersRound, Building2, UsersRound, Landmark, Globe2];
 
-const aboutParagraphs = [
-  "A Brachilenos é uma empresa especializada em soluções contábeis, financeiras e estratégicas para brasileiros no Chile e chilenos no Brasil.",
-  "Atuamos conectando pessoas, empresas e profissionais aos dois mercados através de uma estrutura integrada de assessoria empresarial, tributária e financeira, oferecendo suporte para quem deseja empreender, investir, expandir operações ou regularizar sua situação entre Brasil e Chile.",
-  "Nossa atuação combina conhecimento técnico, planejamento estratégico e uma rede de profissionais parceiros nos dois países, permitindo um atendimento alinhado às legislações, exigências fiscais e particularidades operacionais de cada mercado.",
-  "Oferecemos soluções para pessoa física e jurídica, incluindo abertura e regularização de empresas, planejamento tributário, assessoria contábil, estruturação financeira, organização patrimonial e consultoria internacional para operações binacionais.",
-  "Mais do que executar processos, nosso objetivo é proporcionar segurança, organização e eficiência para clientes que buscam crescer de forma estruturada no cenário internacional.",
-  "Brasil e Chile conectados através de estratégia, contabilidade, finanças e oportunidades.",
-];
-
 const whatWeDoText =
   "Na Brachilenos, oferecemos soluções estratégicas para brasileiros no Chile e chilenos no Brasil, conectando contabilidade, finanças, tributação e estruturação empresarial de forma integrada entre os dois países. Nossa atuação é voltada para pessoas físicas, empresários, investidores, prestadores de serviços e empresas que desejam operar com mais segurança, organização e planejamento no cenário internacional.";
 
@@ -443,12 +434,12 @@ export default async function HomePage({ params }: PageProps) {
         <section id="quem-somos" className="section-pad bg-white">
           <div className="shell grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
             <div className="lg:sticky lg:top-28">
-              <p className="eyebrow mb-3">Quem somos</p>
+              <p className="eyebrow mb-3">{dict.home.about.eyebrow}</p>
               <h2 className="display-serif text-balance text-[clamp(2rem,4vw,3.35rem)] font-bold leading-tight text-[#071f3b]">
-                Estratégia, contabilidade e finanças para operar entre Brasil e Chile
+                {dict.home.about.title}
               </h2>
               <div className="mt-7 grid gap-3">
-                {["Brasil", "Chile", "Operações binacionais"].map((item) => (
+                {dict.home.about.markers.map((item) => (
                   <span key={item} className="flex min-h-14 items-center gap-3 border border-[#d9e0e6] bg-[#f8faf9] p-3 font-extrabold text-[#071f3b]">
                     <CheckCircle2 className="h-5 w-5 shrink-0 text-[#0f6f43]" />
                     {item}
@@ -458,7 +449,7 @@ export default async function HomePage({ params }: PageProps) {
             </div>
             <div className="border border-[#d9e0e6] border-t-4 border-t-[#b88228] bg-[#f8faf9] p-5 shadow-[0_12px_32px_rgba(7,31,59,.06)] sm:p-8">
               <div className="columns-1 gap-8 lg:columns-2">
-                {aboutParagraphs.map((paragraph) => (
+                {dict.home.about.paragraphs.map((paragraph) => (
                   <p key={paragraph} className="mb-5 break-inside-avoid text-[1rem] leading-8 text-[#31465a]">
                     {paragraph}
                   </p>

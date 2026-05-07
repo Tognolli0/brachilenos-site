@@ -27,6 +27,7 @@ export const dictionaries = {
         "Trabalhe conosco, seja parceiro ou entre para a rede técnica Brasil x Chile da BRACHILENOS.",
     },
     nav: {
+      about: "Quem somos",
       solutions: "Soluções",
       audiences: "Perfis",
       process: "Processo",
@@ -58,6 +59,19 @@ export const dictionaries = {
           "Documentos e evidências organizados",
           "Diagnóstico antes de qualquer proposta",
           "Rede técnica Brasil x Chile em expansão",
+        ],
+      },
+      about: {
+        eyebrow: "Quem somos",
+        title: "Estratégia, contabilidade e finanças para operar entre Brasil e Chile",
+        markers: ["Brasil", "Chile", "Operações binacionais"],
+        paragraphs: [
+          "A Brachilenos é uma empresa especializada em soluções contábeis, financeiras e estratégicas para brasileiros no Chile e chilenos no Brasil.",
+          "Atuamos conectando pessoas, empresas e profissionais aos dois mercados através de uma estrutura integrada de assessoria empresarial, tributária e financeira, oferecendo suporte para quem deseja empreender, investir, expandir operações ou regularizar sua situação entre Brasil e Chile.",
+          "Nossa atuação combina conhecimento técnico, planejamento estratégico e uma rede de profissionais parceiros nos dois países, permitindo um atendimento alinhado às legislações, exigências fiscais e particularidades operacionais de cada mercado.",
+          "Oferecemos soluções para pessoa física e jurídica, incluindo abertura e regularização de empresas, planejamento tributário, assessoria contábil, estruturação financeira, organização patrimonial e consultoria internacional para operações binacionais.",
+          "Mais do que executar processos, nosso objetivo é proporcionar segurança, organização e eficiência para clientes que buscam crescer de forma estruturada no cenário internacional.",
+          "Brasil e Chile conectados através de estratégia, contabilidade, finanças e oportunidades.",
         ],
       },
       authority: {
@@ -466,6 +480,7 @@ export const dictionaries = {
         "Trabaja con nosotros, sé socio o entra a la red técnica Brasil x Chile de BRACHILENOS.",
     },
     nav: {
+      about: "Quiénes somos",
       solutions: "Soluciones",
       audiences: "Perfiles",
       process: "Proceso",
@@ -497,6 +512,19 @@ export const dictionaries = {
           "Documentos y evidencias organizados",
           "Diagnóstico antes de cualquier propuesta",
           "Red técnica Brasil x Chile en expansión",
+        ],
+      },
+      about: {
+        eyebrow: "Quiénes somos",
+        title: "Estrategia, contabilidad y finanzas para operar entre Brasil y Chile",
+        markers: ["Brasil", "Chile", "Operaciones binacionales"],
+        paragraphs: [
+          "Brachilenos es una empresa especializada en soluciones contables, financieras y estratégicas para brasileños en Chile y chilenos en Brasil.",
+          "Conectamos personas, empresas y profesionales con ambos mercados a través de una estructura integrada de asesoría empresarial, tributaria y financiera, apoyando a quienes desean emprender, invertir, expandir operaciones o regularizar su situación entre Brasil y Chile.",
+          "Nuestra actuación combina conocimiento técnico, planificación estratégica y una red de profesionales aliados en los dos países, permitiendo una atención alineada con las legislaciones, exigencias fiscales y particularidades operativas de cada mercado.",
+          "Ofrecemos soluciones para personas naturales y jurídicas, incluyendo apertura y regularización de empresas, planificación tributaria, asesoría contable, estructuración financiera, organización patrimonial y consultoría internacional para operaciones binacionales.",
+          "Más que ejecutar procesos, nuestro objetivo es entregar seguridad, organización y eficiencia a clientes que buscan crecer de forma estructurada en el escenario internacional.",
+          "Brasil y Chile conectados a través de estrategia, contabilidad, finanzas y oportunidades.",
         ],
       },
       authority: {
@@ -788,6 +816,7 @@ export const dictionaries = {
         "Work with us, become a partner or join the BRACHILENOS Brazil x Chile technical network.",
     },
     nav: {
+      about: "About us",
       solutions: "Solutions",
       audiences: "Profiles",
       process: "Process",
@@ -814,6 +843,19 @@ export const dictionaries = {
           "Organized documents and evidence",
           "Diagnosis before any proposal",
           "Growing Brazil x Chile technical network",
+        ],
+      },
+      about: {
+        eyebrow: "About us",
+        title: "Strategy, accounting and finance for operating between Brazil and Chile",
+        markers: ["Brazil", "Chile", "Binational operations"],
+        paragraphs: [
+          "Brachilenos is a company specialized in accounting, financial and strategic solutions for Brazilians in Chile and Chileans in Brazil.",
+          "We connect people, companies and professionals to both markets through an integrated business, tax and financial advisory structure, supporting those who want to start a business, invest, expand operations or regularize their situation between Brazil and Chile.",
+          "Our work combines technical knowledge, strategic planning and a network of professional partners in both countries, enabling service aligned with the laws, tax requirements and operational details of each market.",
+          "We offer solutions for individuals and companies, including company formation and regularization, tax planning, accounting advisory, financial structuring, asset organization and international consulting for binational operations.",
+          "More than executing processes, our goal is to provide security, organization and efficiency for clients seeking structured growth in an international context.",
+          "Brazil and Chile connected through strategy, accounting, finance and opportunities.",
         ],
       },
       authority: {

@@ -54,7 +54,7 @@ export function Header({ lang, dict, page }: HeaderProps) {
   };
 
   const navItems = [
-    { href: `/${lang}#quem-somos`, label: lang === "pt-br" ? "Quem somos" : lang === "es" ? "Quiénes somos" : "About" },
+    { href: `/${lang}#quem-somos`, label: dict.nav.about },
     { href: `/${lang}#solucoes`, label: dict.nav.solutions },
     { href: `/${lang}#perfis`, label: dict.nav.audiences },
     { href: `/${lang}#processo`, label: dict.nav.process },
@@ -79,21 +79,21 @@ export function Header({ lang, dict, page }: HeaderProps) {
       >
         {skipLabel}
       </a>
-      <div className="shell grid min-h-[72px] grid-cols-[minmax(0,auto)_auto] items-center justify-between gap-4 xl:grid-cols-[auto_minmax(0,1fr)_auto]">
+      <div className="shell grid min-h-[64px] grid-cols-[minmax(0,1fr)_44px] items-center gap-3 py-2 xl:min-h-[72px] xl:grid-cols-[auto_minmax(0,1fr)_auto] xl:gap-4 xl:py-0">
         <Link
           href={`/${lang}`}
           aria-label="Contabilidade Brachilenos - página inicial"
-          className="display-serif flex min-w-0 items-center gap-3 font-bold text-[#071f3b]"
+          className="display-serif flex min-w-0 items-center gap-2 font-bold text-[#071f3b] sm:gap-3"
         >
           <Image
             src={assetPath("/assets/logo-brachilenos.jpeg")}
             width={52}
             height={52}
             alt="Contabilidade Brachilenos"
-            className="h-11 w-11 shrink-0 border border-[#b88228]/40 object-cover sm:h-12 sm:w-12"
+            className="h-10 w-10 shrink-0 border border-[#b88228]/40 object-cover sm:h-12 sm:w-12"
             priority
           />
-          <span className="truncate text-base sm:text-lg">Contabilidade Brachilenos</span>
+          <span className="min-w-0 truncate text-sm leading-tight sm:text-lg">Contabilidade Brachilenos</span>
         </Link>
 
         <button
@@ -111,7 +111,7 @@ export function Header({ lang, dict, page }: HeaderProps) {
           <button
             type="button"
             aria-label="Fechar menu"
-            className="fixed inset-0 top-[72px] z-40 bg-[#071f3b]/45 xl:hidden"
+            className="fixed inset-0 top-[64px] z-40 bg-[#071f3b]/45 xl:hidden"
             onClick={() => setOpen(false)}
           />
         ) : null}
@@ -120,7 +120,7 @@ export function Header({ lang, dict, page }: HeaderProps) {
           id="menu-principal"
           role={open ? "dialog" : undefined}
           aria-modal={open ? true : undefined}
-          className={`${open ? "flex" : "hidden"} fixed bottom-0 right-0 top-[72px] z-50 w-[min(88vw,360px)] flex-col gap-1 overflow-y-auto border-l border-[#071f3b]/10 bg-white px-5 pb-5 pt-4 text-sm font-semibold text-[#5c6b78] shadow-[-18px_0_42px_rgba(7,31,59,0.18)] xl:static xl:col-span-1 xl:flex xl:w-auto xl:flex-row xl:items-center xl:justify-center xl:gap-5 xl:overflow-visible xl:border-l-0 xl:bg-transparent xl:p-0 xl:shadow-none`}
+          className={`${open ? "flex" : "hidden"} fixed left-0 right-0 top-[64px] z-50 max-h-[calc(100dvh-64px)] flex-col gap-1 overflow-y-auto border-t border-[#071f3b]/10 bg-white px-5 pb-6 pt-3 text-sm font-semibold text-[#5c6b78] shadow-[0_18px_42px_rgba(7,31,59,0.18)] xl:static xl:col-span-1 xl:flex xl:max-h-none xl:w-auto xl:flex-row xl:items-center xl:justify-center xl:gap-5 xl:overflow-visible xl:border-t-0 xl:bg-transparent xl:p-0 xl:shadow-none`}
         >
           {navItems.map((item) => {
             const active = page === "careers" && item.href.includes("carreiras");
