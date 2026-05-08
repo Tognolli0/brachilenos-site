@@ -80,29 +80,37 @@ export function TalentForm({ dict }: Props) {
     ["education", "registry", "linkedin", "message"],
   ];
 
-  function goToNextStep() {
-    const currentFields = stepFields[step];
+  function goToNextStep(event?: React.MouseEvent<HTMLButtonElement>) {
+    event?.preventDefault();
+    event?.stopPropagation();
+
+    const currentStep = step;
+    const currentFields = stepFields[currentStep];
     const nextTouched = currentFields.reduce<Partial<Record<FieldName, boolean>>>(
       (acc, field) => ({ ...acc, [field]: true }),
       {},
     );
 
     setTouched((current) => ({ ...current, ...nextTouched }));
+    setStatus("");
+    setStatusType("");
 
     const hasStepError = currentFields.some((field) => Boolean(errors[field]));
     if (hasStepError) {
       return;
     }
 
-    setStep((current) => Math.min(current + 1, steps.length - 1));
+    setStep(Math.min(currentStep + 1, steps.length - 1));
   }
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    event.stopPropagation();
     if (submitting) return;
 
     if (step < steps.length - 1) {
-      goToNextStep();
+      setStatus("");
+      setStatusType("");
       return;
     }
 
@@ -192,8 +200,14 @@ export function TalentForm({ dict }: Props) {
     }
   }
 
+  function blockEarlyEnterSubmit(event: React.KeyboardEvent<HTMLFormElement>) {
+    if (step < steps.length - 1 && event.key === "Enter") {
+      event.preventDefault();
+    }
+  }
+
   return (
-    <form onSubmit={onSubmit} aria-busy={submitting} noValidate className="form-panel">
+    <form onSubmit={onSubmit} onKeyDown={blockEarlyEnterSubmit} aria-busy={submitting} noValidate className="form-panel">
       <div className="mb-6">
         <div className="mb-3 flex items-center justify-between gap-3 text-xs font-black uppercase tracking-[0.08em] text-[#5c6b78]">
           <span>
