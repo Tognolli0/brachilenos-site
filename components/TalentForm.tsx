@@ -101,6 +101,11 @@ export function TalentForm({ dict }: Props) {
     event.preventDefault();
     if (submitting) return;
 
+    if (step < steps.length - 1) {
+      goToNextStep();
+      return;
+    }
+
     const nextErrors = validate(values, portfolio, dict);
     setTouched({
       name: true,
