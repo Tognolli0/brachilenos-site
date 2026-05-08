@@ -54,12 +54,10 @@ export function Header({ lang, dict, page }: HeaderProps) {
   };
 
   const navItems = [
+    { href: `/${lang}`, label: "Home", page: "home" },
     { href: `/${lang}/sobre`, label: dict.nav.about, page: "about" },
     { href: `/${lang}/servicos`, label: dict.nav.solutions, page: "services" },
-    { href: `/${lang}#perfis`, label: dict.nav.audiences },
-    { href: `/${lang}#processo`, label: dict.nav.process },
     { href: `/${lang}/carreiras`, label: dict.nav.careers, page: "careers" },
-    { href: `/${lang}#contato`, label: dict.nav.contact },
   ];
 
   const ctaHref = page === "careers" ? `/${lang}/carreiras#candidatura` : `/${lang}#contato`;
