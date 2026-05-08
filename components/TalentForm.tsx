@@ -60,12 +60,12 @@ export function TalentForm({ dict }: Props) {
       whatsapp: "WhatsApp",
       email: "E-mail",
       country: dict.forms.country,
-      city: optionalLabel(dict.forms.city),
-      education: optionalLabel(dict.forms.education),
-      registry: optionalLabel(dict.forms.registry),
-      area: optionalLabel(dict.forms.area),
-      experience: optionalLabel(dict.forms.experience),
-      linkedin: optionalLabel("LinkedIn"),
+      city: optionalLabel(dict.forms.city, dict),
+      education: optionalLabel(dict.forms.education, dict),
+      registry: optionalLabel(dict.forms.registry, dict),
+      area: optionalLabel(dict.forms.area, dict),
+      experience: optionalLabel(dict.forms.experience, dict),
+      linkedin: optionalLabel("LinkedIn", dict),
       interest: dict.forms.interest,
       message: dict.forms.message,
     }),
@@ -256,7 +256,7 @@ export function TalentForm({ dict }: Props) {
           </div>
           <Field label={labels.linkedin} name="linkedin" value={values.linkedin} onChange={updateField} onBlur={markTouched} type="url" />
           <label className="field-label">
-            {optionalLabel(dict.forms.portfolio)}
+            {optionalLabel(dict.forms.portfolio, dict)}
             <input
               ref={fileInputRef}
               name="portfolio"
@@ -284,7 +284,7 @@ export function TalentForm({ dict }: Props) {
             ) : null}
             {touched.portfolio && errors.portfolio ? <FieldError id="portfolio-error">{errors.portfolio}</FieldError> : null}
           </label>
-          <Textarea label={optionalLabel(labels.message)} name="message" value={values.message} onChange={updateField} onBlur={markTouched} placeholder={dict.forms.talentPlaceholder} />
+          <Textarea label={optionalLabel(labels.message, dict)} name="message" value={values.message} onChange={updateField} onBlur={markTouched} placeholder={dict.forms.talentPlaceholder} />
         </div>
       ) : null}
 
@@ -357,8 +357,8 @@ function formatFileSize(size: number) {
   return `${(size / 1024 / 1024).toFixed(1)} MB`;
 }
 
-function optionalLabel(label: string) {
-  return `${label} (opcional)`;
+function optionalLabel(label: string, dict: Dictionary) {
+  return `${label} ${dict.forms.optional}`;
 }
 
 function Field({
