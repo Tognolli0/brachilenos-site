@@ -38,6 +38,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: dict.meta.servicesTitle,
     description: dict.meta.servicesDescription,
+    openGraph: {
+      title: dict.meta.servicesTitle,
+      description: dict.meta.servicesDescription,
+      url: `/${lang}/servicos`,
+      images: [{ url: "/assets/riscos-fiscais.png", width: 1536, height: 1024, alt: dict.meta.servicesTitle }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: dict.meta.servicesTitle,
+      description: dict.meta.servicesDescription,
+      images: ["/assets/riscos-fiscais.png"],
+    },
     alternates: {
       canonical: `/${lang}/servicos`,
       languages: {
@@ -52,6 +64,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 const solutionIcons = [Calculator, Landmark, LineChart, FileCheck2, BriefcaseBusiness, ShieldCheck];
 const complianceIcons = [Scale, FileText, AlertTriangle, CheckCircle2];
 const serviceGroupIcons = [UsersRound, Building2, UsersRound, Building2, Landmark];
+const blurDataURL =
+  "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTYnIGhlaWdodD0nMTYnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHJlY3Qgd2lkdGg9JzE2JyBoZWlnaHQ9JzE2JyBmaWxsPScjMGI1NjQ1Jy8+PC9zdmc+";
 
 const serviceGroups = [
   {
@@ -166,6 +180,36 @@ export default async function ServicesPage({ params }: PageProps) {
   return (
     <>
       <Header lang={lang} dict={dict} page="services" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            name: "Contabilidade Brachilenos",
+            url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://brachilenos-site.netlify.app"}/${lang}/servicos`,
+            areaServed: ["Brazil", "Chile"],
+            availableLanguage: ["pt-BR", "es", "en"],
+            serviceType: serviceGroups.flatMap((group) => group.cards.map((card) => card.title)),
+            hasOfferCatalog: {
+              "@type": "OfferCatalog",
+              name: dict.meta.servicesTitle,
+              itemListElement: serviceGroups.map((group) => ({
+                "@type": "OfferCatalog",
+                name: group.label,
+                itemListElement: group.cards.map((card) => ({
+                  "@type": "Offer",
+                  itemOffered: {
+                    "@type": "Service",
+                    name: card.title,
+                    description: card.text,
+                  },
+                })),
+              })),
+            },
+          }),
+        }}
+      />
       <main id="conteudo-principal">
         <section className="border-b border-[#071f3b]/10 bg-[linear-gradient(120deg,#071f3b,#0b345b_62%,#0f6f43)] py-14 text-white sm:py-20">
           <div className="shell grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
@@ -214,7 +258,7 @@ export default async function ServicesPage({ params }: PageProps) {
             ].map((item) => (
               <article key={item.title} className="grid min-h-[260px] overflow-hidden border border-white/15 bg-white/5 md:grid-cols-[0.8fr_1fr]">
                 <div className="relative min-h-56">
-                  <Image src={assetPath(item.image)} alt={item.title} fill sizes="(min-width: 1024px) 280px, 100vw" className="object-cover object-top" />
+                  <Image src={assetPath(item.image)} alt={item.title} fill sizes="(min-width: 1024px) 280px, 100vw" className="object-cover object-top" placeholder="blur" blurDataURL={blurDataURL} />
                 </div>
                 <div className="flex flex-col justify-center p-6">
                   <h2 className="display-serif text-2xl font-bold leading-tight text-white">{item.title}</h2>

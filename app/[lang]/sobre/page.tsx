@@ -23,6 +23,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: dict.meta.aboutTitle,
     description: dict.meta.aboutDescription,
+    openGraph: {
+      title: dict.meta.aboutTitle,
+      description: dict.meta.aboutDescription,
+      url: `/${lang}/sobre`,
+      images: [{ url: "/assets/santiago-hero.png", width: 1024, height: 1536, alt: dict.meta.aboutTitle }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: dict.meta.aboutTitle,
+      description: dict.meta.aboutDescription,
+      images: ["/assets/santiago-hero.png"],
+    },
     alternates: {
       canonical: `/${lang}/sobre`,
       languages: {
@@ -35,6 +47,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 const controlIcons = [ReceiptText, FileText, ClipboardList, CheckCircle2, LineChart, ShieldCheck];
+const blurDataURL =
+  "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTYnIGhlaWdodD0nMTYnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHJlY3Qgd2lkdGg9JzE2JyBoZWlnaHQ9JzE2JyBmaWxsPScjZWVmNGYyJy8+PC9zdmc+";
 
 export default async function AboutPage({ params }: PageProps) {
   const { lang: paramLang } = await params;
@@ -70,6 +84,8 @@ export default async function AboutPage({ params }: PageProps) {
                 fill
                 sizes="(min-width: 1024px) 38vw, 100vw"
                 className="object-cover object-top opacity-85"
+                placeholder="blur"
+                blurDataURL={blurDataURL}
                 priority
               />
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,31,59,.12),rgba(7,31,59,.82))]" />

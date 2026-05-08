@@ -12,6 +12,7 @@ type FormValues = {
   name: string;
   whatsapp: string;
   email: string;
+  profile: string;
   country: string;
   need: string;
   message: string;
@@ -24,6 +25,7 @@ const initialValues: FormValues = {
   name: "",
   whatsapp: "",
   email: "",
+  profile: "",
   country: "",
   need: "",
   message: "",
@@ -41,6 +43,7 @@ export function CommercialLeadForm({ dict }: Props) {
       name: dict.forms.name,
       whatsapp: "WhatsApp",
       email: "E-mail",
+      profile: dict.forms.profile,
       country: dict.forms.country,
       need: dict.forms.clientNeed,
       message: dict.forms.message,
@@ -55,7 +58,7 @@ export function CommercialLeadForm({ dict }: Props) {
     if (submitting) return;
 
     const nextErrors = validate(values, dict);
-    setTouched({ name: true, whatsapp: true, email: true, country: true, need: true, message: true });
+    setTouched({ name: true, whatsapp: true, email: true, profile: true, country: true, need: true, message: true });
 
     if (Object.keys(nextErrors).length > 0) {
       setStatus("");
@@ -109,8 +112,9 @@ export function CommercialLeadForm({ dict }: Props) {
       </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label={labels.email} name="email" value={values.email} error={touched.email ? errors.email : ""} onChange={updateField} onBlur={markTouched} type="email" autoComplete="email" required />
-        <Select label={labels.country} name="country" value={values.country} error={touched.country ? errors.country : ""} onChange={updateField} onBlur={markTouched} options={["Brasil", "Chile", dict.forms.other]} placeholder={dict.forms.choose} required />
+        <Select label={labels.profile} name="profile" value={values.profile} error={touched.profile ? errors.profile : ""} onChange={updateField} onBlur={markTouched} options={[...dict.forms.profileOptions]} placeholder={dict.forms.choose} required />
       </div>
+      <Select label={dict.forms.market} name="country" value={values.country} error={touched.country ? errors.country : ""} onChange={updateField} onBlur={markTouched} options={[...dict.forms.marketOptions]} placeholder={dict.forms.choose} required />
       <Select label={labels.need} name="need" value={values.need} error={touched.need ? errors.need : ""} onChange={updateField} onBlur={markTouched} options={[...dict.forms.clientOptions]} placeholder={dict.forms.choose} required />
       <Textarea label={labels.message} name="message" value={values.message} error={touched.message ? errors.message : ""} onChange={updateField} onBlur={markTouched} placeholder={dict.forms.clientPlaceholder} />
       <button type="submit" disabled={submitting} className="focus-ring btn-submit">
@@ -125,7 +129,7 @@ export function CommercialLeadForm({ dict }: Props) {
 function validate(values: FormValues, dict: Dictionary): Errors {
   const errors: Errors = {};
 
-  for (const name of ["name", "whatsapp", "email", "country", "need"] as FieldName[]) {
+  for (const name of ["name", "whatsapp", "email", "profile", "country", "need"] as FieldName[]) {
     if (!values[name].trim()) {
       errors[name] = dict.forms.requiredField;
     }

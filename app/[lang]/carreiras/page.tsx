@@ -30,6 +30,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: dict.meta.careersTitle,
     description: dict.meta.careersDescription,
+    openGraph: {
+      title: dict.meta.careersTitle,
+      description: dict.meta.careersDescription,
+      url: `/${lang}/carreiras`,
+      images: [{ url: "/assets/santiago-hero.png", width: 1024, height: 1536, alt: dict.meta.careersTitle }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: dict.meta.careersTitle,
+      description: dict.meta.careersDescription,
+      images: ["/assets/santiago-hero.png"],
+    },
     alternates: {
       canonical: `/${lang}/carreiras`,
       languages: {

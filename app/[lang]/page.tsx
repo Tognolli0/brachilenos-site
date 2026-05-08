@@ -44,6 +44,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: dict.meta.homeTitle,
     description: dict.meta.homeDescription,
+    openGraph: {
+      title: dict.meta.homeTitle,
+      description: dict.meta.homeDescription,
+      url: `/${lang}`,
+      images: [{ url: "/assets/santiago-hero.png", width: 1024, height: 1536, alt: dict.meta.homeTitle }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: dict.meta.homeTitle,
+      description: dict.meta.homeDescription,
+      images: ["/assets/santiago-hero.png"],
+    },
     alternates: {
       canonical: `/${lang}`,
       languages: {
@@ -58,11 +70,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 const serviceIcons = [Calculator, Landmark, LineChart, FileCheck2, BriefcaseBusiness, ShieldCheck];
 const contactIcons = [MessageCircle, Languages, Database];
 const audienceIcons = [Building2, MapPin, Globe2, BriefcaseBusiness];
+const blurDataURL =
+  "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTYnIGhlaWdodD0nMTYnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHJlY3Qgd2lkdGg9JzE2JyBoZWlnaHQ9JzE2JyBmaWxsPScjZWVmNGYyJy8+PC9zdmc+";
 
 export default async function HomePage({ params }: PageProps) {
   const { lang: paramLang } = await params;
   const lang = (isLocale(paramLang) ? paramLang : "pt-br") as Locale;
   const dict = getDictionary(lang);
+  const copy = homePageCopy[lang];
 
   return (
     <>
@@ -123,11 +138,13 @@ export default async function HomePage({ params }: PageProps) {
             <div className="relative min-h-[310px] min-w-0 overflow-hidden border border-[#071f3b]/10 bg-white shadow-[0_18px_50px_rgba(7,31,59,.12)] sm:min-h-[390px] lg:min-h-[500px]">
               <Image
                 src={assetPath("/assets/santiago-hero.png")}
-                alt="Santiago do Chile com referÃªncia Brasil e Chile"
+                alt={copy.heroImageAlt}
                 fill
                 priority
                 sizes="(min-width: 1280px) 430px, (min-width: 1024px) 38vw, 100vw"
                 className="object-cover object-top"
+                placeholder="blur"
+                blurDataURL={blurDataURL}
               />
               <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,31,59,.7),rgba(7,31,59,.12)_52%,rgba(248,250,249,.05))]" />
               <div className="absolute inset-x-3 bottom-3 border-l-4 border-[#b88228] bg-[#071f3b]/95 p-4 text-white sm:inset-x-5 sm:bottom-5 sm:p-5">
@@ -180,7 +197,7 @@ export default async function HomePage({ params }: PageProps) {
           <div className="shell">
             <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
               <SectionHeading align="left" eyebrow={dict.home.audiences.eyebrow} title={dict.home.audiences.title} text={dict.home.audiences.text} />
-              <AccountingProfilePanel proofs={[...dict.home.audiences.proofs]} />
+              <AccountingProfilePanel proofs={[...dict.home.audiences.proofs]} copy={copy.profilePanel} />
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {dict.home.audiences.cards.map((card, index) => {
@@ -209,7 +226,7 @@ export default async function HomePage({ params }: PageProps) {
               <div className="max-w-3xl">
                 <p className="text-lg leading-8 text-[#5c6b78]">{dict.home.solutions.text}</p>
                 <Link href={`/${lang}/servicos`} className="mt-5 inline-flex border-b-2 border-[#b88228] font-extrabold text-[#071f3b]">
-                  Ver serviÃ§os detalhados
+                  {copy.servicesLink}
                 </Link>
               </div>
             </div>
@@ -308,11 +325,11 @@ export default async function HomePage({ params }: PageProps) {
     </>
   );
 }
-function AccountingProfilePanel({ proofs }: { proofs: string[] }) {
+function AccountingProfilePanel({ proofs, copy }: { proofs: string[]; copy: (typeof homePageCopy)[Locale]["profilePanel"] }) {
   const rows = [
-    { label: "Fiscal", value: "IRPF, SII e impostos", icon: ReceiptText },
-    { label: "Financeiro", value: "caixa, custos e margem", icon: LineChart },
-    { label: "EstratÃ©gia", value: "Brasil x Chile", icon: Globe2 },
+    { label: copy.rows[0].label, value: copy.rows[0].value, icon: ReceiptText },
+    { label: copy.rows[1].label, value: copy.rows[1].value, icon: LineChart },
+    { label: copy.rows[2].label, value: copy.rows[2].value, icon: Globe2 },
   ];
 
   return (
@@ -320,9 +337,9 @@ function AccountingProfilePanel({ proofs }: { proofs: string[] }) {
       <div className="absolute right-0 top-0 h-28 w-28 border-l border-b border-white/10 bg-white/5" />
       <div className="relative flex items-start justify-between gap-4">
         <div>
-          <span className="text-xs font-black uppercase tracking-[0.08em] text-[#d7aa52]">Mapa de atendimento</span>
+          <span className="text-xs font-black uppercase tracking-[0.08em] text-[#d7aa52]">{copy.eyebrow}</span>
           <h3 className="display-serif mt-2 max-w-md text-balance text-3xl font-bold leading-tight text-white">
-            Contabilidade, finanÃ§as e tributaÃ§Ã£o em uma visÃ£o integrada
+            {copy.title}
           </h3>
         </div>
         <Calculator className="h-10 w-10 shrink-0 text-[#d7aa52]" aria-hidden />
@@ -379,4 +396,53 @@ function SectionHeading({
     </div>
   );
 }
+
+const homePageCopy = {
+  "pt-br": {
+    heroImageAlt: "Santiago do Chile com referência Brasil e Chile",
+    servicesLink: "Ver serviços detalhados",
+    profilePanel: {
+      eyebrow: "Mapa de atendimento",
+      title: "Contabilidade, finanças e tributação em uma visão integrada",
+      rows: [
+        { label: "Fiscal", value: "IRPF, SII e impostos" },
+        { label: "Financeiro", value: "caixa, custos e margem" },
+        { label: "Estratégia", value: "Brasil x Chile" },
+      ],
+    },
+  },
+  es: {
+    heroImageAlt: "Santiago de Chile con referencia Brasil y Chile",
+    servicesLink: "Ver servicios detallados",
+    profilePanel: {
+      eyebrow: "Mapa de atención",
+      title: "Contabilidad, finanzas y tributación en una visión integrada",
+      rows: [
+        { label: "Fiscal", value: "F22, SII e impuestos" },
+        { label: "Financiero", value: "caja, costos y margen" },
+        { label: "Estrategia", value: "Brasil x Chile" },
+      ],
+    },
+  },
+  en: {
+    heroImageAlt: "Santiago, Chile with Brazil and Chile reference",
+    servicesLink: "View detailed services",
+    profilePanel: {
+      eyebrow: "Service map",
+      title: "Accounting, finance and tax in one integrated view",
+      rows: [
+        { label: "Tax", value: "IRPF, SII and taxes" },
+        { label: "Finance", value: "cash, costs and margin" },
+        { label: "Strategy", value: "Brazil x Chile" },
+      ],
+    },
+  },
+} satisfies Record<
+  Locale,
+  {
+    heroImageAlt: string;
+    servicesLink: string;
+    profilePanel: { eyebrow: string; title: string; rows: { label: string; value: string }[] };
+  }
+>;
 

@@ -390,7 +390,7 @@ export const dictionaries = {
       },
       tracks: [
         {
-          title: "Trabalhe Conosco",
+          title: "Quero trabalhar",
           text:
             "Buscamos profissionais com perfil técnico, visão estratégica e interesse em atuar em um ambiente internacional, com foco em excelência, estrutura e crescimento.",
           items: [
@@ -404,7 +404,7 @@ export const dictionaries = {
           cta: "Enviar currículo",
         },
         {
-          title: "Seja um Parceiro",
+          title: "Quero ser parceiro",
           text:
             "Estamos formando uma rede de parceiros estratégicos no Brasil e no Chile para atuação colaborativa em projetos contábeis, tributários, financeiros e societários.",
           items: [
@@ -417,7 +417,7 @@ export const dictionaries = {
           cta: "Quero ser parceiro",
         },
         {
-          title: "Rede Brasil x Chile",
+          title: "Quero prestar serviço",
           text:
             "Conectamos profissionais e especialistas que desejam atuar em operações entre Brasil e Chile, com foco em suporte técnico, execução e crescimento estruturado.",
           items: [
@@ -449,10 +449,14 @@ export const dictionaries = {
       message: "Mensagem",
       choose: "Selecione",
       other: "Outro",
+      profile: "Você é",
+      profileOptions: ["Pessoa física", "Empresa", "Parceiro ou profissional"],
+      market: "Onde precisa de apoio?",
+      marketOptions: ["Brasil", "Chile", "Brasil x Chile"],
       clientNeed: "Qual apoio você procura?",
-      clientOptions: ["Diagnóstico Brasil x Chile", "Contabilidade e fiscal", "Planejamento tributário", "BPO financeiro"],
-      clientPlaceholder: "Descreva sua empresa, onde fatura e qual é a principal dúvida.",
-      clientSubmit: "Solicitar contato",
+      clientOptions: ["Regularizar minha situação", "Abrir empresa", "Organizar impostos", "Evitar bitributação", "Contabilidade mensal", "BPO financeiro", "Planejamento tributário", "Falar com especialista"],
+      clientPlaceholder: "Conte brevemente o que você precisa resolver agora: regularização, abertura de empresa, impostos, operação Brasil x Chile ou outro ponto.",
+      clientSubmit: "Quero falar com especialista",
       sending: "Enviando...",
       talentAreas: ["Contábil", "Fiscal", "Financeiro", "BPO financeiro", "Consultoria tributária", "Outro"],
       interests: ["Vaga", "Parceria", "Prestação de serviço"],
@@ -772,9 +776,9 @@ export const dictionaries = {
         networkText: "Candidatos, socios y prestadores ingresan por una base separada para el crecimiento ordenado de la operación.",
       },
       tracks: [
-        { title: "Trabaja con nosotros", text: "Buscamos profesionales con perfil técnico, visión estratégica e interés en actuar en un ambiente internacional, con foco en excelencia, estructura y crecimiento.", items: ["Analista Contable", "Asistente Contable", "Analista Fiscal", "Analista Financiero", "BPO Financiero", "Consultor Tributario"], cta: "Enviar CV" },
-        { title: "Sé un socio", text: "Estamos formando una red de socios estratégicos en Brasil y Chile para actuar de forma colaborativa en proyectos contables, tributarios, financieros y societarios.", items: ["Contabilidad, fiscal y nómina", "Tributario y societario", "Financiero y BPO", "Legalización y apertura de empresas", "Compliance"], cta: "Quiero ser socio" },
-        { title: "Red Brasil x Chile", text: "Conectamos profesionales y especialistas que desean actuar en operaciones entre Brasil y Chile, con foco en soporte técnico, ejecución y crecimiento estructurado.", items: ["Especialistas por área técnica", "Socios por país y ciudad", "Prestadores por disponibilidad y perfil"], cta: "Entrar a la red" },
+        { title: "Quiero trabajar", text: "Buscamos profesionales con perfil técnico, visión estratégica e interés en actuar en un ambiente internacional, con foco en excelencia, estructura y crecimiento.", items: ["Analista Contable", "Asistente Contable", "Analista Fiscal", "Analista Financiero", "BPO Financiero", "Consultor Tributario"], cta: "Enviar CV" },
+        { title: "Quiero ser socio", text: "Estamos formando una red de socios estratégicos en Brasil y Chile para actuar de forma colaborativa en proyectos contables, tributarios, financieros y societarios.", items: ["Contabilidad, fiscal y nómina", "Tributario y societario", "Financiero y BPO", "Legalización y apertura de empresas", "Compliance"], cta: "Quiero ser socio" },
+        { title: "Quiero prestar servicios", text: "Conectamos profesionales y especialistas que desean actuar en operaciones entre Brasil y Chile, con foco en soporte técnico, ejecución y crecimiento estructurado.", items: ["Especialistas por área técnica", "Socios por país y ciudad", "Prestadores por disponibilidad y perfil"], cta: "Entrar a la red" },
       ],
       application: {
         eyebrow: "Banco de talentos",
@@ -796,10 +800,14 @@ export const dictionaries = {
       message: "Mensaje",
       choose: "Selecciona",
       other: "Otro",
+      profile: "Tú eres",
+      profileOptions: ["Persona natural", "Empresa", "Socio o profesional"],
+      market: "¿Dónde necesitas apoyo?",
+      marketOptions: ["Brasil", "Chile", "Brasil x Chile"],
       clientNeed: "¿Qué apoyo necesitas?",
-      clientOptions: ["Diagnóstico Brasil x Chile", "Contabilidad y fiscal", "Planificación tributaria", "BPO financiero"],
-      clientPlaceholder: "Describe tu empresa, dónde factura y cuál es la principal duda.",
-      clientSubmit: "Solicitar contacto",
+      clientOptions: ["Regularizar mi situación", "Abrir empresa", "Organizar impuestos", "Evitar doble tributación", "Contabilidad mensual", "BPO financiero", "Planificación tributaria", "Hablar con especialista"],
+      clientPlaceholder: "Cuéntanos brevemente qué necesitas resolver ahora: regularización, apertura de empresa, impuestos, operación Brasil x Chile u otro punto.",
+      clientSubmit: "Quiero hablar con especialista",
       sending: "Enviando...",
       talentAreas: ["Contable", "Fiscal", "Financiero", "BPO financiero", "Consultoría tributaria", "Otro"],
       interests: ["Vacante", "Sociedad", "Prestación de servicio"],
@@ -1097,9 +1105,9 @@ export const dictionaries = {
         networkText: "Candidates, partners and service providers enter through a separate base for organized operation growth.",
       },
       tracks: [
-        { title: "Work With Us", text: "We seek professionals with technical profile, strategic vision and interest in an international environment focused on excellence, structure and growth.", items: ["Accounting Analyst", "Accounting Assistant", "Tax Analyst", "Finance Analyst", "Finance BPO", "Tax Consultant"], cta: "Send resume" },
-        { title: "Become a Partner", text: "We are building a network of strategic partners in Brazil and Chile for collaborative accounting, tax, finance and corporate projects.", items: ["Accounting, tax and payroll", "Tax and corporate", "Finance and BPO", "Company legalization and opening", "Compliance"], cta: "I want to partner" },
-        { title: "Brazil x Chile Network", text: "We connect professionals and specialists who want to work in operations between Brazil and Chile, focused on technical support, execution and structured growth.", items: ["Specialists by technical area", "Partners by country and city", "Providers by availability and profile"], cta: "Join the network" },
+        { title: "I want to work", text: "We seek professionals with technical profile, strategic vision and interest in an international environment focused on excellence, structure and growth.", items: ["Accounting Analyst", "Accounting Assistant", "Tax Analyst", "Finance Analyst", "Finance BPO", "Tax Consultant"], cta: "Send resume" },
+        { title: "I want to partner", text: "We are building a network of strategic partners in Brazil and Chile for collaborative accounting, tax, finance and corporate projects.", items: ["Accounting, tax and payroll", "Tax and corporate", "Finance and BPO", "Company legalization and opening", "Compliance"], cta: "I want to partner" },
+        { title: "I want to provide services", text: "We connect professionals and specialists who want to work in operations between Brazil and Chile, focused on technical support, execution and structured growth.", items: ["Specialists by technical area", "Partners by country and city", "Providers by availability and profile"], cta: "Join the network" },
       ],
       application: {
         eyebrow: "Talent bank",
@@ -1121,10 +1129,14 @@ export const dictionaries = {
       message: "Message",
       choose: "Select",
       other: "Other",
+      profile: "You are",
+      profileOptions: ["Individual", "Company", "Partner or professional"],
+      market: "Where do you need support?",
+      marketOptions: ["Brazil", "Chile", "Brazil x Chile"],
       clientNeed: "What support do you need?",
-      clientOptions: ["Brazil x Chile diagnosis", "Accounting and tax", "Tax planning", "Finance BPO"],
-      clientPlaceholder: "Describe your company, where it bills and the main question.",
-      clientSubmit: "Request contact",
+      clientOptions: ["Regularize my situation", "Open a company", "Organize taxes", "Avoid double taxation", "Monthly accounting", "Finance BPO", "Tax planning", "Talk to a specialist"],
+      clientPlaceholder: "Briefly tell us what you need to solve now: regularization, company formation, taxes, Brazil x Chile operation or another point.",
+      clientSubmit: "Talk to a specialist",
       sending: "Sending...",
       talentAreas: ["Accounting", "Tax", "Finance", "Finance BPO", "Tax consulting", "Other"],
       interests: ["Job", "Partnership", "Service provider"],
