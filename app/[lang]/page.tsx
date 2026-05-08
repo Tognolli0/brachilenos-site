@@ -48,13 +48,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: dict.meta.homeTitle,
       description: dict.meta.homeDescription,
       url: `/${lang}`,
-      images: [{ url: "/assets/santiago-hero.png", width: 1024, height: 1536, alt: dict.meta.homeTitle }],
+      images: [{ url: "/assets/santiago-hero.webp", width: 1024, height: 1536, alt: dict.meta.homeTitle }],
     },
     twitter: {
       card: "summary_large_image",
       title: dict.meta.homeTitle,
       description: dict.meta.homeDescription,
-      images: ["/assets/santiago-hero.png"],
+      images: ["/assets/santiago-hero.webp"],
     },
     alternates: {
       canonical: `/${lang}`,
@@ -137,7 +137,7 @@ export default async function HomePage({ params }: PageProps) {
 
             <div className="relative min-h-[310px] min-w-0 overflow-hidden border border-[#071f3b]/10 bg-white shadow-[0_18px_50px_rgba(7,31,59,.12)] sm:min-h-[390px] lg:min-h-[500px]">
               <Image
-                src={assetPath("/assets/santiago-hero.png")}
+                src={assetPath("/assets/santiago-hero.webp")}
                 alt={copy.heroImageAlt}
                 fill
                 priority

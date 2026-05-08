@@ -22,14 +22,14 @@ export const metadata: Metadata = {
     title: "Contabilidade Brachilenos | Brasil x Chile",
     description:
       "Consultoria contábil, financeira e tributária para brasileiros, empresas e operações entre Brasil e Chile.",
-    images: [{ url: assetPath("/assets/santiago-hero.png"), width: 1024, height: 1536, alt: "Contabilidade Brachilenos Brasil x Chile" }],
+    images: [{ url: assetPath("/assets/santiago-hero.webp"), width: 1024, height: 1536, alt: "Contabilidade Brachilenos Brasil x Chile" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Contabilidade Brachilenos | Brasil x Chile",
     description:
       "Consultoria contábil, financeira e tributária para brasileiros, empresas e operações entre Brasil e Chile.",
-    images: [assetPath("/assets/santiago-hero.png")],
+    images: [assetPath("/assets/santiago-hero.webp")],
   },
   robots: {
     index: true,

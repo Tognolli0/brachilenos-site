@@ -27,13 +27,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: dict.meta.aboutTitle,
       description: dict.meta.aboutDescription,
       url: `/${lang}/sobre`,
-      images: [{ url: "/assets/santiago-hero.png", width: 1024, height: 1536, alt: dict.meta.aboutTitle }],
+      images: [{ url: "/assets/santiago-hero.webp", width: 1024, height: 1536, alt: dict.meta.aboutTitle }],
     },
     twitter: {
       card: "summary_large_image",
       title: dict.meta.aboutTitle,
       description: dict.meta.aboutDescription,
-      images: ["/assets/santiago-hero.png"],
+      images: ["/assets/santiago-hero.webp"],
     },
     alternates: {
       canonical: `/${lang}/sobre`,
@@ -79,7 +79,7 @@ export default async function AboutPage({ params }: PageProps) {
             </div>
             <div className="relative min-h-[320px] overflow-hidden border border-[#d9e0e6] bg-[#071f3b] shadow-[0_18px_48px_rgba(7,31,59,.14)]">
               <Image
-                src={assetPath("/assets/santiago-hero.png")}
+                src={assetPath("/assets/santiago-hero.webp")}
                 alt={copy.imageAlt}
                 fill
                 sizes="(min-width: 1024px) 38vw, 100vw"

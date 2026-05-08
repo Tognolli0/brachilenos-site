@@ -52,6 +52,7 @@ export function TalentForm({ dict }: Props) {
   const [status, setStatus] = useState("");
   const [statusType, setStatusType] = useState<"success" | "error" | "">("");
   const [submitting, setSubmitting] = useState(false);
+  const [step, setStep] = useState(0);
 
   const labels = useMemo(
     () => ({
@@ -72,6 +73,29 @@ export function TalentForm({ dict }: Props) {
   );
 
   const errors = validate(values, portfolio, dict);
+  const steps = dict.forms.talentSteps;
+  const stepFields: FieldName[][] = [
+    ["name", "whatsapp", "email", "interest"],
+    ["country", "city", "area", "experience"],
+    ["education", "registry", "linkedin", "message"],
+  ];
+
+  function goToNextStep() {
+    const currentFields = stepFields[step];
+    const nextTouched = currentFields.reduce<Partial<Record<FieldName, boolean>>>(
+      (acc, field) => ({ ...acc, [field]: true }),
+      {},
+    );
+
+    setTouched((current) => ({ ...current, ...nextTouched }));
+
+    const hasStepError = currentFields.some((field) => Boolean(errors[field]));
+    if (hasStepError) {
+      return;
+    }
+
+    setStep((current) => Math.min(current + 1, steps.length - 1));
+  }
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -128,6 +152,7 @@ export function TalentForm({ dict }: Props) {
       setValues(initialValues);
       setPortfolio(null);
       setTouched({});
+      setStep(0);
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
@@ -164,63 +189,103 @@ export function TalentForm({ dict }: Props) {
 
   return (
     <form onSubmit={onSubmit} aria-busy={submitting} noValidate className="form-panel">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label={labels.name} name="name" value={values.name} error={touched.name ? errors.name : ""} onChange={updateField} onBlur={markTouched} autoComplete="name" required />
-        <Field label={labels.whatsapp} name="whatsapp" value={values.whatsapp} error={touched.whatsapp ? errors.whatsapp : ""} onChange={updateField} onBlur={markTouched} type="tel" autoComplete="tel" inputMode="tel" required />
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label={labels.email} name="email" value={values.email} error={touched.email ? errors.email : ""} onChange={updateField} onBlur={markTouched} type="email" autoComplete="email" required />
-        <Select label={labels.country} name="country" value={values.country} error={touched.country ? errors.country : ""} onChange={updateField} onBlur={markTouched} options={["Brasil", "Chile", dict.forms.other]} placeholder={dict.forms.choose} required />
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label={labels.city} name="city" value={values.city} onChange={updateField} onBlur={markTouched} />
-        <Field label={labels.education} name="education" value={values.education} onChange={updateField} onBlur={markTouched} />
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label={labels.registry} name="registry" value={values.registry} onChange={updateField} onBlur={markTouched} />
-        <Select label={labels.area} name="area" value={values.area} onChange={updateField} onBlur={markTouched} options={[...dict.forms.talentAreas]} placeholder={dict.forms.choose} />
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label={labels.experience} name="experience" value={values.experience} onChange={updateField} onBlur={markTouched} />
-        <Field label={labels.linkedin} name="linkedin" value={values.linkedin} onChange={updateField} onBlur={markTouched} type="url" />
-      </div>
-      <Select label={labels.interest} name="interest" value={values.interest} error={touched.interest ? errors.interest : ""} onChange={updateField} onBlur={markTouched} options={[...dict.forms.interests]} placeholder={dict.forms.choose} required />
-
-      <label className="field-label">
-        {optionalLabel(dict.forms.portfolio)}
-        <input
-          ref={fileInputRef}
-          name="portfolio"
-          type="file"
-          accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
-          aria-invalid={Boolean(touched.portfolio && errors.portfolio)}
-          aria-describedby={touched.portfolio && errors.portfolio ? "portfolio-error" : "portfolio-hint"}
-          onChange={onFileChange}
-          className="focus-ring field-control px-3 py-3 file:mr-3 file:border-0 file:bg-[#071f3b] file:px-3 file:py-2 file:text-sm file:font-bold file:text-white"
-        />
-        <span id="portfolio-hint" className="text-xs font-semibold text-[#5c6b78]">
-          {dict.forms.fileHint}
-        </span>
-        {portfolio ? (
-          <span className="flex items-center justify-between gap-3 border border-[#d9e0e6] bg-[#f8faf9] px-3 py-2 text-sm font-bold text-[#071f3b]">
-            <span className="inline-flex min-w-0 items-center gap-2">
-              <FileText className="h-4 w-4 shrink-0 text-[#b88228]" aria-hidden />
-              <span className="truncate">{portfolio.name}</span>
-              <span className="shrink-0 text-xs text-[#5c6b78]">{formatFileSize(portfolio.size)}</span>
-            </span>
-            <button type="button" onClick={removeFile} className="focus-ring inline-flex h-8 w-8 shrink-0 items-center justify-center border border-[#cbd5df] bg-white text-[#071f3b]" aria-label={dict.forms.removeFile}>
-              <X className="h-4 w-4" aria-hidden />
-            </button>
+      <div className="mb-6">
+        <div className="mb-3 flex items-center justify-between gap-3 text-xs font-black uppercase tracking-[0.08em] text-[#5c6b78]">
+          <span>
+            {dict.forms.stepOf} {step + 1}/{steps.length}
           </span>
-        ) : null}
-        {touched.portfolio && errors.portfolio ? <FieldError id="portfolio-error">{errors.portfolio}</FieldError> : null}
-      </label>
+          <span className="text-[#b88228]">{steps[step]}</span>
+        </div>
+        <div className="grid grid-cols-3 gap-2" aria-hidden>
+          {steps.map((item, index) => (
+            <span key={item} className={`h-2 ${index <= step ? "bg-[#b88228]" : "bg-[#d9e0e6]"}`} />
+          ))}
+        </div>
+      </div>
 
-      <Textarea label={optionalLabel(labels.message)} name="message" value={values.message} onChange={updateField} onBlur={markTouched} placeholder={dict.forms.talentPlaceholder} />
-      <button type="submit" disabled={submitting} className="focus-ring btn-submit">
-        <Send className="h-5 w-5" aria-hidden />
-        <span>{submitting ? dict.forms.sending : dict.forms.talentSubmit}</span>
-      </button>
+      {step === 0 ? (
+        <div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label={labels.name} name="name" value={values.name} error={touched.name ? errors.name : ""} onChange={updateField} onBlur={markTouched} autoComplete="name" required />
+            <Field label={labels.whatsapp} name="whatsapp" value={values.whatsapp} error={touched.whatsapp ? errors.whatsapp : ""} onChange={updateField} onBlur={markTouched} type="tel" autoComplete="tel" inputMode="tel" required />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label={labels.email} name="email" value={values.email} error={touched.email ? errors.email : ""} onChange={updateField} onBlur={markTouched} type="email" autoComplete="email" required />
+            <Select label={labels.interest} name="interest" value={values.interest} error={touched.interest ? errors.interest : ""} onChange={updateField} onBlur={markTouched} options={[...dict.forms.interests]} placeholder={dict.forms.choose} required />
+          </div>
+        </div>
+      ) : null}
+
+      {step === 1 ? (
+        <div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Select label={labels.country} name="country" value={values.country} error={touched.country ? errors.country : ""} onChange={updateField} onBlur={markTouched} options={["Brasil", "Chile", dict.forms.other]} placeholder={dict.forms.choose} required />
+            <Field label={labels.city} name="city" value={values.city} onChange={updateField} onBlur={markTouched} />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Select label={labels.area} name="area" value={values.area} onChange={updateField} onBlur={markTouched} options={[...dict.forms.talentAreas]} placeholder={dict.forms.choose} />
+            <Field label={labels.experience} name="experience" value={values.experience} onChange={updateField} onBlur={markTouched} />
+          </div>
+        </div>
+      ) : null}
+
+      {step === 2 ? (
+        <div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label={labels.education} name="education" value={values.education} onChange={updateField} onBlur={markTouched} />
+            <Field label={labels.registry} name="registry" value={values.registry} onChange={updateField} onBlur={markTouched} />
+          </div>
+          <Field label={labels.linkedin} name="linkedin" value={values.linkedin} onChange={updateField} onBlur={markTouched} type="url" />
+          <label className="field-label">
+            {optionalLabel(dict.forms.portfolio)}
+            <input
+              ref={fileInputRef}
+              name="portfolio"
+              type="file"
+              accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+              aria-invalid={Boolean(touched.portfolio && errors.portfolio)}
+              aria-describedby={touched.portfolio && errors.portfolio ? "portfolio-error" : "portfolio-hint"}
+              onChange={onFileChange}
+              className="focus-ring field-control px-3 py-3 file:mr-3 file:border-0 file:bg-[#071f3b] file:px-3 file:py-2 file:text-sm file:font-bold file:text-white"
+            />
+            <span id="portfolio-hint" className="text-xs font-semibold text-[#5c6b78]">
+              {dict.forms.fileHint}
+            </span>
+            {portfolio ? (
+              <span className="flex items-center justify-between gap-3 border border-[#d9e0e6] bg-[#f8faf9] px-3 py-2 text-sm font-bold text-[#071f3b]">
+                <span className="inline-flex min-w-0 items-center gap-2">
+                  <FileText className="h-4 w-4 shrink-0 text-[#b88228]" aria-hidden />
+                  <span className="truncate">{portfolio.name}</span>
+                  <span className="shrink-0 text-xs text-[#5c6b78]">{formatFileSize(portfolio.size)}</span>
+                </span>
+                <button type="button" onClick={removeFile} className="focus-ring inline-flex h-8 w-8 shrink-0 items-center justify-center border border-[#cbd5df] bg-white text-[#071f3b]" aria-label={dict.forms.removeFile}>
+                  <X className="h-4 w-4" aria-hidden />
+                </button>
+              </span>
+            ) : null}
+            {touched.portfolio && errors.portfolio ? <FieldError id="portfolio-error">{errors.portfolio}</FieldError> : null}
+          </label>
+          <Textarea label={optionalLabel(labels.message)} name="message" value={values.message} onChange={updateField} onBlur={markTouched} placeholder={dict.forms.talentPlaceholder} />
+        </div>
+      ) : null}
+
+      <div className="mt-2 grid gap-3 sm:grid-cols-2">
+        {step > 0 ? (
+          <button type="button" onClick={() => setStep((current) => Math.max(current - 1, 0))} className="focus-ring min-h-12 border border-[#cbd5df] bg-white px-5 font-extrabold text-[#071f3b]">
+            {dict.forms.back}
+          </button>
+        ) : null}
+        {step < steps.length - 1 ? (
+          <button type="button" onClick={goToNextStep} className={`focus-ring btn-submit ${step === 0 ? "sm:col-span-2" : ""}`}>
+            {dict.forms.next}
+          </button>
+        ) : (
+          <button type="submit" disabled={submitting} className="focus-ring btn-submit">
+            <Send className="h-5 w-5" aria-hidden />
+            <span>{submitting ? dict.forms.sending : dict.forms.talentSubmit}</span>
+          </button>
+        )}
+      </div>
       <StatusMessage status={status} statusType={statusType} />
     </form>
   );

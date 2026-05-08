@@ -214,6 +214,30 @@
     box-shadow: none;
   }
 
+  @media (max-width: 420px) {
+    .shell {
+      width: min(100% - 24px, 1160px);
+    }
+
+    .section-pad {
+      padding-block: 3rem;
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      gap: 0.5rem;
+    }
+
+    .eyebrow::before {
+      width: 20px;
+    }
+
+    .field-input,
+    .field-select {
+      height: 3.15rem;
+    }
+  }
+
   @media (min-width: 640px) {
     .form-panel {
       padding: 1.5rem;

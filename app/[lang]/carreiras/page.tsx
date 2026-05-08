@@ -34,13 +34,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: dict.meta.careersTitle,
       description: dict.meta.careersDescription,
       url: `/${lang}/carreiras`,
-      images: [{ url: "/assets/santiago-hero.png", width: 1024, height: 1536, alt: dict.meta.careersTitle }],
+      images: [{ url: "/assets/santiago-hero.webp", width: 1024, height: 1536, alt: dict.meta.careersTitle }],
     },
     twitter: {
       card: "summary_large_image",
       title: dict.meta.careersTitle,
       description: dict.meta.careersDescription,
-      images: ["/assets/santiago-hero.png"],
+      images: ["/assets/santiago-hero.webp"],
     },
     alternates: {
       canonical: `/${lang}/carreiras`,
@@ -73,7 +73,7 @@ export default async function CareersPage({ params }: PageProps) {
                 <span className="block text-balance text-[clamp(2.4rem,8.5vw,4.75rem)]">
                   {dict.careers.hero.titleLine}
                 </span>
-                <span className="block whitespace-nowrap break-normal text-[clamp(2.05rem,10vw,4.35rem)]">
+                <span className="block text-balance text-[clamp(1.95rem,8.5vw,4.2rem)]">
                   {dict.careers.hero.titleBrand}
                 </span>
               </h1>

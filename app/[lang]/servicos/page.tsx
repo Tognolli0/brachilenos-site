@@ -42,13 +42,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: dict.meta.servicesTitle,
       description: dict.meta.servicesDescription,
       url: `/${lang}/servicos`,
-      images: [{ url: "/assets/riscos-fiscais.png", width: 1536, height: 1024, alt: dict.meta.servicesTitle }],
+      images: [{ url: "/assets/riscos-fiscais.webp", width: 1536, height: 1024, alt: dict.meta.servicesTitle }],
     },
     twitter: {
       card: "summary_large_image",
       title: dict.meta.servicesTitle,
       description: dict.meta.servicesDescription,
-      images: ["/assets/riscos-fiscais.png"],
+      images: ["/assets/riscos-fiscais.webp"],
     },
     alternates: {
       canonical: `/${lang}/servicos`,
@@ -67,7 +67,18 @@ const serviceGroupIcons = [UsersRound, Building2, UsersRound, Building2, Landmar
 const blurDataURL =
   "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTYnIGhlaWdodD0nMTYnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHJlY3Qgd2lkdGg9JzE2JyBoZWlnaHQ9JzE2JyBmaWxsPScjMGI1NjQ1Jy8+PC9zdmc+";
 
-const serviceGroups = [
+type ServiceGroup = {
+  label: string;
+  country: string;
+  accent: string;
+  cards: {
+    title: string;
+    text: string;
+    services: string[];
+  }[];
+};
+
+const serviceGroupsPtBr: ServiceGroup[] = [
   {
     label: "Pessoa Física — Brasil",
     country: "Brasil",
@@ -171,11 +182,222 @@ const serviceGroups = [
   },
 ];
 
+const serviceGroupsByLocale: Record<Locale, ServiceGroup[]> = {
+  "pt-br": serviceGroupsPtBr,
+  es: [
+    {
+      label: "Persona natural - Brasil",
+      country: "Brasil",
+      accent: "border-t-[#0f6f43]",
+      cards: [
+        {
+          title: "Contabilidad para persona natural",
+          text: "Asesoría fiscal y tributaria para brasileños en Brasil o residentes en el exterior, con foco en regularización, planificación y cumplimiento ante la Receita Federal.",
+          services: [
+            "IRPF - Declaración anual del impuesto de renta de persona física.",
+            "Carnê-Leão - Cálculo mensual de ingresos recibidos del exterior o de personas naturales.",
+            "Ganancia de capital - Cálculo tributario sobre venta de bienes y derechos.",
+            "Regularización de CPF - Soporte para CPF irregular, suspendido o pendiente.",
+            "Declaración de salida definitiva - Regularización fiscal para quien dejó Brasil.",
+            "Declaración de bienes en el exterior - Organización patrimonial internacional.",
+            "Planificación tributaria PF - Estrategias para organización fiscal y reducción de riesgos.",
+            "Regularización fiscal - Apoyo ante la Receita Federal.",
+            "Consultoría para residentes en el exterior - Asesoría para brasileños expatriados.",
+            "Análisis de doble tributación Brasil x Chile - Evaluación tributaria internacional.",
+          ],
+        },
+        {
+          title: "Finanzas para persona natural",
+          text: "Organización financiera y patrimonial para brasileños que quieren estructurar su vida financiera en Brasil o en el exterior.",
+          services: ["Planificación financiera", "Diagnóstico financiero", "Organización financiera", "Control de flujo de caja personal", "Planificación patrimonial", "Reserva de emergencia", "Organización de deudas", "Reorganización financiera", "Educación financiera", "Planificación para cambio internacional", "Planificación de jubilación", "Consultoría para inversiones", "Estructuración de cartera", "Diversificación patrimonial", "Planificación sucesoria"],
+        },
+      ],
+    },
+    {
+      label: "Persona jurídica - Brasil",
+      country: "Brasil",
+      accent: "border-t-[#0f6f43]",
+      cards: [
+        {
+          title: "Contabilidad empresarial",
+          text: "Soluciones contables, fiscales y societarias para empresas brasileñas y operaciones con socios o estructuras internacionales.",
+          services: ["Apertura de empresas", "Modificación contractual", "Cierre de empresas", "MEI, ME, LTDA y SLU", "Regularización de CNPJ", "DAS / Simples Nacional", "DASN", "Emisión de notas fiscales", "Cálculo de impuestos", "Nómina", "Pró-labore", "Escrituración contable", "Escrituración fiscal", "Conciliación bancaria", "Balance patrimonial", "DRE", "Distribución de utilidades", "Parcelamientos fiscales", "DEFIS", "DCTFWeb", "SPED", "ECD", "ECF", "Consultoría para socios en el exterior", "Estructuración fiscal Brasil x Chile"],
+        },
+        {
+          title: "Finanzas empresariales",
+          text: "Estructuración financiera y soporte estratégico para crecimiento, gestión y expansión empresarial.",
+          services: ["BPO financiero", "Flujo de caja", "Control financiero", "DRE gerencial", "Planificación financiera empresarial", "Definición de precios", "Margen y rentabilidad", "Cuentas por pagar y cobrar", "Proyección de caja", "Planificación de crecimiento", "KPIs financieros", "Diagnóstico financiero", "Reestructuración financiera", "Valuation básico", "Apoyo a la toma de decisiones"],
+        },
+      ],
+    },
+    {
+      label: "Persona natural - Chile",
+      country: "Chile",
+      accent: "border-t-[#c91f28]",
+      cards: [
+        {
+          title: "Contabilidad para persona natural en Chile",
+          text: "Asesoría tributaria y regularización fiscal para brasileños residentes en Chile y contribuyentes ante el SII.",
+          services: ["Operación Renta (F22)", "Declaración anual de renta", "Regularización tributaria en el SII", "Inicio de actividades", "Emisión de boletas", "Honorarios", "Planificación tributaria", "Consultoría para brasileños en Chile", "Regularización de RUT", "Residencia fiscal", "Declaración de renta exterior", "Créditos tributarios", "Consultoría sobre APV y DFL2"],
+        },
+        {
+          title: "Finanzas para persona natural en Chile",
+          text: "Planificación financiera y organización patrimonial para brasileños que viven en Chile.",
+          services: ["Organización financiera en Chile", "Planificación financiera para expatriados", "Educación financiera", "Organización de presupuesto en CLP", "Planificación patrimonial internacional", "Reserva de emergencia", "Organización de deudas", "Planificación de metas", "Análisis de costo de vida"],
+        },
+      ],
+    },
+    {
+      label: "Persona jurídica - Chile",
+      country: "Chile",
+      accent: "border-t-[#c91f28]",
+      cards: [
+        {
+          title: "Contabilidad empresarial en Chile",
+          text: "Estructuración empresarial y asesoría tributaria para empresas que operan en Chile.",
+          services: ["Apertura de empresa en Chile", "Constitución de SpA", "EIRL", "Persona natural con giro", "Inicio de actividades", "RUT empresa", "Patente comercial", "Facturas", "Boletas", "F29 mensual", "F22 anual", "Contabilidad mensual", "Cálculo de impuestos", "Planificación tributaria", "Escrituración contable", "Conciliación bancaria", "Remuneraciones", "Estructura administrativa", "Regularización en el SII", "Cierre de empresa", "Consultoría para brasileños en Chile"],
+        },
+        {
+          title: "Finanzas empresariales en Chile",
+          text: "Gestión financiera y planificación estratégica para empresas en el mercado chileno.",
+          services: ["Estructuración financiera", "Flujo de caja", "Control financiero", "DRE gerencial", "Definición de precios", "Margen y rentabilidad", "Organización de costos", "Planificación para expansión", "KPIs financieros", "Diagnóstico financiero", "Reestructuración financiera", "Apoyo estratégico"],
+        },
+      ],
+    },
+    {
+      label: "Servicios internacionales - Brasil x Chile",
+      country: "Internacional",
+      accent: "border-t-[#b88228]",
+      cards: [
+        {
+          title: "Consultoría tributaria internacional",
+          text: "Estructuración fiscal y tributaria para operaciones, patrimonio e ingresos entre Brasil y Chile.",
+          services: ["Planificación tributaria internacional", "Consultoría fiscal Brasil x Chile", "Residencia fiscal", "Estructuración patrimonial internacional", "Estructuración societaria", "Doble tributación", "Aplicación del acuerdo Brasil-Chile", "Regularización de ingresos en el exterior", "Retiro de utilidades", "Pró-labore internacional", "Consultoría para empresas binacionales", "Estructuración para prestadores internacionales"],
+        },
+        {
+          title: "Planificación financiera internacional",
+          text: "Organización patrimonial y financiera para personas y empresas con operaciones entre países.",
+          services: ["Planificación financiera internacional", "Organización patrimonial", "Estructuración financiera internacional", "Gestión financiera para expatriados", "Planificación de cambio internacional", "Protección patrimonial", "Remesas internacionales", "Estructuración de ingresos", "Estrategia financiera binacional"],
+        },
+        {
+          title: "Asesoría financiera e inversiones",
+          text: "Consultoría estratégica para crecimiento patrimonial, inversiones e internacionalización de activos.",
+          services: ["Planificación de inversiones", "Perfil de inversionista", "Construcción de cartera", "Diversificación de inversiones", "Estrategia de asignación", "Internacionalización patrimonial", "Estrategia de dolarización", "Planificación de largo plazo", "Organización financiera del socio", "Separación PF x PJ", "Estrategia de retiro de utilidades", "Estructuración de capital", "Estrategia de reinversión"],
+        },
+      ],
+    },
+  ],
+  en: [
+    {
+      label: "Individual - Brazil",
+      country: "Brazil",
+      accent: "border-t-[#0f6f43]",
+      cards: [
+        {
+          title: "Individual accounting",
+          text: "Tax and fiscal advisory for Brazilians in Brazil or living abroad, focused on regularization, planning and compliance with the Brazilian Receita Federal.",
+          services: [
+            "IRPF - Annual individual income tax return.",
+            "Carnê-Leão - Monthly calculation of income received from abroad or from individuals.",
+            "Capital gain - Tax calculation on the sale of assets and rights.",
+            "CPF regularization - Support for irregular, suspended or pending CPF status.",
+            "Definitive departure declaration - Tax regularization for those who left Brazil.",
+            "Declaration of assets abroad - International asset organization.",
+            "Individual tax planning - Strategies for fiscal organization and risk reduction.",
+            "Tax regularization - Support before the Brazilian Receita Federal.",
+            "Consulting for residents abroad - Advisory for Brazilian expatriates.",
+            "Brazil x Chile double taxation analysis - International tax evaluation.",
+          ],
+        },
+        {
+          title: "Individual finance",
+          text: "Financial and asset organization for Brazilians who want to structure their financial life in Brazil or abroad.",
+          services: ["Financial planning", "Financial diagnosis", "Financial organization", "Personal cash flow control", "Asset planning", "Emergency reserve", "Debt organization", "Financial restructuring", "Financial education", "International relocation planning", "Retirement planning", "Investment consulting", "Portfolio structuring", "Asset diversification", "Succession planning"],
+        },
+      ],
+    },
+    {
+      label: "Company - Brazil",
+      country: "Brazil",
+      accent: "border-t-[#0f6f43]",
+      cards: [
+        {
+          title: "Business accounting",
+          text: "Accounting, tax and corporate solutions for Brazilian companies and operations with partners or international structures.",
+          services: ["Company formation", "Contract amendments", "Company closure", "MEI, ME, LTDA and SLU", "CNPJ regularization", "DAS / Simples Nacional", "DASN", "Invoice issuance", "Tax calculation", "Payroll", "Pro-labore", "Bookkeeping", "Tax bookkeeping", "Bank reconciliation", "Balance sheet", "Income statement", "Profit distribution", "Tax installment plans", "DEFIS", "DCTFWeb", "SPED", "ECD", "ECF", "Consulting for partners abroad", "Brazil x Chile fiscal structuring"],
+        },
+        {
+          title: "Business finance",
+          text: "Financial structuring and strategic support for business growth, management and expansion.",
+          services: ["Finance BPO", "Cash flow", "Financial control", "Management income statement", "Business financial planning", "Pricing", "Margin and profitability", "Accounts payable and receivable", "Cash projection", "Growth planning", "Financial KPIs", "Financial diagnosis", "Financial restructuring", "Basic valuation", "Decision-making support"],
+        },
+      ],
+    },
+    {
+      label: "Individual - Chile",
+      country: "Chile",
+      accent: "border-t-[#c91f28]",
+      cards: [
+        {
+          title: "Individual accounting in Chile",
+          text: "Tax advisory and fiscal regularization for Brazilians living in Chile and taxpayers before the SII.",
+          services: ["Operación Renta (F22)", "Annual income declaration", "Tax regularization before the SII", "Inicio de Actividades", "Boleta issuance", "Honorarios", "Tax planning", "Consulting for Brazilians in Chile", "RUT regularization", "Tax residence", "Foreign income declaration", "Tax credits", "Consulting on APV and DFL2"],
+        },
+        {
+          title: "Individual finance in Chile",
+          text: "Financial planning and asset organization for Brazilians living in Chile.",
+          services: ["Financial organization in Chile", "Financial planning for expatriates", "Financial education", "Budget organization in CLP", "International asset planning", "Emergency reserve", "Debt organization", "Goal planning", "Cost of living analysis"],
+        },
+      ],
+    },
+    {
+      label: "Company - Chile",
+      country: "Chile",
+      accent: "border-t-[#c91f28]",
+      cards: [
+        {
+          title: "Business accounting in Chile",
+          text: "Business structuring and tax advisory for companies operating in Chile.",
+          services: ["Company formation in Chile", "SpA incorporation", "EIRL", "Persona Natural con Giro", "Inicio de Actividades", "Company RUT", "Commercial license", "Facturas", "Boletas", "Monthly F29", "Annual F22", "Monthly accounting", "Tax calculation", "Tax planning", "Bookkeeping", "Bank reconciliation", "Payroll", "Administrative structure", "SII regularization", "Company closure", "Consulting for Brazilians in Chile"],
+        },
+        {
+          title: "Business finance in Chile",
+          text: "Financial management and strategic planning for companies in the Chilean market.",
+          services: ["Financial structuring", "Cash flow", "Financial control", "Management income statement", "Pricing", "Margin and profitability", "Cost organization", "Expansion planning", "Financial KPIs", "Financial diagnosis", "Financial restructuring", "Strategic support"],
+        },
+      ],
+    },
+    {
+      label: "International services - Brazil x Chile",
+      country: "International",
+      accent: "border-t-[#b88228]",
+      cards: [
+        {
+          title: "International tax consulting",
+          text: "Fiscal and tax structuring for operations, assets and income between Brazil and Chile.",
+          services: ["International tax planning", "Brazil x Chile fiscal consulting", "Tax residence", "International asset structuring", "Corporate structuring", "Double taxation", "Application of the Brazil-Chile treaty", "Regularization of foreign income", "Profit withdrawal", "International pro-labore", "Consulting for binational companies", "Structuring for international service providers"],
+        },
+        {
+          title: "International financial planning",
+          text: "Asset and financial organization for people and companies with cross-border operations.",
+          services: ["International financial planning", "Asset organization", "International financial structuring", "Financial management for expatriates", "International relocation planning", "Asset protection", "International remittances", "Income structuring", "Binational financial strategy"],
+        },
+        {
+          title: "Financial advisory and investments",
+          text: "Strategic consulting for asset growth, investments and internationalization of assets.",
+          services: ["Investment planning", "Investor profile", "Portfolio construction", "Investment diversification", "Allocation strategy", "Asset internationalization", "Dollarization strategy", "Long-term planning", "Partner financial organization", "Individual x company separation", "Profit withdrawal strategy", "Capital structuring", "Reinvestment strategy"],
+        },
+      ],
+    },
+  ],
+};
+
 export default async function ServicesPage({ params }: PageProps) {
   const { lang: paramLang } = await params;
   const lang = (isLocale(paramLang) ? paramLang : "pt-br") as Locale;
   const dict = getDictionary(lang);
   const copy = servicesPageCopy[lang];
+  const serviceGroups = serviceGroupsByLocale[lang];
 
   return (
     <>
@@ -253,8 +475,8 @@ export default async function ServicesPage({ params }: PageProps) {
         <section className="bg-[#071f3b] py-10 text-white">
           <div className="shell grid gap-5 lg:grid-cols-2">
             {[
-              { image: "/assets/riscos-fiscais.png", title: copy.imageCards[0].title, text: copy.imageCards[0].text },
-              { image: "/assets/erros-imposto.png", title: copy.imageCards[1].title, text: copy.imageCards[1].text },
+              { image: "/assets/riscos-fiscais.webp", title: copy.imageCards[0].title, text: copy.imageCards[0].text },
+              { image: "/assets/erros-imposto.webp", title: copy.imageCards[1].title, text: copy.imageCards[1].text },
             ].map((item) => (
               <article key={item.title} className="grid min-h-[260px] overflow-hidden border border-white/15 bg-white/5 md:grid-cols-[0.8fr_1fr]">
                 <div className="relative min-h-56">
