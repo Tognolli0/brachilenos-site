@@ -20,7 +20,6 @@ import {
   ReceiptText,
   Send,
   ShieldCheck,
-  UsersRound,
 } from "lucide-react";
 import { ButtonLink } from "@/components/ButtonLink";
 import { CommercialLeadForm } from "@/components/CommercialLeadForm";
@@ -102,9 +101,6 @@ export default async function HomePage({ params }: PageProps) {
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <ButtonLink href={`/${lang}#contato`} icon={CalendarCheck}>
                   {dict.home.hero.primary}
-                </ButtonLink>
-                <ButtonLink href={`/${lang}/carreiras`} icon={UsersRound} variant="secondary">
-                  {dict.home.hero.secondary}
                 </ButtonLink>
               </div>
               <div className="mt-8 grid border border-[#071f3b]/10 bg-[#071f3b]/10 sm:grid-cols-3">

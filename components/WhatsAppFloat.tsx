@@ -11,9 +11,9 @@ export function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar pelo WhatsApp"
-      className="focus-ring fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full border border-white/70 bg-[#0f6f43] text-white shadow-[0_16px_34px_rgba(15,111,67,0.32)] transition hover:-translate-y-1 hover:bg-[#128c52] hover:shadow-[0_20px_42px_rgba(15,111,67,0.42)]"
+      className="focus-ring fixed bottom-[calc(env(safe-area-inset-bottom)+5.5rem)] right-4 z-50 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/70 bg-[#0f6f43] text-white shadow-[0_16px_34px_rgba(15,111,67,0.32)] transition hover:-translate-y-1 hover:bg-[#128c52] hover:shadow-[0_20px_42px_rgba(15,111,67,0.42)] sm:bottom-5 sm:right-5 sm:h-14 sm:w-14"
     >
-      <MessageCircle className="h-7 w-7" aria-hidden />
+      <MessageCircle className="h-6 w-6 sm:h-7 sm:w-7" aria-hidden />
     </a>
   );
 }

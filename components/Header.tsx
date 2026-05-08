@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, MessageCircle, UploadCloud, X } from "lucide-react";
+import { Menu, MessageCircle, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { assetPath } from "@/lib/assets";
 import { localeLabels, locales, type Dictionary, type Locale } from "@/lib/dictionaries";
@@ -60,8 +60,8 @@ export function Header({ lang, dict, page }: HeaderProps) {
     { href: `/${lang}/carreiras`, label: dict.nav.careers, page: "careers" },
   ];
 
-  const ctaHref = page === "careers" ? `/${lang}/carreiras#candidatura` : `/${lang}#contato`;
-  const CtaIcon = page === "careers" ? UploadCloud : MessageCircle;
+  const ctaHref = `/${lang}#contato`;
+  const CtaIcon = MessageCircle;
   const skipLabel = {
     "pt-br": "Pular para o conteúdo",
     es: "Saltar al contenido",
@@ -156,7 +156,7 @@ export function Header({ lang, dict, page }: HeaderProps) {
               className="focus-ring inline-flex min-h-10 w-full items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-4 text-center text-sm font-extrabold leading-tight text-white transition hover:-translate-y-0.5 hover:shadow-lg"
             >
               <CtaIcon className="h-4 w-4" />
-              <span>{page === "careers" ? dict.nav.careersCta : dict.nav.commercialCta}</span>
+              <span>{dict.nav.commercialCta}</span>
             </Link>
           </div>
         </nav>
@@ -180,7 +180,7 @@ export function Header({ lang, dict, page }: HeaderProps) {
             className="focus-ring inline-flex min-h-10 w-full items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-4 text-center text-sm font-extrabold leading-tight text-white transition hover:-translate-y-0.5 hover:shadow-lg sm:w-auto"
           >
             <CtaIcon className="h-4 w-4" />
-            <span>{page === "careers" ? dict.nav.careersCta : dict.nav.commercialCta}</span>
+            <span>{dict.nav.commercialCta}</span>
           </Link>
         </div>
       </div>

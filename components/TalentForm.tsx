@@ -59,12 +59,12 @@ export function TalentForm({ dict }: Props) {
       whatsapp: "WhatsApp",
       email: "E-mail",
       country: dict.forms.country,
-      city: dict.forms.city,
-      education: dict.forms.education,
-      registry: dict.forms.registry,
-      area: dict.forms.area,
-      experience: dict.forms.experience,
-      linkedin: "LinkedIn",
+      city: optionalLabel(dict.forms.city),
+      education: optionalLabel(dict.forms.education),
+      registry: optionalLabel(dict.forms.registry),
+      area: optionalLabel(dict.forms.area),
+      experience: optionalLabel(dict.forms.experience),
+      linkedin: optionalLabel("LinkedIn"),
       interest: dict.forms.interest,
       message: dict.forms.message,
     }),
@@ -187,7 +187,7 @@ export function TalentForm({ dict }: Props) {
       <Select label={labels.interest} name="interest" value={values.interest} error={touched.interest ? errors.interest : ""} onChange={updateField} onBlur={markTouched} options={[...dict.forms.interests]} placeholder={dict.forms.choose} required />
 
       <label className="field-label">
-        {dict.forms.portfolio}
+        {optionalLabel(dict.forms.portfolio)}
         <input
           ref={fileInputRef}
           name="portfolio"
@@ -216,7 +216,7 @@ export function TalentForm({ dict }: Props) {
         {touched.portfolio && errors.portfolio ? <FieldError id="portfolio-error">{errors.portfolio}</FieldError> : null}
       </label>
 
-      <Textarea label={labels.message} name="message" value={values.message} onChange={updateField} onBlur={markTouched} placeholder={dict.forms.talentPlaceholder} />
+      <Textarea label={optionalLabel(labels.message)} name="message" value={values.message} onChange={updateField} onBlur={markTouched} placeholder={dict.forms.talentPlaceholder} />
       <button type="submit" disabled={submitting} className="focus-ring btn-submit">
         <Send className="h-5 w-5" aria-hidden />
         <span>{submitting ? dict.forms.sending : dict.forms.talentSubmit}</span>
@@ -271,6 +271,10 @@ function formatFileSize(size: number) {
   }
 
   return `${(size / 1024 / 1024).toFixed(1)} MB`;
+}
+
+function optionalLabel(label: string) {
+  return `${label} (opcional)`;
 }
 
 function Field({
