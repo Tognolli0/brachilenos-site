@@ -20,13 +20,20 @@ export const dictionaries = {
   "pt-br": {
     meta: {
       homeTitle: "Contabilidade Brachilenos",
+      aboutTitle: "Quem Somos | Contabilidade Brachilenos",
+      servicesTitle: "Soluções Contábeis Brasil x Chile | Contabilidade Brachilenos",
       careersTitle: "Carreiras e Parceiros",
       homeDescription:
         "Contabilidade, gestão financeira e planejamento tributário para brasileiros que empreendem entre Brasil e Chile.",
+      aboutDescription:
+        "Conheça a Contabilidade Brachilenos: assessoria contábil, financeira e tributária para pessoas, empresas e operações Brasil x Chile.",
+      servicesDescription:
+        "Serviços de contabilidade, finanças, regularização fiscal, planejamento tributário e consultoria internacional para Brasil e Chile.",
       careersDescription:
         "Trabalhe conosco, seja parceiro ou entre para a rede técnica Brasil x Chile da BRACHILENOS.",
     },
     nav: {
+      home: "Início",
       about: "Quem somos",
       solutions: "Soluções",
       audiences: "Perfis",
@@ -63,7 +70,9 @@ export const dictionaries = {
       },
       about: {
         eyebrow: "Quem somos",
-        title: "Estratégia, contabilidade e finanças para operar entre Brasil e Chile",
+        title: "Contabilidade, finanças e estratégia para Brasil e Chile",
+        subtitle:
+          "Apoiamos pessoas, empresas, parceiros e profissionais que precisam operar com mais clareza, segurança e planejamento entre os dois países.",
         markers: ["Brasil", "Chile", "Operações binacionais"],
         paragraphs: [
           "A Brachilenos é uma empresa especializada em soluções contábeis, financeiras e estratégicas para brasileiros no Chile e chilenos no Brasil.",
@@ -474,13 +483,20 @@ export const dictionaries = {
   es: {
     meta: {
       homeTitle: "Contabilidad Brachilenos",
+      aboutTitle: "Quiénes Somos | Contabilidad Brachilenos",
+      servicesTitle: "Soluciones Contables Brasil x Chile | Contabilidad Brachilenos",
       careersTitle: "Carreras y Socios",
       homeDescription:
         "Contabilidad, gestión financiera y planificación tributaria para brasileños que emprenden entre Brasil y Chile.",
+      aboutDescription:
+        "Conoce Contabilidad Brachilenos: asesoría contable, financiera y tributaria para personas, empresas y operaciones Brasil x Chile.",
+      servicesDescription:
+        "Servicios de contabilidad, finanzas, regularización fiscal, planificación tributaria y consultoría internacional para Brasil y Chile.",
       careersDescription:
         "Trabaja con nosotros, sé socio o entra a la red técnica Brasil x Chile de BRACHILENOS.",
     },
     nav: {
+      home: "Inicio",
       about: "Quiénes somos",
       solutions: "Soluciones",
       audiences: "Perfiles",
@@ -517,7 +533,9 @@ export const dictionaries = {
       },
       about: {
         eyebrow: "Quiénes somos",
-        title: "Estrategia, contabilidad y finanzas para operar entre Brasil y Chile",
+        title: "Contabilidad, finanzas y estrategia para Brasil y Chile",
+        subtitle:
+          "Apoyamos a personas, empresas, socios y profesionales que necesitan operar con más claridad, seguridad y planificación entre los dos países.",
         markers: ["Brasil", "Chile", "Operaciones binacionales"],
         paragraphs: [
           "Brachilenos es una empresa especializada en soluciones contables, financieras y estratégicas para brasileños en Chile y chilenos en Brasil.",
@@ -811,13 +829,20 @@ export const dictionaries = {
   en: {
     meta: {
       homeTitle: "Brachilenos Accounting",
+      aboutTitle: "About Us | Brachilenos Accounting",
+      servicesTitle: "Brazil x Chile Accounting Services | Brachilenos Accounting",
       careersTitle: "Careers and Partners",
       homeDescription:
         "Accounting, financial management and tax planning for Brazilians building between Brazil and Chile.",
+      aboutDescription:
+        "Meet Brachilenos Accounting: accounting, financial and tax advisory for people, companies and Brazil x Chile operations.",
+      servicesDescription:
+        "Accounting, finance, tax regularization, tax planning and international advisory services for Brazil and Chile.",
       careersDescription:
         "Work with us, become a partner or join the BRACHILENOS Brazil x Chile technical network.",
     },
     nav: {
+      home: "Home",
       about: "About us",
       solutions: "Solutions",
       audiences: "Profiles",
@@ -849,7 +874,9 @@ export const dictionaries = {
       },
       about: {
         eyebrow: "About us",
-        title: "Strategy, accounting and finance for operating between Brazil and Chile",
+        title: "Accounting, finance and strategy for Brazil and Chile",
+        subtitle:
+          "We support people, companies, partners and professionals who need to operate with more clarity, security and planning between both countries.",
         markers: ["Brazil", "Chile", "Binational operations"],
         paragraphs: [
           "Brachilenos is a company specialized in accounting, financial and strategic solutions for Brazilians in Chile and Chileans in Brazil.",

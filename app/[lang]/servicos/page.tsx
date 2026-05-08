@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   AlertTriangle,
@@ -18,6 +19,7 @@ import {
 import { ButtonLink } from "@/components/ButtonLink";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { assetPath } from "@/lib/assets";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/dictionaries";
 
 type PageProps = {
@@ -34,8 +36,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const dict = getDictionary(lang);
 
   return {
-    title: `${dict.nav.solutions} | ${dict.meta.homeTitle}`,
-    description: dict.meta.homeDescription,
+    title: dict.meta.servicesTitle,
+    description: dict.meta.servicesDescription,
+    alternates: {
+      canonical: `/${lang}/servicos`,
+      languages: {
+        "pt-BR": "/pt-br/servicos",
+        es: "/es/servicos",
+        en: "/en/servicos",
+      },
+    },
   };
 }
 
@@ -151,6 +161,7 @@ export default async function ServicesPage({ params }: PageProps) {
   const { lang: paramLang } = await params;
   const lang = (isLocale(paramLang) ? paramLang : "pt-br") as Locale;
   const dict = getDictionary(lang);
+  const copy = servicesPageCopy[lang];
 
   return (
     <>
@@ -195,12 +206,31 @@ export default async function ServicesPage({ params }: PageProps) {
           </div>
         </section>
 
+        <section className="bg-[#071f3b] py-10 text-white">
+          <div className="shell grid gap-5 lg:grid-cols-2">
+            {[
+              { image: "/assets/riscos-fiscais.png", title: copy.imageCards[0].title, text: copy.imageCards[0].text },
+              { image: "/assets/erros-imposto.png", title: copy.imageCards[1].title, text: copy.imageCards[1].text },
+            ].map((item) => (
+              <article key={item.title} className="grid min-h-[260px] overflow-hidden border border-white/15 bg-white/5 md:grid-cols-[0.8fr_1fr]">
+                <div className="relative min-h-56">
+                  <Image src={assetPath(item.image)} alt={item.title} fill sizes="(min-width: 1024px) 280px, 100vw" className="object-cover object-top" />
+                </div>
+                <div className="flex flex-col justify-center p-6">
+                  <h2 className="display-serif text-2xl font-bold leading-tight text-white">{item.title}</h2>
+                  <p className="mt-3 leading-7 text-white/75">{item.text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section className="section-pad bg-[#eef4f2]">
           <div className="shell">
             <SectionHeading
-              eyebrow="Serviços por perfil"
-              title="Blocos de atendimento organizados por país, pessoa física, empresa e operação internacional"
-              text="A página de serviços foi estruturada para o cliente encontrar rapidamente o tipo de apoio que precisa, sem misturar demandas pessoais, empresariais e binacionais."
+              eyebrow={copy.detailEyebrow}
+              title={copy.detailTitle}
+              text={copy.detailText}
             />
             <div className="grid gap-7">
               {serviceGroups.map((group, index) => {
@@ -220,7 +250,7 @@ export default async function ServicesPage({ params }: PageProps) {
                     </div>
                     <div className="grid gap-4 lg:grid-cols-2">
                       {group.cards.map((card) => (
-                        <ServiceDetailCard key={card.title} card={card} lang={lang} />
+                        <ServiceDetailCard key={card.title} card={card} lang={lang} cta={copy.cardCta} />
                       ))}
                     </div>
                   </section>
@@ -325,9 +355,11 @@ function SectionHeading({ eyebrow, title, text }: { eyebrow: string; title: stri
 function ServiceDetailCard({
   card,
   lang,
+  cta,
 }: {
   card: { title: string; text: string; services: string[] };
   lang: Locale;
+  cta: string;
 }) {
   return (
     <article className="min-w-0 border border-[#d9e0e6] bg-[#f8faf9] p-5 shadow-[0_12px_32px_rgba(7,31,59,.06)] sm:p-6">
@@ -347,8 +379,44 @@ function ServiceDetailCard({
         ))}
       </div>
       <Link href={`/${lang}#contato`} className="mt-5 inline-flex border-b-2 border-[#b88228] font-extrabold text-[#071f3b]">
-        Solicitar orientação
+        {cta}
       </Link>
     </article>
   );
 }
+
+const servicesPageCopy = {
+  "pt-br": {
+    detailEyebrow: "Serviços por perfil",
+    detailTitle: "Blocos de atendimento por país, pessoa física, empresa e operação internacional",
+    detailText:
+      "A página foi estruturada para o cliente encontrar rapidamente o tipo de apoio que precisa, sem misturar demandas pessoais, empresariais e binacionais.",
+    cardCta: "Solicitar orientação",
+    imageCards: [
+      { title: "Risco fiscal mapeado antes da decisão", text: "Residência fiscal, renda no exterior, dupla tributação e documentos analisados antes da execução." },
+      { title: "Planejamento para evitar retrabalho", text: "Organização contábil e financeira para reduzir inconsistências, multas e decisões sem visibilidade." },
+    ],
+  },
+  es: {
+    detailEyebrow: "Servicios por perfil",
+    detailTitle: "Bloques de atención por país, persona natural, empresa y operación internacional",
+    detailText:
+      "La página fue estructurada para que el cliente encuentre rápidamente el tipo de apoyo que necesita, sin mezclar demandas personales, empresariales y binacionales.",
+    cardCta: "Solicitar orientación",
+    imageCards: [
+      { title: "Riesgo fiscal mapeado antes de decidir", text: "Residencia fiscal, renta exterior, doble tributación y documentos revisados antes de ejecutar." },
+      { title: "Planificación para evitar retrabajo", text: "Organización contable y financiera para reducir inconsistencias, multas y decisiones sin visibilidad." },
+    ],
+  },
+  en: {
+    detailEyebrow: "Services by profile",
+    detailTitle: "Service blocks by country, individual, company and international operation",
+    detailText:
+      "This page is structured so clients can quickly find the support they need without mixing personal, business and binational demands.",
+    cardCta: "Request guidance",
+    imageCards: [
+      { title: "Tax risk mapped before decisions", text: "Tax residence, foreign income, double taxation and documents reviewed before execution." },
+      { title: "Planning that prevents rework", text: "Accounting and financial organization to reduce inconsistencies, penalties and blind decisions." },
+    ],
+  },
+} satisfies Record<Locale, { detailEyebrow: string; detailTitle: string; detailText: string; cardCta: string; imageCards: { title: string; text: string }[] }>;

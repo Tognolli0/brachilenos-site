@@ -54,7 +54,7 @@ export function Header({ lang, dict, page }: HeaderProps) {
   };
 
   const navItems = [
-    { href: `/${lang}`, label: "Home", page: "home" },
+    { href: `/${lang}`, label: dict.nav.home, page: "home" },
     { href: `/${lang}/sobre`, label: dict.nav.about, page: "about" },
     { href: `/${lang}/servicos`, label: dict.nav.solutions, page: "services" },
     { href: `/${lang}/carreiras`, label: dict.nav.careers, page: "careers" },
