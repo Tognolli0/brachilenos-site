@@ -19,35 +19,27 @@ export const localeLabels: Record<Locale, string> = {
 export const dictionaries = {
   "pt-br": {
     meta: {
-      homeTitle: "Contabilidade Brachilenos",
-      aboutTitle: "Quem Somos | Contabilidade Brachilenos",
-      servicesTitle: "Soluções Contábeis Brasil x Chile | Contabilidade Brachilenos",
-      careersTitle: "Carreiras e Parceiros",
+      homeTitle: "Contabilidade Brasil x Chile",
+      careersTitle: "Trabalhe Conosco",
       homeDescription:
         "Contabilidade, gestão financeira e planejamento tributário para brasileiros que empreendem entre Brasil e Chile.",
-      aboutDescription:
-        "Conheça a Contabilidade Brachilenos: assessoria contábil, financeira e tributária para pessoas, empresas e operações Brasil x Chile.",
-      servicesDescription:
-        "Serviços de contabilidade, finanças, regularização fiscal, planejamento tributário e consultoria internacional para Brasil e Chile.",
       careersDescription:
-        "Trabalhe conosco, seja parceiro ou entre para a rede técnica Brasil x Chile da BRACHILENOS.",
+        "Trabalhe conosco ou cadastre-se como prestador de serviço na operação Brasil x Chile da BRACHILENOS.",
     },
     nav: {
-      home: "Início",
-      about: "Quem somos",
       solutions: "Soluções",
       audiences: "Perfis",
       process: "Processo",
-      careers: "Carreiras",
+      careers: "Trabalhe Conosco",
       content: "Conteúdo",
       contact: "Contato",
       commercialCta: "Falar com especialista",
-      careersCta: "Enviar currículo",
+      careersCta: "Enviar cadastro",
     },
     home: {
       hero: {
         eyebrow: "Operação contábil Brasil x Chile",
-        title: "Contabilidade Brachilenos",
+        title: "BRACHILENOS",
         subtitle:
           "Contabilidade, gestão financeira e planejamento tributário para brasileiros que empreendem, investem ou estruturam operações entre Brasil e Chile.",
         primary: "Solicitar diagnóstico",
@@ -68,22 +60,6 @@ export const dictionaries = {
           "Rede técnica Brasil x Chile em expansão",
         ],
       },
-      about: {
-        eyebrow: "Quem somos",
-        title: "Contabilidade, finanças e estratégia para Brasil e Chile",
-        subtitle:
-          "Apoiamos pessoas, empresas, parceiros e profissionais que precisam operar com mais clareza, segurança e planejamento entre os dois países.",
-        markers: ["Brasil", "Chile", "Operações binacionais"],
-        paragraphs: [
-          "A Brachilenos é uma empresa especializada em soluções contábeis, financeiras e estratégicas para brasileiros no Chile e chilenos no Brasil.",
-          "Atuamos conectando pessoas, empresas e profissionais aos dois mercados através de uma estrutura integrada de assessoria empresarial, tributária e financeira, oferecendo suporte para quem deseja empreender, investir, expandir operações ou regularizar sua situação entre Brasil e Chile.",
-          "Nossa atuação combina conhecimento técnico, planejamento estratégico e uma rede de profissionais parceiros nos dois países, permitindo um atendimento alinhado às legislações, exigências fiscais e particularidades operacionais de cada mercado.",
-          "Oferecemos soluções para pessoa física e jurídica, incluindo abertura e regularização de empresas, planejamento tributário, assessoria contábil, estruturação financeira, organização patrimonial e consultoria internacional para operações binacionais.",
-          "Mais do que executar processos, nosso objetivo é proporcionar segurança, organização e eficiência para clientes que buscam crescer de forma estruturada no cenário internacional.",
-          "Acreditamos que operações entre países exigem visão estratégica, suporte técnico qualificado e profissionais que compreendam a realidade local e internacional de forma integrada.",
-          "Brasil e Chile conectados através de estratégia, contabilidade, finanças e oportunidades.",
-        ],
-      },
       authority: {
         metrics: [
           { value: "BR + CL", label: "Operação pensada para dois países" },
@@ -93,30 +69,30 @@ export const dictionaries = {
         ],
       },
       model: {
-        eyebrow: "Atendimento especializado",
-        title: "Duas portas de entrada para uma operação mais segura",
+        eyebrow: "Como o site vai funcionar",
+        title: "Duas portas de entrada, uma marca de autoridade",
         text:
-          "A BRACHILENOS organiza demandas comerciais, profissionais e parcerias em fluxos separados para responder com mais contexto, precisão e velocidade.",
+          "A experiência separa clientes de profissionais desde o primeiro clique, mantendo comunicação, formulários, base de dados e chamadas adequadas para cada intenção.",
         tracks: [
           {
             title: "Para clientes",
             text:
-              "Atendimento para empresários brasileiros, empresas com faturamento entre países e pessoas que precisam organizar obrigações fiscais, financeiras e tributárias.",
+              "Captar empresários brasileiros, empresas com faturamento entre países e pessoas que precisam organizar obrigações fiscais, financeiras e tributárias.",
             items: [
               "Diagnóstico de estrutura Brasil x Chile",
-              "Contabilidade, BPO financeiro e consultoria",
-              "Contato comercial direcionado para a necessidade certa",
+              "Contratação de contabilidade, BPO e consultoria",
+              "Formulário comercial salvo como lead de cliente",
             ],
             cta: "Quero atendimento",
           },
           {
             title: "Para profissionais e parceiros",
             text:
-              "Canal para contadores, analistas, BPO financeiro, consultores tributários e prestadores no Brasil e no Chile entrarem na rede técnica.",
+              "Atrair contadores, analistas, BPO financeiro, consultores tributários e prestadores no Brasil e no Chile para formar uma rede técnica especializada.",
             items: [
-              "Cadastro por perfil de atuação",
-              "Envio de candidatura, parceria ou prestação de serviço",
-              "Banco de talentos organizado por área técnica",
+              "Página própria de carreiras e parceiros",
+              "Formulário de candidatura com currículo",
+              "Banco de talentos separado por perfil",
             ],
             cta: "Entrar para a rede",
           },
@@ -124,9 +100,9 @@ export const dictionaries = {
       },
       audiences: {
         eyebrow: "Perfis atendidos",
-        title: "Atendimento para quem precisa de contabilidade internacional",
+        title: "O site fala com quem realmente precisa de contabilidade internacional",
         text:
-          "A atuação foi organizada para atender pessoas, empresas e profissionais que precisam de orientação clara entre Brasil e Chile.",
+          "A comunicação foi organizada para atrair leads mais qualificados, reduzindo dúvida inicial e mostrando rapidamente onde a BRACHILENOS consegue ajudar.",
         proofs: ["Empresas com faturamento no Chile", "Brasileiros com empresa no Brasil", "Rede técnica para execução local"],
         cards: [
           {
@@ -191,7 +167,7 @@ export const dictionaries = {
         eyebrow: "Rotina contábil profissional",
         title: "Mais do que declarar: organizar a operação para crescer com segurança",
         text:
-          "O trabalho combina método, controle e previsibilidade para reduzir riscos, organizar documentos e dar mais clareza às decisões entre Brasil e Chile.",
+          "Os melhores sites contábeis não vendem apenas serviço; eles mostram método, controle e previsibilidade. A BRACHILENOS passa a comunicar isso de forma clara.",
         items: [
           {
             tag: "Prazos",
@@ -306,7 +282,7 @@ export const dictionaries = {
         eyebrow: "Dúvidas frequentes",
         title: "Respostas que ajudam o cliente a avançar",
         text:
-          "Perguntas comuns para quem precisa entender se o atendimento faz sentido antes do primeiro contato.",
+          "FAQ aumenta confiança, melhora SEO e reduz atrito antes do primeiro contato.",
         items: [
           {
             question: "A BRACHILENOS atende quem mora no Chile e tem empresa no Brasil?",
@@ -326,7 +302,7 @@ export const dictionaries = {
           {
             question: "O site já está pronto para CRM?",
             answer:
-              "Sim. Os contatos comerciais e o banco de talentos já entram por caminhos separados, o que facilita integração com planilha, CRM, e-mail ou banco de dados.",
+              "Sim. Os formulários usam APIs separadas para leads comerciais e talentos, prontas para integrar com planilha, CRM, e-mail ou Supabase.",
           },
         ],
       },
@@ -345,13 +321,13 @@ export const dictionaries = {
             tag: "Fiscalidade internacional",
             title: "Riscos fiscais de morar no Chile e ter empresa no Brasil",
             text: "Conteúdos práticos para gerar demanda qualificada e mostrar domínio técnico.",
-            image: "/assets/riscos-fiscais.webp",
+            image: "/assets/riscos-fiscais.png",
           },
           {
             tag: "Planejamento tributário",
             title: "Erros que fazem brasileiros pagarem imposto duas vezes",
             text: "Materiais educativos ajudam na busca orgânica e reduzem dúvidas antes do atendimento.",
-            image: "/assets/erros-imposto.webp",
+            image: "/assets/erros-imposto.png",
           },
           {
             tag: "Recrutamento",
@@ -376,13 +352,13 @@ export const dictionaries = {
     careers: {
       hero: {
         eyebrow: "Carreiras e parceiros",
-        title: "Carreiras BRACHILENOS",
+        title: "Trabalhe Conosco BRACHILENOS",
         titleLine: "Carreiras",
         titleBrand: "BRACHILENOS",
         text:
           "Faça parte de uma consultoria especializada em contabilidade, finanças e planejamento tributário entre Brasil e Chile.",
         primary: "Enviar candidatura",
-        secondary: "Quero ser parceiro",
+        secondary: "Prestar serviço",
         networkLabel: "Rede Brasil x Chile",
         networkTitle: "Técnica, estruturada e internacional",
         networkText:
@@ -390,7 +366,7 @@ export const dictionaries = {
       },
       tracks: [
         {
-          title: "Quero trabalhar",
+          title: "Trabalhe Conosco",
           text:
             "Buscamos profissionais com perfil técnico, visão estratégica e interesse em atuar em um ambiente internacional, com foco em excelência, estrutura e crescimento.",
           items: [
@@ -404,7 +380,7 @@ export const dictionaries = {
           cta: "Enviar currículo",
         },
         {
-          title: "Quero ser parceiro",
+          title: "Seja um Parceiro",
           text:
             "Estamos formando uma rede de parceiros estratégicos no Brasil e no Chile para atuação colaborativa em projetos contábeis, tributários, financeiros e societários.",
           items: [
@@ -414,10 +390,10 @@ export const dictionaries = {
             "Legalização e abertura de empresas",
             "Compliance",
           ],
-          cta: "Quero ser parceiro",
+          cta: "Prestar serviço",
         },
         {
-          title: "Quero prestar serviço",
+          title: "Rede Brasil x Chile",
           text:
             "Conectamos profissionais e especialistas que desejam atuar em operações entre Brasil e Chile, com foco em suporte técnico, execução e crescimento estruturado.",
           items: [
@@ -449,68 +425,44 @@ export const dictionaries = {
       message: "Mensagem",
       choose: "Selecione",
       other: "Outro",
-      profile: "Você é",
-      profileOptions: ["Pessoa física", "Empresa", "Parceiro ou profissional"],
-      market: "Onde precisa de apoio?",
-      marketOptions: ["Brasil", "Chile", "Brasil x Chile"],
       clientNeed: "Qual apoio você procura?",
-      clientOptions: ["Regularizar minha situação", "Abrir empresa", "Organizar impostos", "Evitar bitributação", "Contabilidade mensal", "BPO financeiro", "Planejamento tributário", "Falar com especialista"],
-      clientPlaceholder: "Conte brevemente o que você precisa resolver agora: regularização, abertura de empresa, impostos, operação Brasil x Chile ou outro ponto.",
-      clientSubmit: "Quero falar com especialista",
-      sending: "Enviando...",
+      clientOptions: ["Diagnóstico Brasil x Chile", "Contabilidade e fiscal", "Planejamento tributário", "BPO financeiro"],
+      clientPlaceholder: "Descreva sua empresa, onde fatura e qual é a principal dúvida.",
+      clientSubmit: "Solicitar contato",
       talentAreas: ["Contábil", "Fiscal", "Financeiro", "BPO financeiro", "Consultoria tributária", "Outro"],
-      interests: ["Vaga", "Parceria", "Prestação de serviço"],
-      talentSteps: ["Contato", "Perfil", "Experiência"],
-      stepOf: "Etapa",
-      next: "Continuar",
-      back: "Voltar",
+      interests: ["Quero trabalhar", "Prestar serviço"],
       talentPlaceholder: "Conte sua experiência, disponibilidade e como deseja atuar.",
       talentSubmit: "Enviar candidatura",
-      successClient: "Recebemos seu contato. Nossa equipe retorna em até 1 dia útil pelo WhatsApp informado.",
-      successTalent: "Recebemos seus dados. Se houver aderência com a rede, entraremos em contato pelo WhatsApp ou e-mail informado.",
-      error: "Não foi possível concluir o envio agora. Tente novamente em alguns minutos ou fale conosco pelo WhatsApp.",
-      requiredField: "Campo obrigatório.",
-      invalidEmail: "Informe um e-mail válido.",
-      optional: "(opcional)",
-      fileTooLarge: "Arquivo muito grande. O limite é 5 MB.",
-      fileHint: "PDF, DOC, DOCX, PNG ou JPG até 5 MB.",
-      removeFile: "Remover arquivo",
-      applicationReceived: "Recebemos seus dados.",
+      successClient: "Contato enviado como lead comercial. Próxima etapa: integrar CRM, planilha ou e-mail.",
+      successTalent: "Cadastro enviado para o banco de talentos separado por perfil.",
+      error: "Não foi possível enviar agora. Os dados foram mantidos localmente para teste.",
     },
     footer: {
       text:
         "Contabilidade, consultoria financeira e planejamento tributário internacional para brasileiros entre Brasil e Chile.",
       clients: "Clientes",
-      professionals: "Profissionais",
-      partners: "Parceiros",
-      talentBank: "Banco de talentos",
+      professionals: "Trabalhe Conosco",
+      partners: "Prestadores",
+      talentBank: "Cadastro profissional",
       seo: "Buscas estratégicas",
       keywords:
-        "contador brasileiro no Chile, parceria contábil Brasil Chile, vaga analista contábil Chile, BPO financeiro Chile.",
+        "contador brasileiro no Chile, contabilidade Brasil Chile, prestar serviço contábil Chile, BPO financeiro Chile.",
     },
   },
   es: {
     meta: {
-      homeTitle: "Contabilidad Brachilenos",
-      aboutTitle: "Quiénes Somos | Contabilidad Brachilenos",
-      servicesTitle: "Soluciones Contables Brasil x Chile | Contabilidad Brachilenos",
-      careersTitle: "Carreras y Socios",
+      homeTitle: "Contabilidad Brasil x Chile",
+      careersTitle: "Trabaja con nosotros",
       homeDescription:
         "Contabilidad, gestión financiera y planificación tributaria para brasileños que emprenden entre Brasil y Chile.",
-      aboutDescription:
-        "Conoce Contabilidad Brachilenos: asesoría contable, financiera y tributaria para personas, empresas y operaciones Brasil x Chile.",
-      servicesDescription:
-        "Servicios de contabilidad, finanzas, regularización fiscal, planificación tributaria y consultoría internacional para Brasil y Chile.",
       careersDescription:
-        "Trabaja con nosotros, sé socio o entra a la red técnica Brasil x Chile de BRACHILENOS.",
+        "Trabaja con nosotros o regístrate como prestador de servicios en la operación Brasil x Chile de BRACHILENOS.",
     },
     nav: {
-      home: "Inicio",
-      about: "Quiénes somos",
       solutions: "Soluciones",
       audiences: "Perfiles",
       process: "Proceso",
-      careers: "Carreras",
+      careers: "Trabaja con nosotros",
       content: "Contenido",
       contact: "Contacto",
       commercialCta: "Hablar con especialista",
@@ -519,7 +471,7 @@ export const dictionaries = {
     home: {
       hero: {
         eyebrow: "Operación contable Brasil x Chile",
-        title: "Contabilidad Brachilenos",
+        title: "BRACHILENOS",
         subtitle:
           "Contabilidad, gestión financiera y planificación tributaria para brasileños que emprenden, invierten o estructuran operaciones entre Brasil y Chile.",
         primary: "Solicitar diagnóstico",
@@ -540,22 +492,6 @@ export const dictionaries = {
           "Red técnica Brasil x Chile en expansión",
         ],
       },
-      about: {
-        eyebrow: "Quiénes somos",
-        title: "Contabilidad, finanzas y estrategia para Brasil y Chile",
-        subtitle:
-          "Apoyamos a personas, empresas, socios y profesionales que necesitan operar con más claridad, seguridad y planificación entre los dos países.",
-        markers: ["Brasil", "Chile", "Operaciones binacionales"],
-        paragraphs: [
-          "Brachilenos es una empresa especializada en soluciones contables, financieras y estratégicas para brasileños en Chile y chilenos en Brasil.",
-          "Conectamos personas, empresas y profesionales con ambos mercados a través de una estructura integrada de asesoría empresarial, tributaria y financiera, apoyando a quienes desean emprender, invertir, expandir operaciones o regularizar su situación entre Brasil y Chile.",
-          "Nuestra actuación combina conocimiento técnico, planificación estratégica y una red de profesionales aliados en los dos países, permitiendo una atención alineada con las legislaciones, exigencias fiscales y particularidades operativas de cada mercado.",
-          "Ofrecemos soluciones para personas naturales y jurídicas, incluyendo apertura y regularización de empresas, planificación tributaria, asesoría contable, estructuración financiera, organización patrimonial y consultoría internacional para operaciones binacionales.",
-          "Más que ejecutar procesos, nuestro objetivo es entregar seguridad, organización y eficiencia a clientes que buscan crecer de forma estructurada en el escenario internacional.",
-          "Creemos que las operaciones entre países exigen visión estratégica, soporte técnico calificado y profesionales que comprendan la realidad local e internacional de forma integrada.",
-          "Brasil y Chile conectados a través de estrategia, contabilidad, finanzas y oportunidades.",
-        ],
-      },
       authority: {
         metrics: [
           { value: "BR + CL", label: "Operación pensada para dos países" },
@@ -565,27 +501,27 @@ export const dictionaries = {
         ],
       },
       model: {
-        eyebrow: "Atención especializada",
-        title: "Dos puertas de entrada para una operación más segura",
+        eyebrow: "Cómo funcionará el sitio",
+        title: "Dos puertas de entrada, una marca de autoridad",
         text:
-          "BRACHILENOS organiza demandas comerciales, profesionales y alianzas en flujos separados para responder con más contexto, precisión y velocidad.",
+          "La experiencia separa clientes de profesionales desde el primer clic, con comunicación, formularios, base de datos y llamados adecuados para cada intención.",
         tracks: [
           {
             title: "Para clientes",
             text:
-              "Atención para empresarios brasileños, empresas con facturación entre países y personas que necesitan organizar obligaciones fiscales, financieras y tributarias.",
+              "Captar empresarios brasileños, empresas con facturación entre países y personas que necesitan organizar obligaciones fiscales, financieras y tributarias.",
             items: [
               "Diagnóstico de estructura Brasil x Chile",
-              "Contabilidad, BPO financiero y consultoría",
-              "Contacto comercial dirigido a la necesidad correcta",
+              "Contratación de contabilidad, BPO y consultoría",
+              "Formulario comercial guardado como lead de cliente",
             ],
             cta: "Quiero atención",
           },
           {
             title: "Para profesionales y socios",
             text:
-              "Canal para contadores, analistas, BPO financiero, consultores tributarios y prestadores en Brasil y Chile que quieren entrar a la red técnica.",
-            items: ["Registro por perfil de actuación", "Postulación, alianza o prestación de servicio", "Banco de talentos organizado por área técnica"],
+              "Atraer contadores, analistas, BPO financiero, consultores tributarios y prestadores en Brasil y Chile para formar una red técnica especializada.",
+            items: ["Página propia de carreras y socios", "Formulario de postulación con CV", "Banco de talentos separado por perfil"],
             cta: "Entrar a la red",
           },
         ],
@@ -636,7 +572,7 @@ export const dictionaries = {
         eyebrow: "Rutina contable profesional",
         title: "Más que declarar: organizar la operación para crecer con seguridad",
         text:
-          "El trabajo combina método, control y previsibilidad para reducir riesgos, organizar documentos y dar más claridad a las decisiones entre Brasil y Chile.",
+          "Los mejores sitios contables no venden solo servicio; muestran método, control y previsibilidad. BRACHILENOS comunica eso de forma clara.",
         items: [
           {
             tag: "Plazos",
@@ -720,7 +656,7 @@ export const dictionaries = {
         eyebrow: "Preguntas frecuentes",
         title: "Respuestas que ayudan al cliente a avanzar",
         text:
-          "Preguntas comunes para quienes necesitan entender si la atención tiene sentido antes del primer contacto.",
+          "El FAQ aumenta confianza, mejora SEO y reduce fricción antes del primer contacto.",
         items: [
           {
             question: "¿BRACHILENOS atiende a quien vive en Chile y tiene empresa en Brasil?",
@@ -740,7 +676,7 @@ export const dictionaries = {
           {
             question: "¿El sitio ya está listo para CRM?",
             answer:
-              "Sí. Los contactos comerciales y el banco de talentos entran por caminos separados, lo que facilita la integración con planilla, CRM, e-mail o base de datos.",
+              "Sí. Los formularios usan APIs separadas para leads comerciales y talentos, listas para integrar con planilla, CRM, e-mail o Supabase.",
           },
         ],
       },
@@ -755,8 +691,8 @@ export const dictionaries = {
         eyebrow: "Contenido y autoridad",
         title: "Temas que educan clientes y atraen especialistas",
         cards: [
-          { tag: "Fiscalidad internacional", title: "Riesgos fiscales de vivir en Chile y tener empresa en Brasil", text: "Contenidos prácticos para generar demanda calificada y demostrar dominio técnico.", image: "/assets/riscos-fiscais.webp" },
-          { tag: "Planificación tributaria", title: "Errores que hacen que brasileños paguen impuestos dos veces", text: "Materiales educativos ayudan en la búsqueda orgánica y reducen dudas antes de la atención.", image: "/assets/erros-imposto.webp" },
+          { tag: "Fiscalidad internacional", title: "Riesgos fiscales de vivir en Chile y tener empresa en Brasil", text: "Contenidos prácticos para generar demanda calificada y demostrar dominio técnico.", image: "/assets/riscos-fiscais.png" },
+          { tag: "Planificación tributaria", title: "Errores que hacen que brasileños paguen impuestos dos veces", text: "Materiales educativos ayudan en la búsqueda orgánica y reducen dudas antes de la atención.", image: "/assets/erros-imposto.png" },
           { tag: "Reclutamiento", title: "Forma parte de la red Brasil x Chile", text: "Llamados en el blog y pie de página llevan profesionales al banco de talentos separado.", cta: "Ver oportunidades" },
         ],
       },
@@ -781,9 +717,9 @@ export const dictionaries = {
         networkText: "Candidatos, socios y prestadores ingresan por una base separada para el crecimiento ordenado de la operación.",
       },
       tracks: [
-        { title: "Quiero trabajar", text: "Buscamos profesionales con perfil técnico, visión estratégica e interés en actuar en un ambiente internacional, con foco en excelencia, estructura y crecimiento.", items: ["Analista Contable", "Asistente Contable", "Analista Fiscal", "Analista Financiero", "BPO Financiero", "Consultor Tributario"], cta: "Enviar CV" },
-        { title: "Quiero ser socio", text: "Estamos formando una red de socios estratégicos en Brasil y Chile para actuar de forma colaborativa en proyectos contables, tributarios, financieros y societarios.", items: ["Contabilidad, fiscal y nómina", "Tributario y societario", "Financiero y BPO", "Legalización y apertura de empresas", "Compliance"], cta: "Quiero ser socio" },
-        { title: "Quiero prestar servicios", text: "Conectamos profesionales y especialistas que desean actuar en operaciones entre Brasil y Chile, con foco en soporte técnico, ejecución y crecimiento estructurado.", items: ["Especialistas por área técnica", "Socios por país y ciudad", "Prestadores por disponibilidad y perfil"], cta: "Entrar a la red" },
+        { title: "Trabaja con nosotros", text: "Buscamos profesionales con perfil técnico, visión estratégica e interés en actuar en un ambiente internacional, con foco en excelencia, estructura y crecimiento.", items: ["Analista Contable", "Asistente Contable", "Analista Fiscal", "Analista Financiero", "BPO Financiero", "Consultor Tributario"], cta: "Enviar CV" },
+        { title: "Sé un socio", text: "Estamos formando una red de socios estratégicos en Brasil y Chile para actuar de forma colaborativa en proyectos contables, tributarios, financieros y societarios.", items: ["Contabilidad, fiscal y nómina", "Tributario y societario", "Financiero y BPO", "Legalización y apertura de empresas", "Compliance"], cta: "Quiero ser socio" },
+        { title: "Red Brasil x Chile", text: "Conectamos profesionales y especialistas que desean actuar en operaciones entre Brasil y Chile, con foco en soporte técnico, ejecución y crecimiento estructurado.", items: ["Especialistas por área técnica", "Socios por país y ciudad", "Prestadores por disponibilidad y perfil"], cta: "Entrar a la red" },
       ],
       application: {
         eyebrow: "Banco de talentos",
@@ -805,67 +741,43 @@ export const dictionaries = {
       message: "Mensaje",
       choose: "Selecciona",
       other: "Otro",
-      profile: "Tú eres",
-      profileOptions: ["Persona natural", "Empresa", "Socio o profesional"],
-      market: "¿Dónde necesitas apoyo?",
-      marketOptions: ["Brasil", "Chile", "Brasil x Chile"],
       clientNeed: "¿Qué apoyo necesitas?",
-      clientOptions: ["Regularizar mi situación", "Abrir empresa", "Organizar impuestos", "Evitar doble tributación", "Contabilidad mensual", "BPO financiero", "Planificación tributaria", "Hablar con especialista"],
-      clientPlaceholder: "Cuéntanos brevemente qué necesitas resolver ahora: regularización, apertura de empresa, impuestos, operación Brasil x Chile u otro punto.",
-      clientSubmit: "Quiero hablar con especialista",
-      sending: "Enviando...",
+      clientOptions: ["Diagnóstico Brasil x Chile", "Contabilidad y fiscal", "Planificación tributaria", "BPO financiero"],
+      clientPlaceholder: "Describe tu empresa, dónde factura y cuál es la principal duda.",
+      clientSubmit: "Solicitar contacto",
       talentAreas: ["Contable", "Fiscal", "Financiero", "BPO financiero", "Consultoría tributaria", "Otro"],
-      interests: ["Vacante", "Alianza", "Prestación de servicio"],
-      talentSteps: ["Contacto", "Perfil", "Experiencia"],
-      stepOf: "Paso",
-      next: "Continuar",
-      back: "Volver",
+      interests: ["Quiero trabajar", "Prestar servicio"],
       talentPlaceholder: "Cuenta tu experiencia, disponibilidad y cómo deseas actuar.",
       talentSubmit: "Enviar postulación",
-      successClient: "Recibimos tu contacto. Nuestro equipo responde en hasta 1 día hábil por el WhatsApp informado.",
-      successTalent: "Recibimos tus datos. Si hay encaje con la red, entraremos en contacto por WhatsApp o e-mail.",
-      error: "No fue posible completar el envío ahora. Inténtalo nuevamente en unos minutos o contáctanos por WhatsApp.",
-      requiredField: "Campo obligatorio.",
-      invalidEmail: "Ingresa un e-mail válido.",
-      optional: "(opcional)",
-      fileTooLarge: "Archivo demasiado grande. El límite es 5 MB.",
-      fileHint: "PDF, DOC, DOCX, PNG o JPG hasta 5 MB.",
-      removeFile: "Quitar archivo",
-      applicationReceived: "Recibimos tus datos.",
+      successClient: "Contacto enviado como lead comercial. Próxima etapa: integrar CRM, planilla o e-mail.",
+      successTalent: "Registro enviado al banco de talentos separado por perfil.",
+      error: "No fue posible enviar ahora. Los datos se mantuvieron localmente para prueba.",
     },
     footer: {
       text:
         "Contabilidad, consultoría financiera y planificación tributaria internacional para brasileños entre Brasil y Chile.",
       clients: "Clientes",
-      professionals: "Profesionales",
-      partners: "Socios",
-      talentBank: "Banco de talentos",
+      professionals: "Trabaja con nosotros",
+      partners: "Prestadores",
+      talentBank: "Registro profesional",
       seo: "Búsquedas estratégicas",
-      keywords: "contador brasileño en Chile, sociedad contable Brasil Chile, vacante analista contable Chile, BPO financiero Chile.",
+      keywords: "contador brasileño en Chile, contabilidad Brasil Chile, prestación de servicios contables Chile, BPO financiero Chile.",
     },
   },
   en: {
     meta: {
-      homeTitle: "Brachilenos Accounting",
-      aboutTitle: "About Us | Brachilenos Accounting",
-      servicesTitle: "Brazil x Chile Accounting Services | Brachilenos Accounting",
-      careersTitle: "Careers and Partners",
+      homeTitle: "Brazil x Chile Accounting",
+      careersTitle: "Work with us",
       homeDescription:
         "Accounting, financial management and tax planning for Brazilians building between Brazil and Chile.",
-      aboutDescription:
-        "Meet Brachilenos Accounting: accounting, financial and tax advisory for people, companies and Brazil x Chile operations.",
-      servicesDescription:
-        "Accounting, finance, tax regularization, tax planning and international advisory services for Brazil and Chile.",
       careersDescription:
-        "Work with us, become a partner or join the BRACHILENOS Brazil x Chile technical network.",
+        "Work with us or register as a service provider in the BRACHILENOS Brazil x Chile operation.",
     },
     nav: {
-      home: "Home",
-      about: "About us",
       solutions: "Solutions",
       audiences: "Profiles",
       process: "Process",
-      careers: "Careers",
+      careers: "Work with us",
       content: "Content",
       contact: "Contact",
       commercialCta: "Talk to a specialist",
@@ -874,7 +786,7 @@ export const dictionaries = {
     home: {
       hero: {
         eyebrow: "Brazil x Chile accounting operation",
-        title: "Brachilenos Accounting",
+        title: "BRACHILENOS",
         subtitle:
           "Accounting, financial management and tax planning for Brazilians building, investing or structuring operations between Brazil and Chile.",
         primary: "Request diagnosis",
@@ -890,22 +802,6 @@ export const dictionaries = {
           "Growing Brazil x Chile technical network",
         ],
       },
-      about: {
-        eyebrow: "About us",
-        title: "Accounting, finance and strategy for Brazil and Chile",
-        subtitle:
-          "We support people, companies, partners and professionals who need to operate with more clarity, security and planning between both countries.",
-        markers: ["Brazil", "Chile", "Binational operations"],
-        paragraphs: [
-          "Brachilenos is a company specialized in accounting, financial and strategic solutions for Brazilians in Chile and Chileans in Brazil.",
-          "We connect people, companies and professionals to both markets through an integrated business, tax and financial advisory structure, supporting those who want to start a business, invest, expand operations or regularize their situation between Brazil and Chile.",
-          "Our work combines technical knowledge, strategic planning and a network of professional partners in both countries, enabling service aligned with the laws, tax requirements and operational details of each market.",
-          "We offer solutions for individuals and companies, including company formation and regularization, tax planning, accounting advisory, financial structuring, asset organization and international consulting for binational operations.",
-          "More than executing processes, our goal is to provide security, organization and efficiency for clients seeking structured growth in an international context.",
-          "We believe cross-border operations require strategic vision, qualified technical support and professionals who understand both local and international realities in an integrated way.",
-          "Brazil and Chile connected through strategy, accounting, finance and opportunities.",
-        ],
-      },
       authority: {
         metrics: [
           { value: "BR + CL", label: "Operation designed for two countries" },
@@ -915,13 +811,13 @@ export const dictionaries = {
         ],
       },
       model: {
-        eyebrow: "Specialized service",
-        title: "Two entry points for a safer operation",
+        eyebrow: "How the website works",
+        title: "Two entry points, one authority brand",
         text:
-          "BRACHILENOS organizes commercial requests, professional profiles and partnerships in separate flows to respond with more context, precision and speed.",
+          "The experience separates clients from professionals from the first click, with communication, forms, data storage and CTAs tailored to each intent.",
         tracks: [
-          { title: "For clients", text: "Service for Brazilian entrepreneurs, companies billing across countries and people who need to organize fiscal, financial and tax obligations.", items: ["Brazil x Chile structure diagnosis", "Accounting, finance BPO and advisory", "Commercial contact routed to the right need"], cta: "Request service" },
-          { title: "For professionals and partners", text: "A channel for accountants, analysts, finance BPO, tax consultants and providers in Brazil and Chile who want to join the technical network.", items: ["Registration by work profile", "Application, partnership or service provider flow", "Talent bank organized by technical area"], cta: "Join the network" },
+          { title: "For clients", text: "Capture Brazilian entrepreneurs, companies billing across countries and people who need to organize fiscal, financial and tax obligations.", items: ["Brazil x Chile structure diagnosis", "Accounting, BPO and advisory engagement", "Commercial form saved as a client lead"], cta: "Request service" },
+          { title: "For professionals and partners", text: "Attract accountants, analysts, finance BPO, tax consultants and providers in Brazil and Chile to build a specialized technical network.", items: ["Dedicated careers and partners page", "Application form with resume upload", "Talent bank separated by profile"], cta: "Join the network" },
         ],
       },
       audiences: {
@@ -970,7 +866,7 @@ export const dictionaries = {
         eyebrow: "Professional accounting routine",
         title: "Beyond filing: organizing the operation to grow with confidence",
         text:
-          "The work combines method, control and predictability to reduce risks, organize documents and bring more clarity to decisions between Brazil and Chile.",
+          "The strongest accounting websites sell more than service; they show method, control and predictability. BRACHILENOS now communicates that clearly.",
         items: [
           {
             tag: "Deadlines",
@@ -1054,7 +950,7 @@ export const dictionaries = {
         eyebrow: "FAQ",
         title: "Answers that help clients move forward",
         text:
-          "Common questions for people who need to understand whether the service makes sense before the first contact.",
+          "FAQ builds trust, improves SEO and reduces friction before the first contact.",
         items: [
           {
             question: "Does BRACHILENOS serve people living in Chile with a company in Brazil?",
@@ -1074,7 +970,7 @@ export const dictionaries = {
           {
             question: "Is the site ready for CRM integration?",
             answer:
-              "Yes. Commercial contacts and talent bank records already enter through separate paths, which makes integration with spreadsheets, CRM, e-mail or a database easier.",
+              "Yes. Forms use separated APIs for commercial leads and talents, ready to integrate with spreadsheets, CRM, e-mail or Supabase.",
           },
         ],
       },
@@ -1089,8 +985,8 @@ export const dictionaries = {
         eyebrow: "Content and authority",
         title: "Topics that educate clients and attract specialists",
         cards: [
-          { tag: "International taxation", title: "Tax risks of living in Chile and owning a company in Brazil", text: "Practical content generates qualified demand and shows technical authority.", image: "/assets/riscos-fiscais.webp" },
-          { tag: "Tax planning", title: "Mistakes that make Brazilians pay taxes twice", text: "Educational materials support organic search and reduce questions before service.", image: "/assets/erros-imposto.webp" },
+          { tag: "International taxation", title: "Tax risks of living in Chile and owning a company in Brazil", text: "Practical content generates qualified demand and shows technical authority.", image: "/assets/riscos-fiscais.png" },
+          { tag: "Tax planning", title: "Mistakes that make Brazilians pay taxes twice", text: "Educational materials support organic search and reduce questions before service.", image: "/assets/erros-imposto.png" },
           { tag: "Recruiting", title: "Join the Brazil x Chile network", text: "Blog and footer CTAs guide professionals to the separated talent bank.", cta: "View opportunities" },
         ],
       },
@@ -1115,9 +1011,9 @@ export const dictionaries = {
         networkText: "Candidates, partners and service providers enter through a separate base for organized operation growth.",
       },
       tracks: [
-        { title: "I want to work", text: "We seek professionals with technical profile, strategic vision and interest in an international environment focused on excellence, structure and growth.", items: ["Accounting Analyst", "Accounting Assistant", "Tax Analyst", "Finance Analyst", "Finance BPO", "Tax Consultant"], cta: "Send resume" },
-        { title: "I want to partner", text: "We are building a network of strategic partners in Brazil and Chile for collaborative accounting, tax, finance and corporate projects.", items: ["Accounting, tax and payroll", "Tax and corporate", "Finance and BPO", "Company legalization and opening", "Compliance"], cta: "I want to partner" },
-        { title: "I want to provide services", text: "We connect professionals and specialists who want to work in operations between Brazil and Chile, focused on technical support, execution and structured growth.", items: ["Specialists by technical area", "Partners by country and city", "Providers by availability and profile"], cta: "Join the network" },
+        { title: "Work With Us", text: "We seek professionals with technical profile, strategic vision and interest in an international environment focused on excellence, structure and growth.", items: ["Accounting Analyst", "Accounting Assistant", "Tax Analyst", "Finance Analyst", "Finance BPO", "Tax Consultant"], cta: "Send resume" },
+        { title: "Become a Partner", text: "We are building a network of strategic partners in Brazil and Chile for collaborative accounting, tax, finance and corporate projects.", items: ["Accounting, tax and payroll", "Tax and corporate", "Finance and BPO", "Company legalization and opening", "Compliance"], cta: "I want to partner" },
+        { title: "Brazil x Chile Network", text: "We connect professionals and specialists who want to work in operations between Brazil and Chile, focused on technical support, execution and structured growth.", items: ["Specialists by technical area", "Partners by country and city", "Providers by availability and profile"], cta: "Join the network" },
       ],
       application: {
         eyebrow: "Talent bank",
@@ -1139,42 +1035,26 @@ export const dictionaries = {
       message: "Message",
       choose: "Select",
       other: "Other",
-      profile: "You are",
-      profileOptions: ["Individual", "Company", "Partner or professional"],
-      market: "Where do you need support?",
-      marketOptions: ["Brazil", "Chile", "Brazil x Chile"],
       clientNeed: "What support do you need?",
-      clientOptions: ["Regularize my situation", "Open a company", "Organize taxes", "Avoid double taxation", "Monthly accounting", "Finance BPO", "Tax planning", "Talk to a specialist"],
-      clientPlaceholder: "Briefly tell us what you need to solve now: regularization, company formation, taxes, Brazil x Chile operation or another point.",
-      clientSubmit: "Talk to a specialist",
-      sending: "Sending...",
+      clientOptions: ["Brazil x Chile diagnosis", "Accounting and tax", "Tax planning", "Finance BPO"],
+      clientPlaceholder: "Describe your company, where it bills and the main question.",
+      clientSubmit: "Request contact",
       talentAreas: ["Accounting", "Tax", "Finance", "Finance BPO", "Tax consulting", "Other"],
-      interests: ["Job", "Partnership", "Service provider"],
-      talentSteps: ["Contact", "Profile", "Experience"],
-      stepOf: "Step",
-      next: "Continue",
-      back: "Back",
+      interests: ["I want to work", "Service provider"],
       talentPlaceholder: "Tell us about your experience, availability and how you want to work.",
       talentSubmit: "Send application",
-      successClient: "We received your request. Our team will reply within 1 business day through the WhatsApp provided.",
-      successTalent: "We received your details. If there is a fit with the network, we will contact you by WhatsApp or e-mail.",
-      error: "We could not complete the submission now. Please try again in a few minutes or contact us on WhatsApp.",
-      requiredField: "Required field.",
-      invalidEmail: "Enter a valid e-mail.",
-      optional: "(optional)",
-      fileTooLarge: "File too large. The limit is 5 MB.",
-      fileHint: "PDF, DOC, DOCX, PNG or JPG up to 5 MB.",
-      removeFile: "Remove file",
-      applicationReceived: "We received your details.",
+      successClient: "Contact sent as a commercial lead. Next step: integrate CRM, spreadsheet or e-mail.",
+      successTalent: "Profile sent to the talent bank separated by category.",
+      error: "It was not possible to send now. The data was kept locally for testing.",
     },
     footer: {
       text: "Accounting, financial advisory and international tax planning for Brazilians between Brazil and Chile.",
       clients: "Clients",
-      professionals: "Professionals",
-      partners: "Partners",
-      talentBank: "Talent bank",
+      professionals: "Work with us",
+      partners: "Service providers",
+      talentBank: "Professional registration",
       seo: "Strategic searches",
-      keywords: "Brazilian accountant in Chile, Brazil Chile accounting partnership, accounting analyst job Chile, finance BPO Chile.",
+      keywords: "Brazilian accountant in Chile, Brazil Chile accounting, accounting service provider Chile, finance BPO Chile.",
     },
   },
 } as const;

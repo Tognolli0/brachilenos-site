@@ -1,154 +1,50 @@
 "use client";
 
-import { AlertCircle, CheckCircle2, FileText, Send, X } from "lucide-react";
-import { useMemo, useRef, useState } from "react";
+import { Send } from "lucide-react";
+import { useState } from "react";
 import type { Dictionary } from "@/lib/dictionaries";
 
 type Props = {
   dict: Dictionary;
 };
 
-type FormValues = {
-  name: string;
-  whatsapp: string;
-  email: string;
-  country: string;
-  city: string;
-  education: string;
-  registry: string;
-  area: string;
-  experience: string;
-  linkedin: string;
-  interest: string;
-  message: string;
-};
-
-type FieldName = keyof FormValues;
-type Errors = Partial<Record<FieldName | "portfolio", string>>;
-type FileMeta = { name: string; size: number; type: string };
-
-const maxFileSize = 5 * 1024 * 1024;
-
-const initialValues: FormValues = {
-  name: "",
-  whatsapp: "",
-  email: "",
-  country: "",
-  city: "",
-  education: "",
-  registry: "",
-  area: "",
-  experience: "",
-  linkedin: "",
-  interest: "",
-  message: "",
-};
-
 export function TalentForm({ dict }: Props) {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [values, setValues] = useState<FormValues>(initialValues);
-  const [portfolio, setPortfolio] = useState<File | null>(null);
-  const [touched, setTouched] = useState<Partial<Record<FieldName | "portfolio", boolean>>>({});
   const [status, setStatus] = useState("");
-  const [statusType, setStatusType] = useState<"success" | "error" | "">("");
   const [submitting, setSubmitting] = useState(false);
-  const [step, setStep] = useState(0);
-
-  const labels = useMemo(
-    () => ({
-      name: dict.forms.name,
-      whatsapp: "WhatsApp",
-      email: "E-mail",
-      country: dict.forms.country,
-      city: optionalLabel(dict.forms.city, dict),
-      education: optionalLabel(dict.forms.education, dict),
-      registry: optionalLabel(dict.forms.registry, dict),
-      area: optionalLabel(dict.forms.area, dict),
-      experience: optionalLabel(dict.forms.experience, dict),
-      linkedin: optionalLabel("LinkedIn", dict),
-      interest: dict.forms.interest,
-      message: dict.forms.message,
-    }),
-    [dict],
-  );
-
-  const errors = validate(values, portfolio, dict);
-  const steps = dict.forms.talentSteps;
-  const stepFields: FieldName[][] = [
-    ["name", "whatsapp", "email", "interest"],
-    ["country", "city", "area", "experience"],
-    ["education", "registry", "linkedin", "message"],
-  ];
-
-  function goToNextStep(event?: React.MouseEvent<HTMLButtonElement>) {
-    event?.preventDefault();
-    event?.stopPropagation();
-
-    const currentStep = step;
-    const currentFields = stepFields[currentStep];
-    const nextTouched = currentFields.reduce<Partial<Record<FieldName, boolean>>>(
-      (acc, field) => ({ ...acc, [field]: true }),
-      {},
-    );
-
-    setTouched((current) => ({ ...current, ...nextTouched }));
-    setStatus("");
-    setStatusType("");
-
-    const hasStepError = currentFields.some((field) => Boolean(errors[field]));
-    if (hasStepError) {
-      return;
-    }
-
-    setStep(Math.min(currentStep + 1, steps.length - 1));
-  }
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    event.stopPropagation();
     if (submitting) return;
 
-    if (step < steps.length - 1) {
-      setStatus("");
-      setStatusType("");
-      return;
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const payload: Record<string, FormDataEntryValue | { name: string; size: number; type: string } | string> = {};
+    setSubmitting(true);
+
+    for (const [key, value] of formData.entries()) {
+      if (value instanceof File) {
+        payload[key] = value.name ? { name: value.name, size: value.size, type: value.type } : "";
+      } else {
+        payload[key] = value;
+      }
     }
 
-    const nextErrors = validate(values, portfolio, dict);
-    setTouched({
-      name: true,
-      whatsapp: true,
-      email: true,
-      country: true,
-      city: true,
-      education: true,
-      registry: true,
-      area: true,
-      experience: true,
-      linkedin: true,
-      interest: true,
-      message: true,
-      portfolio: true,
-    });
-
-    if (Object.keys(nextErrors).length > 0) {
-      setStatus("");
-      setStatusType("");
-      event.currentTarget.querySelector<HTMLElement>('[aria-invalid="true"]')?.focus();
-      return;
-    }
-
-    const payload: FormValues & { portfolio: FileMeta | ""; group: string } = {
-      ...values,
-      portfolio: portfolio ? { name: portfolio.name, size: portfolio.size, type: portfolio.type } : "",
-      group: getGroup(values.interest, dict),
+    const groupByInterest: Record<string, string> = {
+      [dict.forms.interests[0]]: "candidatos",
+      [dict.forms.interests[1]]: "prestadores",
     };
 
-    setSubmitting(true);
-    setStatus("");
-    setStatusType("");
+    payload.group = groupByInterest[String(payload.interest)] || "candidatos";
 
     try {
+      localStorage.setItem(
+        "brachilenos.talentBank",
+        JSON.stringify([
+          ...JSON.parse(localStorage.getItem("brachilenos.talentBank") || "[]"),
+          { ...payload, createdAt: new Date().toISOString() },
+        ]),
+      );
+
       const response = await fetch("/api/talents", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -159,250 +55,94 @@ export function TalentForm({ dict }: Props) {
         throw new Error("Talent request failed");
       }
 
-      saveLocalTalent(payload);
       setStatus(dict.forms.successTalent);
-      setStatusType("success");
-      setValues(initialValues);
-      setPortfolio(null);
-      setTouched({});
-      setStep(0);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
+      form.reset();
     } catch {
-      saveLocalTalent(payload);
       setStatus(dict.forms.error);
-      setStatusType("error");
     } finally {
       setSubmitting(false);
     }
   }
 
-  function updateField(name: FieldName, value: string) {
-    setValues((current) => ({ ...current, [name]: value }));
-  }
-
-  function markTouched(name: FieldName | "portfolio") {
-    setTouched((current) => ({ ...current, [name]: true }));
-  }
-
-  function onFileChange(event: React.ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0] || null;
-    setPortfolio(file);
-    markTouched("portfolio");
-  }
-
-  function removeFile() {
-    setPortfolio(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-      fileInputRef.current.focus();
-    }
-  }
-
-  function blockEarlyEnterSubmit(event: React.KeyboardEvent<HTMLFormElement>) {
-    if (step < steps.length - 1 && event.key === "Enter") {
-      event.preventDefault();
-    }
-  }
-
   return (
-    <form onSubmit={onSubmit} onKeyDown={blockEarlyEnterSubmit} aria-busy={submitting} noValidate className="form-panel">
-      <div className="mb-6">
-        <div className="mb-3 flex items-center justify-between gap-3 text-xs font-black uppercase tracking-[0.08em] text-[#5c6b78]">
-          <span>
-            {dict.forms.stepOf} {step + 1}/{steps.length}
-          </span>
-          <span className="text-[#b88228]">{steps[step]}</span>
-        </div>
-        <div className="grid grid-cols-3 gap-2" aria-hidden>
-          {steps.map((item, index) => (
-            <span key={item} className={`h-2 ${index <= step ? "bg-[#b88228]" : "bg-[#d9e0e6]"}`} />
-          ))}
-        </div>
+    <form onSubmit={onSubmit} className="min-w-0 border border-[#d9e0e6] bg-white p-4 shadow-[0_12px_32px_rgba(7,31,59,0.06)] sm:p-6">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field label={dict.forms.name} name="name" autoComplete="name" required />
+        <Field label="WhatsApp" name="whatsapp" type="tel" autoComplete="tel" required />
       </div>
-
-      {step === 0 ? (
-        <div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Field label={labels.name} name="name" value={values.name} error={touched.name ? errors.name : ""} onChange={updateField} onBlur={markTouched} autoComplete="name" required />
-            <Field label={labels.whatsapp} name="whatsapp" value={values.whatsapp} error={touched.whatsapp ? errors.whatsapp : ""} onChange={updateField} onBlur={markTouched} type="tel" autoComplete="tel" inputMode="tel" required />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Field label={labels.email} name="email" value={values.email} error={touched.email ? errors.email : ""} onChange={updateField} onBlur={markTouched} type="email" autoComplete="email" required />
-            <Select label={labels.interest} name="interest" value={values.interest} error={touched.interest ? errors.interest : ""} onChange={updateField} onBlur={markTouched} options={[...dict.forms.interests]} placeholder={dict.forms.choose} required />
-          </div>
-        </div>
-      ) : null}
-
-      {step === 1 ? (
-        <div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Select label={labels.country} name="country" value={values.country} error={touched.country ? errors.country : ""} onChange={updateField} onBlur={markTouched} options={["Brasil", "Chile", dict.forms.other]} placeholder={dict.forms.choose} required />
-            <Field label={labels.city} name="city" value={values.city} onChange={updateField} onBlur={markTouched} />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Select label={labels.area} name="area" value={values.area} onChange={updateField} onBlur={markTouched} options={[...dict.forms.talentAreas]} placeholder={dict.forms.choose} />
-            <Field label={labels.experience} name="experience" value={values.experience} onChange={updateField} onBlur={markTouched} />
-          </div>
-        </div>
-      ) : null}
-
-      {step === 2 ? (
-        <div>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <Field label={labels.education} name="education" value={values.education} onChange={updateField} onBlur={markTouched} />
-            <Field label={labels.registry} name="registry" value={values.registry} onChange={updateField} onBlur={markTouched} />
-          </div>
-          <Field label={labels.linkedin} name="linkedin" value={values.linkedin} onChange={updateField} onBlur={markTouched} type="url" />
-          <label className="field-label">
-            {optionalLabel(dict.forms.portfolio, dict)}
-            <input
-              ref={fileInputRef}
-              name="portfolio"
-              type="file"
-              accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
-              aria-invalid={Boolean(touched.portfolio && errors.portfolio)}
-              aria-describedby={touched.portfolio && errors.portfolio ? "portfolio-error" : "portfolio-hint"}
-              onChange={onFileChange}
-              className="focus-ring field-control px-3 py-3 file:mr-3 file:border-0 file:bg-[#071f3b] file:px-3 file:py-2 file:text-sm file:font-bold file:text-white"
-            />
-            <span id="portfolio-hint" className="text-xs font-semibold text-[#5c6b78]">
-              {dict.forms.fileHint}
-            </span>
-            {portfolio ? (
-              <span className="flex items-center justify-between gap-3 border border-[#d9e0e6] bg-[#f8faf9] px-3 py-2 text-sm font-bold text-[#071f3b]">
-                <span className="inline-flex min-w-0 items-center gap-2">
-                  <FileText className="h-4 w-4 shrink-0 text-[#b88228]" aria-hidden />
-                  <span className="truncate">{portfolio.name}</span>
-                  <span className="shrink-0 text-xs text-[#5c6b78]">{formatFileSize(portfolio.size)}</span>
-                </span>
-                <button type="button" onClick={removeFile} className="focus-ring inline-flex h-8 w-8 shrink-0 items-center justify-center border border-[#cbd5df] bg-white text-[#071f3b]" aria-label={dict.forms.removeFile}>
-                  <X className="h-4 w-4" aria-hidden />
-                </button>
-              </span>
-            ) : null}
-            {touched.portfolio && errors.portfolio ? <FieldError id="portfolio-error">{errors.portfolio}</FieldError> : null}
-          </label>
-          <Textarea label={optionalLabel(labels.message, dict)} name="message" value={values.message} onChange={updateField} onBlur={markTouched} placeholder={dict.forms.talentPlaceholder} />
-        </div>
-      ) : null}
-
-      <div className="mt-2 grid gap-3 sm:grid-cols-2">
-        {step > 0 ? (
-          <button type="button" onClick={() => setStep((current) => Math.max(current - 1, 0))} className="focus-ring min-h-12 border border-[#cbd5df] bg-white px-5 font-extrabold text-[#071f3b]">
-            {dict.forms.back}
-          </button>
-        ) : null}
-        {step < steps.length - 1 ? (
-          <button type="button" onClick={goToNextStep} className={`focus-ring btn-submit ${step === 0 ? "sm:col-span-2" : ""}`}>
-            {dict.forms.next}
-          </button>
-        ) : (
-          <button type="submit" disabled={submitting} className="focus-ring btn-submit">
-            <Send className="h-5 w-5" aria-hidden />
-            <span>{submitting ? dict.forms.sending : dict.forms.talentSubmit}</span>
-          </button>
-        )}
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field label="E-mail" name="email" type="email" autoComplete="email" required />
+        <Select label={dict.forms.country} name="country" options={["Brasil", "Chile", dict.forms.other]} placeholder={dict.forms.choose} required />
       </div>
-      <StatusMessage status={status} statusType={statusType} />
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field label={dict.forms.city} name="city" />
+        <Field label={dict.forms.education} name="education" />
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field label={dict.forms.registry} name="registry" />
+        <Select label={dict.forms.area} name="area" options={[...dict.forms.talentAreas]} placeholder={dict.forms.choose} />
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <Field label={dict.forms.experience} name="experience" />
+        <Field label="LinkedIn" name="linkedin" type="url" />
+      </div>
+      <Select label={dict.forms.interest} name="interest" options={[...dict.forms.interests]} placeholder={dict.forms.choose} required />
+      <label className="mb-4 grid gap-2 text-sm font-extrabold text-[#071f3b]">
+        {dict.forms.portfolio}
+        <input
+          name="portfolio"
+          type="file"
+          accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+          className="focus-ring min-w-0 w-full border border-[#cbd5df] bg-white px-3 py-3 font-normal text-[#102235] file:mr-3 file:border-0 file:bg-[#071f3b] file:px-3 file:py-2 file:text-sm file:font-bold file:text-white"
+        />
+      </label>
+      <label className="mb-4 grid gap-2 text-sm font-extrabold text-[#071f3b]">
+        {dict.forms.message}
+        <textarea
+          name="message"
+          rows={4}
+          placeholder={dict.forms.talentPlaceholder}
+          className="focus-ring min-h-32 min-w-0 w-full border border-[#cbd5df] bg-white px-3 py-3 font-normal text-[#102235]"
+        />
+      </label>
+      <button
+        type="submit"
+        disabled={submitting}
+        className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-5 text-center text-sm font-extrabold leading-tight text-white transition hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-wait disabled:opacity-70"
+      >
+        <Send className="h-5 w-5" />
+        <span>{dict.forms.talentSubmit}</span>
+      </button>
+      <p className="mt-3 min-h-6 text-sm font-bold text-[#0f6f43]" aria-live="polite">
+        {status}
+      </p>
     </form>
   );
-}
-
-function validate(values: FormValues, portfolio: File | null, dict: Dictionary): Errors {
-  const errors: Errors = {};
-
-  for (const name of ["name", "whatsapp", "email", "country", "interest"] as FieldName[]) {
-    if (!values[name].trim()) {
-      errors[name] = dict.forms.requiredField;
-    }
-  }
-
-  if (values.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email)) {
-    errors.email = dict.forms.invalidEmail;
-  }
-
-  if (portfolio && portfolio.size > maxFileSize) {
-    errors.portfolio = dict.forms.fileTooLarge;
-  }
-
-  return errors;
-}
-
-function getGroup(interest: string, dict: Dictionary) {
-  const groupByInterest: Record<string, string> = {
-    [dict.forms.interests[0]]: "candidatos",
-    [dict.forms.interests[1]]: "parceiros",
-    [dict.forms.interests[2]]: "prestadores",
-  };
-
-  return groupByInterest[interest] || "candidatos";
-}
-
-function saveLocalTalent(payload: FormValues & { portfolio: FileMeta | ""; group: string }) {
-  try {
-    const current = JSON.parse(localStorage.getItem("brachilenos.talentBank") || "[]");
-    localStorage.setItem("brachilenos.talentBank", JSON.stringify([...current, { ...payload, createdAt: new Date().toISOString() }]));
-  } catch {
-    // Local fallback is best-effort only; form submission should not depend on browser storage.
-  }
-}
-
-function formatFileSize(size: number) {
-  if (size < 1024 * 1024) {
-    return `${Math.max(1, Math.round(size / 1024))} KB`;
-  }
-
-  return `${(size / 1024 / 1024).toFixed(1)} MB`;
-}
-
-function optionalLabel(label: string, dict: Dictionary) {
-  return `${label} ${dict.forms.optional}`;
 }
 
 function Field({
   label,
   name,
-  value,
-  error,
-  onChange,
-  onBlur,
   type = "text",
   autoComplete,
-  inputMode,
   required,
 }: {
   label: string;
-  name: FieldName;
-  value: string;
-  error?: string;
-  onChange: (name: FieldName, value: string) => void;
-  onBlur: (name: FieldName) => void;
+  name: string;
   type?: string;
   autoComplete?: string;
-  inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
   required?: boolean;
 }) {
-  const errorId = `${name}-error`;
-
   return (
-    <label className="field-label">
+    <label className="mb-4 grid gap-2 text-sm font-extrabold text-[#071f3b]">
       {label}
       <input
         name={name}
         type={type}
-        value={value}
         autoComplete={autoComplete}
-        inputMode={inputMode}
         required={required}
-        aria-invalid={Boolean(error)}
-        aria-describedby={error ? errorId : undefined}
-        onChange={(event) => onChange(name, event.target.value)}
-        onBlur={() => onBlur(name)}
-        className="focus-ring field-control field-input"
+        className="focus-ring h-12 min-w-0 w-full border border-[#cbd5df] bg-white px-3 font-normal text-[#102235]"
       />
-      {error ? <FieldError id={errorId}>{error}</FieldError> : null}
     </label>
   );
 }
@@ -410,107 +150,25 @@ function Field({
 function Select({
   label,
   name,
-  value,
-  error,
-  onChange,
-  onBlur,
   options,
   placeholder,
   required,
 }: {
   label: string;
-  name: FieldName;
-  value: string;
-  error?: string;
-  onChange: (name: FieldName, value: string) => void;
-  onBlur: (name: FieldName) => void;
+  name: string;
   options: string[];
   placeholder: string;
   required?: boolean;
 }) {
-  const errorId = `${name}-error`;
-
   return (
-    <label className="field-label">
+    <label className="mb-4 grid gap-2 text-sm font-extrabold text-[#071f3b]">
       {label}
-      <select
-        name={name}
-        value={value}
-        required={required}
-        aria-invalid={Boolean(error)}
-        aria-describedby={error ? errorId : undefined}
-        onChange={(event) => onChange(name, event.target.value)}
-        onBlur={() => onBlur(name)}
-        className="focus-ring field-control field-select"
-      >
+      <select name={name} required={required} className="focus-ring h-12 min-w-0 w-full border border-[#cbd5df] bg-white px-3 font-normal text-[#102235]">
         <option value="">{placeholder}</option>
         {options.map((option) => (
           <option key={option}>{option}</option>
         ))}
       </select>
-      {error ? <FieldError id={errorId}>{error}</FieldError> : null}
     </label>
-  );
-}
-
-function Textarea({
-  label,
-  name,
-  value,
-  error,
-  onChange,
-  onBlur,
-  placeholder,
-}: {
-  label: string;
-  name: FieldName;
-  value: string;
-  error?: string;
-  onChange: (name: FieldName, value: string) => void;
-  onBlur: (name: FieldName) => void;
-  placeholder: string;
-}) {
-  const errorId = `${name}-error`;
-
-  return (
-    <label className="field-label">
-      {label}
-      <textarea
-        name={name}
-        rows={4}
-        value={value}
-        placeholder={placeholder}
-        aria-invalid={Boolean(error)}
-        aria-describedby={error ? errorId : undefined}
-        onChange={(event) => onChange(name, event.target.value)}
-        onBlur={() => onBlur(name)}
-        className="focus-ring field-control field-textarea"
-      />
-      {error ? <FieldError id={errorId}>{error}</FieldError> : null}
-    </label>
-  );
-}
-
-function FieldError({ id, children }: { id: string; children: React.ReactNode }) {
-  return (
-    <span id={id} className="field-error">
-      <AlertCircle className="h-4 w-4 shrink-0" aria-hidden />
-      {children}
-    </span>
-  );
-}
-
-function StatusMessage({ status, statusType }: { status: string; statusType: "success" | "error" | "" }) {
-  if (!status) {
-    return <p className="status-note" aria-live="polite" />;
-  }
-
-  const success = statusType === "success";
-
-  return (
-    <p className={`status-note flex items-start gap-2 ${success ? "text-[#0f6f43]" : "text-[#c91f28]"}`} aria-live="polite">
-      {success ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" aria-hidden /> : <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />}
-      <span>{status}</span>
-    </p>
   );
 }

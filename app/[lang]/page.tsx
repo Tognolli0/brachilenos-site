@@ -1,32 +1,32 @@
-﻿import type { Metadata } from "next";
-import Image from "next/image";
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
+  ArrowRight,
+  AlertTriangle,
   BadgeCheck,
+  BookOpenText,
   BriefcaseBusiness,
   Building2,
   Calculator,
-  CalendarCheck,
   CheckCircle2,
-  Database,
+  ClipboardCheck,
   FileCheck2,
   Globe2,
+  HelpCircle,
   Landmark,
-  Languages,
   LineChart,
-  MapPin,
-  MessageCircle,
-  Network,
   ReceiptText,
-  Send,
+  Scale,
   ShieldCheck,
+  UsersRound,
 } from "lucide-react";
 import { ButtonLink } from "@/components/ButtonLink";
 import { CommercialLeadForm } from "@/components/CommercialLeadForm";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { assetPath } from "@/lib/assets";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/dictionaries";
+import { getSiteContent, solutionSlugs } from "@/lib/site-content";
 
 type PageProps = {
   params: Promise<{ lang: string }>;
@@ -44,18 +44,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: dict.meta.homeTitle,
     description: dict.meta.homeDescription,
-    openGraph: {
-      title: dict.meta.homeTitle,
-      description: dict.meta.homeDescription,
-      url: `/${lang}`,
-      images: [{ url: "/assets/santiago-hero.webp", width: 1024, height: 1536, alt: dict.meta.homeTitle }],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: dict.meta.homeTitle,
-      description: dict.meta.homeDescription,
-      images: ["/assets/santiago-hero.webp"],
-    },
     alternates: {
       canonical: `/${lang}`,
       languages: {
@@ -67,17 +55,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-const serviceIcons = [Calculator, Landmark, LineChart, FileCheck2, BriefcaseBusiness, ShieldCheck];
-const contactIcons = [MessageCircle, Languages, Database];
-const audienceIcons = [Building2, MapPin, Globe2, BriefcaseBusiness];
-const blurDataURL =
-  "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0nMTYnIGhlaWdodD0nMTYnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zyc+PHJlY3Qgd2lkdGg9JzE2JyBoZWlnaHQ9JzE2JyBmaWxsPScjZWVmNGYyJy8+PC9zdmc+";
+const serviceIcons = [Calculator, Scale, LineChart, Building2, Globe2, ShieldCheck];
+const methodIcons = [ClipboardCheck, FileCheck2, BriefcaseBusiness, CheckCircle2];
+const audienceIcons = [Building2, Globe2, BriefcaseBusiness, UsersRound];
+const controlIcons = [ClipboardCheck, Calculator, FileCheck2, CheckCircle2, LineChart, ShieldCheck];
+const riskIcons = [Globe2, Scale, ReceiptText, AlertTriangle];
+const contentIcons = [BookOpenText, Scale, UsersRound];
 
 export default async function HomePage({ params }: PageProps) {
   const { lang: paramLang } = await params;
   const lang = (isLocale(paramLang) ? paramLang : "pt-br") as Locale;
   const dict = getDictionary(lang);
-  const copy = homePageCopy[lang];
+  const content = getSiteContent(lang);
+  const workHref = `/${lang}/${content.routes.work}`;
+  const solutionsHref = `/${lang}/${content.routes.solutions}`;
 
   return (
     <>
@@ -88,103 +79,105 @@ export default async function HomePage({ params }: PageProps) {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "AccountingService",
-            name: "Contabilidade Brachilenos",
+            name: "BRACHILENOS",
             areaServed: ["Brazil", "Chile"],
-            serviceType: [
-              "Accounting",
-              "Tax planning",
-              "Financial BPO",
-              "International tax advisory",
-              "Corporate compliance",
-            ],
+            serviceType: ["Accounting", "Tax planning", "Finance BPO", "International tax advisory"],
             availableLanguage: ["pt-BR", "es", "en"],
             url: process.env.NEXT_PUBLIC_SITE_URL || "https://brachilenos.com",
           }),
         }}
       />
-      <main id="conteudo-principal">
-        <section className="overflow-hidden border-b border-[#071f3b]/10 bg-[linear-gradient(120deg,rgba(248,250,249,.98)_0%,rgba(248,250,249,.92)_48%,rgba(31,107,143,.14)_100%)]">
-          <div className="shell grid min-h-[auto] items-center gap-8 py-10 sm:py-14 lg:min-h-[640px] lg:grid-cols-[minmax(0,1fr)_minmax(360px,0.82fr)] lg:gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(430px,0.86fr)]">
-            <div className="min-w-0 max-w-2xl">
-              <p className="eyebrow mb-3">{dict.home.hero.eyebrow}</p>
-              <h1 className="display-serif text-balance text-[clamp(2.05rem,8.8vw,4.25rem)] font-bold leading-[.95] text-[#071f3b]">
-                {dict.home.hero.title}
+      <main>
+        <section className="overflow-hidden border-b border-[#071f3b]/10 bg-[linear-gradient(120deg,#f8faf9_0%,#ffffff_52%,#eef4f2_100%)]">
+          <div className="shell hero-grid py-12 lg:py-16">
+            <div className="min-w-0">
+              <p className="eyebrow mb-5">{content.home.hero.eyebrow}</p>
+              <h1
+                className="display-serif max-w-3xl text-balance font-bold text-[#071f3b]"
+                style={{ fontSize: "clamp(2rem, 3.8vw, 3.35rem)", lineHeight: 1.08 }}
+              >
+                {content.home.hero.title}
               </h1>
-              <p className="mt-5 max-w-xl text-[clamp(1rem,2vw,1.26rem)] leading-8 text-[#31465a]">
-                {dict.home.hero.subtitle}
+              <p className="mt-5 max-w-2xl text-[clamp(1rem,1.5vw,1.15rem)] leading-8 text-[#31465a]">
+                {content.home.hero.text}
               </p>
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <ButtonLink href={`/${lang}#contato`} icon={CalendarCheck}>
-                  {dict.home.hero.primary}
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <ButtonLink href={`/${lang}#contato`} icon={WhatsAppIcon} className="border-[#071f3b] bg-[#071f3b] text-white">
+                  {content.home.hero.primary}
+                </ButtonLink>
+                <ButtonLink href={`/${lang}#solucoes`} icon={ArrowRight} variant="secondary">
+                  {content.home.hero.secondary}
                 </ButtonLink>
               </div>
-              <div className="mt-8 grid border border-[#071f3b]/10 bg-[#071f3b]/10 sm:grid-cols-3">
-                {dict.home.hero.trust.map((item) => (
-                  <span key={item} className="min-w-0 bg-white p-4 text-sm font-extrabold leading-5 text-[#071f3b] sm:min-h-16">
-                    {item}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-5 grid gap-2 text-sm font-bold text-[#071f3b] sm:grid-cols-2">
-                {dict.home.hero.assurances.map((item) => (
-                  <span key={item} className="inline-flex items-center gap-2">
-                    <BadgeCheck className="h-4 w-4 shrink-0 text-[#0f6f43]" />
-                    {item}
-                  </span>
-                ))}
-              </div>
             </div>
 
-            <div className="relative min-h-[310px] min-w-0 overflow-hidden border border-[#071f3b]/10 bg-white shadow-[0_18px_50px_rgba(7,31,59,.12)] sm:min-h-[390px] lg:min-h-[500px]">
-              <Image
-                src={assetPath("/assets/santiago-hero.webp")}
-                alt={copy.heroImageAlt}
-                fill
-                priority
-                sizes="(min-width: 1280px) 430px, (min-width: 1024px) 38vw, 100vw"
-                className="object-cover object-top"
-                placeholder="blur"
-                blurDataURL={blurDataURL}
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,31,59,.7),rgba(7,31,59,.12)_52%,rgba(248,250,249,.05))]" />
-              <div className="absolute inset-x-3 bottom-3 border-l-4 border-[#b88228] bg-[#071f3b]/95 p-4 text-white sm:inset-x-5 sm:bottom-5 sm:p-5">
-                <span className="block text-sm text-white/70">{dict.home.hero.routeLabel}</span>
-                <strong className="display-serif my-1 block text-2xl sm:text-3xl">{dict.home.hero.routeTitle}</strong>
-                <small className="block text-sm leading-6 text-white/75">{dict.home.hero.routeText}</small>
+            <aside
+              className="min-w-0 border border-[#d9e0e6] bg-white p-5 shadow-[0_18px_48px_rgba(7,31,59,.08)] lg:relative lg:overflow-hidden sm:p-7"
+            >
+              <div className="pointer-events-none absolute -right-16 -top-16 hidden h-52 w-52 rounded-full border-8 border-[#b88228]/20 lg:block" />
+              <div className="mb-6 flex items-center gap-3">
+                <div className="grid h-12 w-12 shrink-0 place-items-center bg-[#071f3b] text-white">
+                  <Landmark className="h-6 w-6" />
+                </div>
+                <div>
+                  <p className="text-xs font-black uppercase text-[#d7aa52]">BRACHILENOS</p>
+                  <h2 className="font-extrabold text-[#071f3b]">Operação integrada Brasil x Chile</h2>
+                </div>
               </div>
-            </div>
+              <div className="grid gap-3">
+                {content.home.proof.map((item) => (
+                  <div key={item.label} className="border-l-4 border-[#b88228] bg-[#f8faf9] p-4">
+                    <strong className="display-serif block text-3xl text-[#071f3b]">{item.value}</strong>
+                    <span className="mt-1 block text-sm font-bold leading-5 text-[#5c6b78]">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            </aside>
           </div>
         </section>
 
-        <section className="border-b border-[#071f3b]/10 bg-white py-8">
-          <div className="shell grid gap-4 md:grid-cols-4">
-            {dict.home.authority.metrics.map((metric) => (
-              <div key={metric.label} className="border-l-4 border-[#b88228] bg-[#f8faf9] p-5">
-                <strong className="display-serif block text-3xl text-[#071f3b]">{metric.value}</strong>
-                <span className="mt-1 block text-sm font-bold text-[#5c6b78]">{metric.label}</span>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section id="modelo" className="section-pad bg-[#eef4f2]">
+        <section id="solucoes" className="section-pad bg-white">
           <div className="shell">
-            <SectionHeading eyebrow={dict.home.model.eyebrow} title={dict.home.model.title} text={dict.home.model.text} />
-            <div className="grid gap-5 md:grid-cols-2">
-              {dict.home.model.tracks.map((track, index) => {
-                const Icon = index === 0 ? Building2 : Network;
+            <SectionHeading eyebrow={content.solutions.indexEyebrow} title={content.home.serviceTitle} text={content.home.serviceText} />
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {content.home.serviceCards.map((service, index) => {
+                const Icon = serviceIcons[index] || BadgeCheck;
                 return (
-                  <article key={track.title} className="border border-[#d9e0e6] border-t-[5px] border-t-[#1f6b8f] bg-white p-7 shadow-[0_12px_32px_rgba(7,31,59,.06)] transition hover:-translate-y-1 hover:shadow-[0_18px_44px_rgba(7,31,59,.1)] even:border-t-[#b88228]">
+                  <article key={service.title} className="min-w-0 border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)]">
                     <Icon className="mb-5 h-9 w-9 text-[#b88228]" />
-                    <h3 className="text-lg font-extrabold text-[#071f3b]">{track.title}</h3>
-                    <p className="mt-3 text-[#5c6b78]">{track.text}</p>
-                    <ul className="my-5 list-disc space-y-2 pl-5 text-[#102235]">
-                      {track.items.map((item) => (
-                        <li key={item}>{item}</li>
+                    <h3 className="text-xl font-extrabold text-[#071f3b]">{service.title}</h3>
+                    <p className="mt-3 leading-7 text-[#5c6b78]">{service.text}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="section-pad bg-[#eef4f2]">
+          <div className="shell">
+            <SectionHeading align="left" eyebrow={content.solutions.indexEyebrow} title={content.solutions.title} text={content.solutions.text} />
+            <div className="grid gap-5 lg:grid-cols-3">
+              {solutionSlugs.map((slug) => {
+                const group = content.solutions.groups[slug];
+                return (
+                  <article key={slug} className="flex min-h-full min-w-0 flex-col border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)]">
+                    <span className="mb-4 inline-flex w-fit bg-[#071f3b] px-3 py-1 text-xs font-black uppercase text-white">
+                      {group.label}
+                    </span>
+                    <h3 className="display-serif text-2xl font-bold leading-tight text-[#071f3b]">{group.title}</h3>
+                    <p className="mt-3 leading-7 text-[#5c6b78]">{group.description}</p>
+                    <ul className="mt-5 grid gap-2 text-sm font-semibold text-[#102235]">
+                      {group.services.slice(0, 4).map((service) => (
+                        <li key={service.title} className="flex gap-2">
+                          <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#0f6f43]" />
+                          <span>{service.title}</span>
+                        </li>
                       ))}
                     </ul>
-                    <Link href={index === 0 ? `/${lang}#contato` : `/${lang}/carreiras`} className="border-b-2 border-[#b88228] font-extrabold text-[#071f3b]">
-                      {track.cta}
+                    <Link href={`${solutionsHref}/${slug}`} className="mt-6 inline-flex items-center gap-2 font-extrabold text-[#071f3b]">
+                      {content.labels.viewDetails}
+                      <ArrowRight className="h-4 w-4" />
                     </Link>
                   </article>
                 );
@@ -193,20 +186,40 @@ export default async function HomePage({ params }: PageProps) {
           </div>
         </section>
 
-        <section id="perfis" className="section-pad bg-white">
+        <section id="quem-somos" className="section-pad bg-white">
+          <div className="shell grid gap-8 lg:grid-cols-[.42fr_1fr]">
+            <div>
+              <p className="eyebrow mb-3">{content.home.aboutEyebrow}</p>
+              <h2 className="display-serif text-balance text-[clamp(2rem,4vw,3.35rem)] font-bold leading-tight text-[#071f3b]">
+                {content.home.aboutTitle}
+              </h2>
+            </div>
+            <div className="grid gap-5 text-[1.02rem] leading-8 text-[#31465a]">
+              {content.home.aboutParagraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="perfis" className="section-pad bg-[#f8faf9]">
           <div className="shell">
-            <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center">
-              <SectionHeading align="left" eyebrow={dict.home.audiences.eyebrow} title={dict.home.audiences.title} text={dict.home.audiences.text} />
-              <AccountingProfilePanel proofs={[...dict.home.audiences.proofs]} copy={copy.profilePanel} />
+            <SectionHeading eyebrow={dict.home.audiences.eyebrow} title={dict.home.audiences.title} text={dict.home.audiences.text} />
+            <div className="mb-7 flex flex-wrap justify-center gap-3">
+              {dict.home.audiences.proofs.map((proof) => (
+                <span key={proof} className="border border-[#d9e0e6] bg-white px-4 py-2 text-sm font-bold text-[#071f3b]">
+                  {proof}
+                </span>
+              ))}
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {dict.home.audiences.cards.map((card, index) => {
-                const Icon = audienceIcons[index];
+                const Icon = audienceIcons[index] || BadgeCheck;
                 return (
-                  <article key={card.title} className="min-w-0 border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)]">
-                    <Icon className="mb-5 h-9 w-9 text-[#b88228]" />
+                  <article key={card.title} className="min-w-0 border border-[#d9e0e6] bg-white p-5 shadow-[0_12px_32px_rgba(7,31,59,.05)]">
+                    <Icon className="mb-4 h-8 w-8 text-[#b88228]" />
                     <h3 className="text-lg font-extrabold text-[#071f3b]">{card.title}</h3>
-                    <p className="mt-3 leading-7 text-[#5c6b78]">{card.text}</p>
+                    <p className="mt-3 text-sm leading-6 text-[#5c6b78]">{card.text}</p>
                   </article>
                 );
               })}
@@ -214,29 +227,42 @@ export default async function HomePage({ params }: PageProps) {
           </div>
         </section>
 
-        <section id="solucoes" className="section-pad bg-white">
+        <section id="processo" className="section-pad bg-[#071f3b] text-white">
           <div className="shell">
-            <div className="mb-10 grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
-              <div>
-                <p className="eyebrow mb-3">{dict.home.solutions.eyebrow}</p>
-                <h2 className="display-serif text-balance text-[clamp(2rem,4vw,3.35rem)] font-bold leading-tight text-[#071f3b]">
-                  {dict.home.solutions.title}
-                </h2>
-              </div>
-              <div className="max-w-3xl">
-                <p className="text-lg leading-8 text-[#5c6b78]">{dict.home.solutions.text}</p>
-                <Link href={`/${lang}/servicos`} className="mt-5 inline-flex border-b-2 border-[#b88228] font-extrabold text-[#071f3b]">
-                  {copy.servicesLink}
-                </Link>
-              </div>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {dict.home.solutions.items.map((item, index) => {
-                const Icon = serviceIcons[index];
+            <SectionHeading eyebrow={content.home.method.eyebrow} title={content.home.method.title} dark />
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              {content.home.method.steps.map((step, index) => {
+                const Icon = methodIcons[index] || CheckCircle2;
                 return (
-                  <article key={item.title} className="min-w-0 border border-[#d9e0e6] border-t-4 border-t-[#b88228] bg-[#f8faf9] p-6">
-                    <Icon className="mb-5 h-8 w-8 text-[#b88228]" aria-hidden />
-                    <h3 className="text-lg font-extrabold text-[#071f3b]">{item.title}</h3>
+                  <article key={step.title} className="min-w-0 border border-white/15 bg-white/[.06] p-6">
+                    <span className="mb-5 flex items-center justify-between gap-4">
+                      <Icon className="h-8 w-8 text-[#d7aa52]" />
+                      <span className="font-black text-white/40">{String(index + 1).padStart(2, "0")}</span>
+                    </span>
+                    <h3 className="text-xl font-extrabold text-white">{step.title}</h3>
+                    <p className="mt-3 leading-7 text-white/75">{step.text}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="section-pad bg-white">
+          <div className="shell">
+            <SectionHeading align="left" eyebrow={dict.home.control.eyebrow} title={dict.home.control.title} text={dict.home.control.text} />
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {dict.home.control.items.map((item, index) => {
+                const Icon = controlIcons[index] || ShieldCheck;
+                return (
+                  <article key={item.title} className="min-w-0 border border-[#d9e0e6] p-5">
+                    <div className="mb-4 flex items-center gap-3">
+                      <span className="grid h-10 w-10 shrink-0 place-items-center bg-[#f8faf9] text-[#b88228]">
+                        <Icon className="h-5 w-5" />
+                      </span>
+                      <span className="text-xs font-black uppercase text-[#b88228]">{item.tag}</span>
+                    </div>
+                    <h3 className="text-xl font-extrabold text-[#071f3b]">{item.title}</h3>
                     <p className="mt-3 leading-7 text-[#5c6b78]">{item.text}</p>
                   </article>
                 );
@@ -245,35 +271,58 @@ export default async function HomePage({ params }: PageProps) {
           </div>
         </section>
 
-        <section id="processo" className="section-pad bg-[linear-gradient(135deg,rgba(7,31,59,.97),rgba(11,52,91,.97))] text-white">
-          <div className="shell">
-            <SectionHeading eyebrow={dict.home.process.eyebrow} title={dict.home.process.title} dark />
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-              {dict.home.process.steps.map((step, index) => (
-                <article key={step.title} className="min-h-64 min-w-0 border border-white/20 bg-white/5 p-6">
-                  <span className="mb-5 grid h-12 w-12 place-items-center bg-[#b88228] font-black text-[#071f3b]">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="text-lg font-extrabold text-white">{step.title}</h3>
-                  <p className="mt-3 leading-7 text-white/75">{step.text}</p>
-                </article>
-              ))}
+        <section className="section-pad bg-[#eef4f2]">
+          <div className="shell grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-start">
+            <div>
+              <p className="eyebrow mb-3">{dict.home.compliance.eyebrow}</p>
+              <h2 className="display-serif text-balance text-[clamp(2rem,4vw,3.35rem)] font-bold leading-tight text-[#071f3b]">
+                {dict.home.compliance.title}
+              </h2>
+              <p className="mt-4 leading-7 text-[#5c6b78]">{dict.home.compliance.text}</p>
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <ButtonLink href={`/${lang}#contato`} icon={AlertTriangle}>
+                  {dict.home.compliance.cta}
+                </ButtonLink>
+                <ButtonLink href={`/${lang}#conteudo`} icon={BookOpenText} variant="secondary">
+                  {dict.home.compliance.secondary}
+                </ButtonLink>
+              </div>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {dict.home.compliance.items.map((item, index) => {
+                const Icon = riskIcons[index] || AlertTriangle;
+                return (
+                  <article key={item.title} className="min-w-0 border border-[#d9e0e6] bg-white p-5 shadow-[0_12px_32px_rgba(7,31,59,.05)]">
+                    <Icon className="mb-4 h-8 w-8 text-[#c91f28]" />
+                    <h3 className="text-lg font-extrabold text-[#071f3b]">{item.title}</h3>
+                    <p className="mt-3 text-sm leading-6 text-[#5c6b78]">{item.text}</p>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>
 
-        <section id="planos" className="section-pad bg-white">
+        <section className="section-pad bg-white">
           <div className="shell">
-            <SectionHeading align="left" eyebrow={dict.home.plans.eyebrow} title={dict.home.plans.title} />
+            <SectionHeading eyebrow={dict.home.plans.eyebrow} title={dict.home.plans.title} />
             <div className="grid gap-5 lg:grid-cols-3">
               {dict.home.plans.items.map((plan, index) => (
-                <article key={plan.title} className={`min-h-[340px] min-w-0 border bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)] sm:p-7 ${index === 1 ? "border-[#b88228]/70 shadow-[0_18px_48px_rgba(184,130,40,.16)]" : "border-[#d9e0e6]"}`}>
-                  {index === 1 ? <div className="mb-4 inline-flex bg-[#0f6f43]/10 px-3 py-1 text-xs font-black uppercase text-[#0f6f43]">{dict.home.plans.featured}</div> : null}
-                  <h3 className="text-xl font-extrabold text-[#071f3b]">{plan.title}</h3>
-                  <p className="mt-3 leading-7 text-[#5c6b78]">{plan.text}</p>
-                  <ul className="mt-5 list-disc space-y-2 pl-5 text-[#102235]">
+                <article
+                  key={plan.title}
+                  className={`min-w-0 border p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)] ${
+                    index === 1 ? "border-[#b88228] bg-[#071f3b] text-white" : "border-[#d9e0e6] bg-white"
+                  }`}
+                >
+                  {index === 1 ? <span className="mb-4 inline-flex bg-[#d7aa52] px-3 py-1 text-xs font-black uppercase text-[#071f3b]">{dict.home.plans.featured}</span> : null}
+                  <h3 className={`display-serif text-2xl font-bold leading-tight ${index === 1 ? "text-white" : "text-[#071f3b]"}`}>{plan.title}</h3>
+                  <p className={`mt-3 leading-7 ${index === 1 ? "text-white/75" : "text-[#5c6b78]"}`}>{plan.text}</p>
+                  <ul className="mt-5 grid gap-2">
                     {plan.bullets.map((bullet) => (
-                      <li key={bullet}>{bullet}</li>
+                      <li key={bullet} className="flex gap-2 text-sm font-semibold">
+                        <BadgeCheck className={`mt-0.5 h-4 w-4 shrink-0 ${index === 1 ? "text-[#d7aa52]" : "text-[#0f6f43]"}`} />
+                        <span>{bullet}</span>
+                      </li>
                     ))}
                   </ul>
                 </article>
@@ -282,39 +331,80 @@ export default async function HomePage({ params }: PageProps) {
           </div>
         </section>
 
-        <section className="bg-[linear-gradient(90deg,rgba(7,31,59,.96),rgba(15,111,67,.9))] py-12 text-white">
-          <div className="shell flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-            <div>
-              <p className="eyebrow mb-3">{dict.home.careerBand.eyebrow}</p>
-              <h2 className="display-serif max-w-3xl text-[clamp(2rem,4vw,3.2rem)] font-bold leading-tight text-white">
-                {dict.home.careerBand.title}
+        <section className="border-y border-[#071f3b]/10 bg-white py-12">
+          <div className="shell flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-3xl">
+              <p className="eyebrow mb-3">{content.home.workBand.eyebrow}</p>
+              <h2 className="display-serif text-balance text-[clamp(1.9rem,4vw,3rem)] font-bold leading-tight text-[#071f3b]">
+                {content.home.workBand.title}
               </h2>
-              <p className="mt-4 max-w-3xl text-white/75">{dict.home.careerBand.text}</p>
+              <p className="mt-4 leading-7 text-[#5c6b78]">{content.home.workBand.text}</p>
             </div>
-            <ButtonLink href={`/${lang}/carreiras`} icon={Send} variant="gold" className="shrink-0">
-              {dict.home.careerBand.cta}
+            <ButtonLink href={workHref} icon={UsersRound} variant="secondary">
+              {content.home.workBand.cta}
             </ButtonLink>
           </div>
         </section>
 
-        <section id="contato" className="section-pad bg-white">
+        <section id="conteudo" className="section-pad bg-[#f8faf9]">
+          <div className="shell">
+            <SectionHeading eyebrow={dict.home.content.eyebrow} title={dict.home.content.title} />
+            <div className="grid gap-4 lg:grid-cols-3">
+              {dict.home.content.cards.map((card, index) => {
+                const Icon = contentIcons[index] || BookOpenText;
+                return (
+                  <article key={card.title} className="min-w-0 border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.05)]">
+                    <span className="mb-5 grid h-12 w-12 place-items-center bg-[#071f3b] text-[#d7aa52]">
+                      <Icon className="h-6 w-6" />
+                    </span>
+                    <p className="text-xs font-black uppercase text-[#b88228]">{card.tag}</p>
+                    <h3 className="mt-2 text-xl font-extrabold text-[#071f3b]">{card.title}</h3>
+                    <p className="mt-3 leading-7 text-[#5c6b78]">{card.text}</p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="section-pad bg-white">
+          <div className="shell grid gap-8 lg:grid-cols-[.78fr_1.22fr] lg:items-start">
+            <div>
+              <p className="eyebrow mb-3">{dict.home.faq.eyebrow}</p>
+              <h2 className="display-serif text-balance text-[clamp(2rem,4vw,3.35rem)] font-bold leading-tight text-[#071f3b]">
+                {dict.home.faq.title}
+              </h2>
+              <p className="mt-4 leading-7 text-[#5c6b78]">{dict.home.faq.text}</p>
+            </div>
+            <div className="grid gap-3">
+              {dict.home.faq.items.map((item) => (
+                <details key={item.question} className="group border border-[#d9e0e6] bg-white">
+                  <summary className="flex cursor-pointer list-none items-start justify-between gap-4 p-5 font-extrabold text-[#071f3b] [&::-webkit-details-marker]:hidden">
+                    <span>{item.question}</span>
+                    <HelpCircle className="h-5 w-5 shrink-0 text-[#b88228]" />
+                  </summary>
+                  <p className="border-t border-[#d9e0e6] px-5 pb-5 pt-4 leading-7 text-[#5c6b78]">{item.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="contato" className="section-pad bg-[#f8faf9]">
           <div className="shell grid gap-9 lg:grid-cols-[.82fr_1.18fr] lg:items-start">
             <div className="lg:sticky lg:top-28">
-              <p className="eyebrow mb-3">{dict.home.contact.eyebrow}</p>
-              <h2 className="display-serif text-[clamp(2rem,4vw,3.35rem)] font-bold leading-tight text-[#071f3b]">
-                {dict.home.contact.title}
+              <p className="eyebrow mb-3">{content.home.contact.eyebrow}</p>
+              <h2 className="display-serif text-balance text-[clamp(2rem,4vw,3.35rem)] font-bold leading-tight text-[#071f3b]">
+                {content.home.contact.title}
               </h2>
-              <p className="mt-4 leading-7 text-[#5c6b78]">{dict.home.contact.text}</p>
+              <p className="mt-4 leading-7 text-[#5c6b78]">{content.home.contact.text}</p>
               <div className="mt-7 grid gap-3">
-                {dict.home.contact.highlights.map((highlight, index) => {
-                  const Icon = contactIcons[index];
-                  return (
-                    <span key={highlight} className="flex min-h-14 items-center gap-3 border border-[#d9e0e6] bg-[#f8faf9] p-3 font-semibold text-[#102235]">
-                      <Icon className="h-5 w-5 shrink-0 text-[#b88228]" />
-                      {highlight}
-                    </span>
-                  );
-                })}
+                {content.home.contact.highlights.map((highlight) => (
+                  <span key={highlight} className="flex min-h-14 items-center gap-3 border border-[#d9e0e6] bg-white p-3 font-semibold text-[#102235]">
+                    <ReceiptText className="h-5 w-5 shrink-0 text-[#b88228]" />
+                    {highlight}
+                  </span>
+                ))}
               </div>
             </div>
             <CommercialLeadForm dict={dict} />
@@ -323,53 +413,6 @@ export default async function HomePage({ params }: PageProps) {
       </main>
       <Footer lang={lang} dict={dict} />
     </>
-  );
-}
-function AccountingProfilePanel({ proofs, copy }: { proofs: string[]; copy: (typeof homePageCopy)[Locale]["profilePanel"] }) {
-  const rows = [
-    { label: copy.rows[0].label, value: copy.rows[0].value, icon: ReceiptText },
-    { label: copy.rows[1].label, value: copy.rows[1].value, icon: LineChart },
-    { label: copy.rows[2].label, value: copy.rows[2].value, icon: Globe2 },
-  ];
-
-  return (
-    <div className="relative min-h-[360px] overflow-hidden border border-[#d9e0e6] bg-[linear-gradient(135deg,#071f3b,#0b345b_52%,#0f6f43)] p-5 text-white shadow-[0_18px_44px_rgba(7,31,59,.14)] sm:p-7">
-      <div className="absolute right-0 top-0 h-28 w-28 border-l border-b border-white/10 bg-white/5" />
-      <div className="relative flex items-start justify-between gap-4">
-        <div>
-          <span className="text-xs font-black uppercase tracking-[0.08em] text-[#d7aa52]">{copy.eyebrow}</span>
-          <h3 className="display-serif mt-2 max-w-md text-balance text-3xl font-bold leading-tight text-white">
-            {copy.title}
-          </h3>
-        </div>
-        <Calculator className="h-10 w-10 shrink-0 text-[#d7aa52]" aria-hidden />
-      </div>
-
-      <div className="relative mt-7 grid gap-3">
-        {rows.map((row) => {
-          const Icon = row.icon;
-          return (
-            <div key={row.label} className="flex items-center gap-3 border border-white/15 bg-white/10 p-3 backdrop-blur">
-              <span className="grid h-10 w-10 shrink-0 place-items-center bg-white text-[#071f3b]">
-                <Icon className="h-5 w-5" aria-hidden />
-              </span>
-              <div className="min-w-0">
-                <strong className="block text-sm text-white">{row.label}</strong>
-                <span className="block text-sm text-white/70">{row.value}</span>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="relative mt-6 grid gap-2 sm:grid-cols-3">
-        {proofs.map((proof) => (
-          <span key={proof} className="min-h-16 border border-white/15 bg-white px-3 py-3 text-sm font-extrabold leading-5 text-[#071f3b] shadow-sm">
-            {proof}
-          </span>
-        ))}
-      </div>
-    </div>
   );
 }
 
@@ -396,53 +439,3 @@ function SectionHeading({
     </div>
   );
 }
-
-const homePageCopy = {
-  "pt-br": {
-    heroImageAlt: "Santiago do Chile com referência Brasil e Chile",
-    servicesLink: "Ver serviços detalhados",
-    profilePanel: {
-      eyebrow: "Mapa de atendimento",
-      title: "Contabilidade, finanças e tributação em uma visão integrada",
-      rows: [
-        { label: "Fiscal", value: "IRPF, SII e impostos" },
-        { label: "Financeiro", value: "caixa, custos e margem" },
-        { label: "Estratégia", value: "Brasil x Chile" },
-      ],
-    },
-  },
-  es: {
-    heroImageAlt: "Santiago de Chile con referencia Brasil y Chile",
-    servicesLink: "Ver servicios detallados",
-    profilePanel: {
-      eyebrow: "Mapa de atención",
-      title: "Contabilidad, finanzas y tributación en una visión integrada",
-      rows: [
-        { label: "Fiscal", value: "F22, SII e impuestos" },
-        { label: "Financiero", value: "caja, costos y margen" },
-        { label: "Estrategia", value: "Brasil x Chile" },
-      ],
-    },
-  },
-  en: {
-    heroImageAlt: "Santiago, Chile with Brazil and Chile reference",
-    servicesLink: "View detailed services",
-    profilePanel: {
-      eyebrow: "Service map",
-      title: "Accounting, finance and tax in one integrated view",
-      rows: [
-        { label: "Tax", value: "IRPF, SII and taxes" },
-        { label: "Finance", value: "cash, costs and margin" },
-        { label: "Strategy", value: "Brazil x Chile" },
-      ],
-    },
-  },
-} satisfies Record<
-  Locale,
-  {
-    heroImageAlt: string;
-    servicesLink: string;
-    profilePanel: { eyebrow: string; title: string; rows: { label: string; value: string }[] };
-  }
->;
-

@@ -1,18 +1,17 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/lib/dictionaries";
-
-export const dynamic = "force-static";
+import { solutionSlugs } from "@/lib/site-content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://brachilenos.com";
-  const routes = ["", "/sobre", "/servicos", "/carreiras"];
+  const routes = ["", "/trabalhe-conosco", ...solutionSlugs.map((slug) => `/solucoes/${slug}`)];
 
   return locales.flatMap((locale) =>
     routes.map((route) => ({
       url: `${siteUrl}/${locale}${route}`,
       lastModified: new Date(),
       changeFrequency: route ? "monthly" : "weekly",
-      priority: route === "" ? 1 : route === "/servicos" ? 0.9 : 0.8,
+      priority: route ? 0.8 : 1,
     })),
   );
 }
