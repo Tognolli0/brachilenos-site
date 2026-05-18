@@ -19,6 +19,7 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
   const solutions = content.solutions.groups;
   const solutionsHref = `/${lang}/${content.routes.solutions}`;
   const workHref = `/${lang}/${content.routes.work}`;
+  const contactLabel = lang === "pt-br" ? "Fale Conosco" : lang === "es" ? "Contacto" : "Contact";
 
   const switchHref = (target: Locale) => {
     const parts = pathname.split("/");
@@ -32,106 +33,105 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
     { href: `/${lang}#quem-somos`, label: lang === "pt-br" ? "Quem Somos" : lang === "es" ? "Quiénes Somos" : "About" },
   ];
 
-  const afterSolutionsNav = [
-    { href: `/${lang}#perfis`, label: dict.nav.audiences },
-    { href: `/${lang}#processo`, label: dict.nav.process },
-    { href: `/${lang}#conteudo`, label: dict.nav.content },
-    { href: workHref, label: dict.nav.careers },
-    { href: `/${lang}#contato`, label: lang === "pt-br" ? "Fale Conosco" : lang === "es" ? "Contacto" : "Contact" },
-  ];
+  const afterSolutionsNav = [{ href: workHref, label: dict.nav.careers }];
 
   return (
     <header className="sticky top-0 z-40 border-b border-[#071f3b]/10 bg-[#f8faf9]/95 text-[#071f3b] backdrop-blur">
-        <div className="shell grid min-h-[72px] grid-cols-[minmax(0,auto)_auto] items-center justify-between gap-4 lg:grid-cols-[auto_minmax(0,1fr)_auto]">
-          <Link href={`/${lang}`} className="display-serif flex min-w-0 items-center gap-3 font-bold text-[#071f3b]">
-            <Image
-              src="/assets/logo-brachilenos.jpeg"
-              width={52}
-              height={52}
-              alt="BRACHILENOS"
-              className="h-11 w-11 shrink-0 border border-[#b88228]/40 bg-white object-cover sm:h-12 sm:w-12"
-              priority
+      <div className="shell grid min-h-[72px] grid-cols-[minmax(0,auto)_auto] items-center justify-between gap-4 lg:grid-cols-[auto_minmax(0,1fr)_auto]">
+        <Link href={`/${lang}`} className="display-serif flex min-w-0 items-center gap-3 font-bold text-[#071f3b]">
+          <Image
+            src="/assets/logo-brachilenos.jpeg"
+            width={52}
+            height={52}
+            alt="BRACHILENOS"
+            className="h-11 w-11 shrink-0 border border-[#b88228]/40 bg-white object-cover sm:h-12 sm:w-12"
+            priority
+          />
+          <span className="truncate text-lg tracking-wide sm:text-xl">BRACHILENOS</span>
+        </Link>
+
+        <details className="group justify-self-end lg:hidden">
+          <summary
+            aria-label="Abrir menu"
+            className="focus-ring grid h-11 w-11 cursor-pointer list-none place-items-center border border-[#d9e0e6] bg-white text-[#071f3b] [&::-webkit-details-marker]:hidden"
+          >
+            <Menu className="h-5 w-5" aria-hidden />
+          </summary>
+          <div className="fixed left-4 right-4 top-[80px] z-50 max-h-[calc(100vh-96px)] overflow-y-auto border border-[#d9e0e6] bg-white p-3 shadow-[0_18px_48px_rgba(7,31,59,.2)]">
+            <MobileNavLinks
+              beforeSolutionsNav={beforeSolutionsNav}
+              afterSolutionsNav={afterSolutionsNav}
+              solutions={solutions}
+              solutionsHref={solutionsHref}
+              lang={lang}
+              switchHref={switchHref}
+              activeWorkHref={workHref}
+              activePage={page}
+              solutionsLabel={dict.nav.solutions}
+              contactLabel={contactLabel}
             />
-            <span className="truncate text-lg tracking-wide sm:text-xl">BRACHILENOS</span>
-          </Link>
+          </div>
+        </details>
 
-          <details className="group justify-self-end lg:hidden">
-            <summary
-              aria-label="Abrir menu"
-              className="focus-ring grid h-11 w-11 cursor-pointer list-none place-items-center border border-[#d9e0e6] bg-white text-[#071f3b] [&::-webkit-details-marker]:hidden"
+        <nav className="hidden min-w-0 items-center justify-center gap-5 text-sm font-bold text-[#5c6b78] lg:flex xl:gap-7">
+          {beforeSolutionsNav.map((item) => (
+            <DesktopLink key={item.href} href={item.href}>
+              {item.label}
+            </DesktopLink>
+          ))}
+
+          <div className="group relative">
+            <Link
+              href={`/${lang}#solucoes`}
+              className={`flex items-center gap-1 border-b-2 py-2 transition hover:border-[#b88228] hover:text-[#071f3b] ${
+                page === "solutions" ? "border-[#b88228] text-[#071f3b]" : "border-transparent"
+              }`}
             >
-              <Menu className="h-5 w-5" />
-            </summary>
-            <div className="fixed left-4 right-4 top-[80px] z-50 max-h-[calc(100vh-96px)] overflow-y-auto border border-[#d9e0e6] bg-white p-3 shadow-[0_18px_48px_rgba(7,31,59,.2)]">
-              <MobileNavLinks
-                beforeSolutionsNav={beforeSolutionsNav}
-                afterSolutionsNav={afterSolutionsNav}
-                solutions={solutions}
-                solutionsHref={solutionsHref}
-                lang={lang}
-                switchHref={switchHref}
-                activeWorkHref={workHref}
-                activePage={page}
-                solutionsLabel={dict.nav.solutions}
-              />
-            </div>
-          </details>
-
-          <nav className="hidden min-w-0 items-center justify-center gap-4 text-[13px] font-bold text-[#5c6b78] lg:flex xl:gap-6 xl:text-sm">
-            {beforeSolutionsNav.map((item) => (
-              <DesktopLink key={item.href} href={item.href}>
-                {item.label}
-              </DesktopLink>
-            ))}
-
-            <div className="group relative">
-              <Link
-                href={`/${lang}#solucoes`}
-                className={`flex items-center gap-1 border-b-2 py-2 transition hover:border-[#b88228] hover:text-[#071f3b] ${
-                  page === "solutions" ? "border-[#b88228] text-[#071f3b]" : "border-transparent"
-                }`}
-              >
-                <span>{dict.nav.solutions}</span>
-                <ChevronDown className="h-4 w-4 shrink-0 transition group-hover:rotate-180" />
-              </Link>
-              <div className="invisible absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                <div className="grid gap-1 border border-[#d9e0e6] bg-white p-2 shadow-[0_16px_40px_rgba(7,31,59,.14)]">
-                  {solutionSlugs.map((slug) => (
-                    <Link
-                      key={slug}
-                      href={`${solutionsHref}/${slug}`}
-                      className="border-l-2 border-transparent px-3 py-3 text-[#071f3b] transition hover:border-[#b88228] hover:bg-[#f8faf9]"
-                    >
-                      <span className="block font-extrabold">{solutions[slug].label}</span>
-                      <span className="mt-1 block text-xs font-semibold leading-5 text-[#5c6b78]">
-                        {solutions[slug].eyebrow}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
+              <span>{dict.nav.solutions}</span>
+              <ChevronDown className="h-4 w-4 shrink-0 transition group-hover:rotate-180" aria-hidden />
+            </Link>
+            <div className="invisible absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+              <div className="grid gap-1 border border-[#d9e0e6] bg-white p-2 shadow-[0_16px_40px_rgba(7,31,59,.14)]">
+                {solutionSlugs.map((slug) => (
+                  <Link
+                    key={slug}
+                    href={`${solutionsHref}/${slug}`}
+                    className="border-l-2 border-transparent px-3 py-3 text-[#071f3b] transition hover:border-[#b88228] hover:bg-[#f8faf9]"
+                  >
+                    <span className="block font-extrabold">{solutions[slug].label}</span>
+                    <span className="mt-1 block text-xs font-semibold leading-5 text-[#5c6b78]">{solutions[slug].eyebrow}</span>
+                  </Link>
+                ))}
               </div>
             </div>
-
-            {afterSolutionsNav.map((item) => {
-              const active = page === "work" ? item.href === workHref : false;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`whitespace-nowrap border-b-2 py-2 transition hover:border-[#b88228] hover:text-[#071f3b] ${
-                    active ? "border-[#b88228] text-[#071f3b]" : "border-transparent"
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-
-          <div className="hidden justify-end lg:flex">
-            <LanguageSwitcher lang={lang} switchHref={switchHref} />
           </div>
+
+          {afterSolutionsNav.map((item) => {
+            const active = page === "work" ? item.href === workHref : false;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`whitespace-nowrap border-b-2 py-2 transition hover:border-[#b88228] hover:text-[#071f3b] ${
+                  active ? "border-[#b88228] text-[#071f3b]" : "border-transparent"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="hidden items-center justify-end gap-3 lg:flex">
+          <Link
+            href={`/${lang}#contato`}
+            className="focus-ring inline-flex min-h-10 items-center justify-center border border-[#071f3b] bg-[#071f3b] px-4 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:shadow-lg"
+          >
+            {contactLabel}
+          </Link>
+          <LanguageSwitcher lang={lang} switchHref={switchHref} />
         </div>
+      </div>
     </header>
   );
 }
@@ -154,6 +154,7 @@ function MobileNavLinks({
   activePage,
   activeWorkHref,
   solutionsLabel,
+  contactLabel,
 }: {
   beforeSolutionsNav: Array<{ href: string; label: string }>;
   afterSolutionsNav: Array<{ href: string; label: string }>;
@@ -164,6 +165,7 @@ function MobileNavLinks({
   activePage: HeaderProps["page"];
   activeWorkHref: string;
   solutionsLabel: string;
+  contactLabel: string;
 }) {
   return (
     <div className="grid gap-2 text-sm font-bold">
@@ -175,7 +177,7 @@ function MobileNavLinks({
       <div className={`border border-[#d9e0e6] ${activePage === "solutions" ? "bg-[#f8faf9]" : "bg-white"}`}>
         <Link href={`/${lang}#solucoes`} className="flex items-center justify-between px-3 py-3 text-[#071f3b]">
           <span>{solutionsLabel}</span>
-          <ChevronDown className="h-4 w-4" />
+          <ChevronDown className="h-4 w-4" aria-hidden />
         </Link>
         <div className="grid border-t border-[#d9e0e6]">
           {solutionSlugs.map((slug) => (
@@ -191,6 +193,9 @@ function MobileNavLinks({
           {item.label}
         </MobileLink>
       ))}
+      <Link href={`/${lang}#contato`} className="border border-[#071f3b] bg-[#071f3b] px-3 py-3 text-center font-extrabold text-white">
+        {contactLabel}
+      </Link>
       <div className="mt-2 border-t border-[#d9e0e6] pt-3">
         <LanguageSwitcher lang={lang} switchHref={switchHref} />
       </div>
