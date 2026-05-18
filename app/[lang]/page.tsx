@@ -87,11 +87,11 @@ export default async function HomePage({ params }: PageProps) {
               <p className="eyebrow mb-5">{content.home.hero.eyebrow}</p>
               <h1
                 className="display-serif max-w-3xl text-balance font-bold text-[#071f3b]"
-                style={{ fontSize: "clamp(2rem, 3.6vw, 3.2rem)", lineHeight: 1.08 }}
+                style={{ fontSize: "clamp(1.9rem, 3.1vw, 2.8rem)", lineHeight: 1.12 }}
               >
                 {content.home.hero.title}
               </h1>
-              <p className="mt-5 max-w-2xl text-[clamp(1rem,1.45vw,1.12rem)] leading-8 text-[#31465a]">
+              <p className="mt-5 max-w-2xl text-base leading-7 text-[#31465a] sm:text-lg">
                 {content.home.hero.text}
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -176,22 +176,6 @@ export default async function HomePage({ params }: PageProps) {
           </div>
         </section>
 
-        <section id="quem-somos" className="section-pad bg-white">
-          <div className="shell grid gap-8 lg:grid-cols-[.42fr_1fr]">
-            <div>
-              <p className="eyebrow mb-3">{content.home.aboutEyebrow}</p>
-              <h2 className="display-serif text-balance text-[clamp(2rem,4vw,3.1rem)] font-bold leading-tight text-[#071f3b]">
-                {content.home.aboutTitle}
-              </h2>
-            </div>
-            <div className="grid gap-5 text-[1.02rem] leading-8 text-[#31465a]">
-              {content.home.aboutParagraphs.slice(0, 4).map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section className="section-pad bg-[#071f3b] text-white">
           <div className="shell">
             <SectionHeading eyebrow={content.home.method.eyebrow} title={content.home.method.title} dark />
@@ -217,7 +201,7 @@ export default async function HomePage({ params }: PageProps) {
           <div className="shell flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-3xl">
               <p className="eyebrow mb-3">{content.home.workBand.eyebrow}</p>
-              <h2 className="display-serif text-balance text-[clamp(1.8rem,3.4vw,2.7rem)] font-bold leading-tight text-[#071f3b]">
+              <h2 className="display-serif text-balance text-[clamp(1.55rem,2.6vw,2.2rem)] font-bold leading-tight text-[#071f3b]">
                 {content.home.workBand.title}
               </h2>
               <p className="mt-4 leading-7 text-[#5c6b78]">{content.home.workBand.text}</p>
@@ -232,7 +216,7 @@ export default async function HomePage({ params }: PageProps) {
           <div className="shell grid gap-9 lg:grid-cols-[.82fr_1.18fr] lg:items-start">
             <div className="lg:sticky lg:top-28">
               <p className="eyebrow mb-3">{content.home.contact.eyebrow}</p>
-              <h2 className="display-serif text-balance text-[clamp(2rem,4vw,3.1rem)] font-bold leading-tight text-[#071f3b]">
+              <h2 className="display-serif text-balance text-[clamp(1.65rem,3vw,2.35rem)] font-bold leading-tight text-[#071f3b]">
                 {content.home.contact.title}
               </h2>
               <p className="mt-4 leading-7 text-[#5c6b78]">{content.home.contact.text}</p>
@@ -270,7 +254,7 @@ function SectionHeading({
   return (
     <div className={`mb-10 max-w-3xl min-w-0 ${align === "center" ? "mx-auto text-center" : ""}`}>
       <p className="eyebrow mb-3">{eyebrow}</p>
-      <h2 className={`display-serif text-balance text-[clamp(1.85rem,4vw,3.1rem)] font-bold leading-tight ${dark ? "text-white" : "text-[#071f3b]"}`}>
+      <h2 className={`display-serif text-balance text-[clamp(1.65rem,3vw,2.35rem)] font-bold leading-tight ${dark ? "text-white" : "text-[#071f3b]"}`}>
         {title}
       </h2>
       {text ? <p className={`mt-4 text-lg leading-8 ${dark ? "text-white/75" : "text-[#5c6b78]"}`}>{text}</p> : null}

@@ -10,7 +10,7 @@ import { getSiteContent, solutionSlugs } from "@/lib/site-content";
 type HeaderProps = {
   lang: Locale;
   dict: Dictionary;
-  page?: "home" | "work" | "solutions";
+  page?: "home" | "about" | "work" | "solutions";
 };
 
 export function Header({ lang, dict, page = "home" }: HeaderProps) {
@@ -28,9 +28,9 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
     return parts.join("/") || `/${target}`;
   };
 
-  const beforeSolutionsNav = [
-    { href: `/${lang}`, label: lang === "pt-br" ? "Home" : lang === "es" ? "Inicio" : "Home" },
-    { href: `/${lang}#quem-somos`, label: lang === "pt-br" ? "Quem Somos" : lang === "es" ? "Quiénes Somos" : "About" },
+  const beforeSolutionsNav: Array<{ href: string; label: string; pageKey: "home" | "about" }> = [
+    { href: `/${lang}`, label: lang === "pt-br" ? "Home" : lang === "es" ? "Inicio" : "Home", pageKey: "home" },
+    { href: `/${lang}/sobre`, label: lang === "pt-br" ? "Quem Somos" : lang === "es" ? "Quiénes Somos" : "About", pageKey: "about" },
   ];
 
   const afterSolutionsNav = [{ href: workHref, label: dict.nav.careers }];
@@ -75,7 +75,7 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
 
         <nav className="hidden min-w-0 items-center justify-center gap-5 text-sm font-bold text-[#5c6b78] lg:flex xl:gap-7">
           {beforeSolutionsNav.map((item) => (
-            <DesktopLink key={item.href} href={item.href}>
+            <DesktopLink key={item.href} href={item.href} active={page === item.pageKey}>
               {item.label}
             </DesktopLink>
           ))}
@@ -136,9 +136,14 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
   );
 }
 
-function DesktopLink({ href, children }: { href: string; children: React.ReactNode }) {
+function DesktopLink({ href, children, active = false }: { href: string; children: React.ReactNode; active?: boolean }) {
   return (
-    <Link href={href} className="whitespace-nowrap border-b-2 border-transparent py-2 transition hover:border-[#b88228] hover:text-[#071f3b]">
+    <Link
+      href={href}
+      className={`whitespace-nowrap border-b-2 py-2 transition hover:border-[#b88228] hover:text-[#071f3b] ${
+        active ? "border-[#b88228] text-[#071f3b]" : "border-transparent"
+      }`}
+    >
       {children}
     </Link>
   );
@@ -156,7 +161,7 @@ function MobileNavLinks({
   solutionsLabel,
   contactLabel,
 }: {
-  beforeSolutionsNav: Array<{ href: string; label: string }>;
+  beforeSolutionsNav: Array<{ href: string; label: string; pageKey: "home" | "about" }>;
   afterSolutionsNav: Array<{ href: string; label: string }>;
   solutions: ReturnType<typeof getSiteContent>["solutions"]["groups"];
   solutionsHref: string;
@@ -170,7 +175,7 @@ function MobileNavLinks({
   return (
     <div className="grid gap-2 text-sm font-bold">
       {beforeSolutionsNav.map((item) => (
-        <MobileLink key={item.href} href={item.href}>
+        <MobileLink key={item.href} href={item.href} active={activePage === item.pageKey}>
           {item.label}
         </MobileLink>
       ))}
