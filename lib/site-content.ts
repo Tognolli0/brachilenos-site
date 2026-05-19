@@ -12,25 +12,25 @@ const content = {
     labels: {
       solutionsMenu: "Soluções",
       viewDetails: "Ver detalhes",
-      requestProposal: "Solicitar proposta",
+      requestProposal: "Solicitar análise",
       talkSpecialist: "Falar com especialista",
       workWithUs: "Trabalhe Conosco",
     },
     home: {
       hero: {
         eyebrow: "Escritório de contabilidade Brasil x Chile",
-        title: "Contabilidade para operações Brasil x Chile",
+        title: "Contabilidade estratégica para operar entre Brasil e Chile",
         text:
           "Assessoria contábil, fiscal e financeira para empresas, investidores e brasileiros que precisam operar com segurança nos dois países.",
-        primary: "Falar com especialista",
-        secondary: "Nossos serviços",
+        primary: "Falar pelo WhatsApp",
+        secondary: "Ver soluções",
       },
       proof: [
         { value: "BR + CL", label: "Atuação pensada para dois mercados" },
         { value: "PT / ES / EN", label: "Comunicação trilíngue" },
         { value: "360", label: "Contábil, fiscal, financeiro e tributário" },
       ],
-      serviceTitle: "Conheça nossos Serviços Contábeis",
+      serviceTitle: "Soluções contábeis para operar com segurança",
       serviceText:
         "Atendimento contábil, fiscal e financeiro organizado para quem atua no Brasil, no Chile ou entre os dois mercados.",
       serviceCards: [
@@ -72,7 +72,7 @@ const content = {
       ],
       method: {
         eyebrow: "Como trabalhamos",
-        title: "Atendimento em etapas claras",
+        title: "Diagnóstico, execução e acompanhamento sem improviso",
         steps: [
           { title: "Diagnóstico", text: "Entendemos empresa, residência fiscal, faturamento, documentos e riscos." },
           { title: "Plano técnico", text: "Definimos prioridades, obrigações, regime, controles e próximos passos." },
@@ -82,14 +82,14 @@ const content = {
       },
       workBand: {
         eyebrow: "Rede técnica",
-        title: "Profissionais técnicos para a rede BRACHILENOS",
+        title: "Trabalhe com uma rede técnica Brasil x Chile",
         text:
           "A BRACHILENOS também recebe profissionais e prestadores de serviço para fortalecer a operação com estrutura e critérios técnicos.",
         cta: "Trabalhe Conosco",
       },
       contact: {
         eyebrow: "Contato comercial",
-        title: "Solicite uma proposta",
+        title: "Solicite uma análise inicial pelo WhatsApp",
         text:
           "Conte o cenário da sua empresa. A equipe retorna com o caminho mais adequado para diagnóstico, proposta ou atendimento recorrente.",
         highlights: ["Atendimento para Brasil, Chile e operações binacionais", "Contato comercial separado do cadastro profissional", "Base pronta para CRM, planilha ou e-mail"],
@@ -97,14 +97,14 @@ const content = {
     },
     solutions: {
       indexEyebrow: "Soluções",
-      title: "Soluções contábeis organizadas por mercado",
+      title: "Escolha a solução pelo mercado e pelo perfil",
       text:
         "A BRACHILENOS separa os serviços por Brasil, Chile e Brasil x Chile para facilitar a escolha do cliente e deixar a proposta mais clara.",
       groups: {
         brasil: {
           label: "Brasil",
           eyebrow: "Soluções no Brasil",
-          title: "Contabilidade e gestão para empresas e brasileiros com operação no Brasil",
+          title: "Soluções contábeis e financeiras para operações no Brasil",
           description:
             "Apoio para manter a empresa regular, organizada e preparada para decisões fiscais, financeiras e societárias.",
           services: [
@@ -119,7 +119,7 @@ const content = {
         chile: {
           label: "Chile",
           eyebrow: "Soluções no Chile",
-          title: "Suporte contábil e estratégico para brasileiros que empreendem no Chile",
+          title: "Estrutura contábil e financeira para brasileiros no Chile",
           description:
             "Estrutura para abrir, organizar ou acompanhar operações locais com comunicação próxima e visão empresarial.",
           services: [
@@ -134,7 +134,7 @@ const content = {
         "brasil-chile": {
           label: "Brasil x Chile",
           eyebrow: "Operações binacionais",
-          title: "Planejamento contábil, fiscal e financeiro entre Brasil e Chile",
+          title: "Planejamento internacional para Brasil x Chile",
           description:
             "Consultoria para empresas, investidores e pessoas físicas que precisam organizar decisões entre dois países.",
           services: [
@@ -150,7 +150,7 @@ const content = {
     },
     work: {
       eyebrow: "Trabalhe Conosco",
-      title: "Atue com a BRACHILENOS",
+      title: "Trabalhe ou preste serviço com a BRACHILENOS",
       text:
         "Recebemos profissionais e prestadores com perfil técnico, responsabilidade e interesse em projetos contábeis, fiscais, financeiros e tributários entre Brasil e Chile.",
       cards: [

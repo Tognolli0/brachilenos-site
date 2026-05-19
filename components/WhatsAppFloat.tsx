@@ -1,13 +1,12 @@
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
-
-const whatsappNumber = "5511969870407";
+import { createWhatsAppUrl } from "@/lib/conversion";
 
 export function WhatsAppFloat() {
-  const message = encodeURIComponent("Ola! Gostaria de falar com a BRACHILENOS.");
+  const message = "Ola! Gostaria de falar com a BRACHILENOS.";
 
   return (
     <a
-      href={`https://wa.me/${whatsappNumber}?text=${message}`}
+      href={createWhatsAppUrl(message)}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Falar pelo WhatsApp"

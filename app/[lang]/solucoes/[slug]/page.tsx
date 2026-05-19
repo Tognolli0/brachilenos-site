@@ -277,7 +277,7 @@ export default async function SolutionPage({ params }: PageProps) {
             <div className="mb-10 max-w-3xl">
               <p className="eyebrow mb-3">{content.solutions.indexEyebrow}</p>
               <h2 className="display-serif text-balance text-[clamp(1.65rem,3vw,2.35rem)] font-bold leading-tight text-[#071f3b]">
-                {group.label}: serviços disponíveis
+                Serviços principais para {group.label}
               </h2>
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -378,9 +378,9 @@ function DetailedServiceCatalog({ slug, lang }: { slug: SolutionSlug; lang: Loca
       <div className="shell">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-end">
           <div>
-            <p className="eyebrow mb-3">Serviços por perfil</p>
+            <p className="eyebrow mb-3">Catálogo de atendimento</p>
             <h2 className="display-serif text-balance text-[clamp(1.65rem,3vw,2.35rem)] font-bold leading-tight text-[#071f3b]">
-              Escolha a frente certa para o seu momento
+              Encontre o serviço certo para o seu cenário
             </h2>
             <div className="mt-5 grid gap-3 text-sm leading-6 text-[#5c6b78] sm:text-base sm:leading-7">
               {serviceCatalogIntro.map((paragraph) => (

@@ -22,6 +22,7 @@ export function TalentForm({ dict }: Props) {
   const [status, setStatus] = useState("");
   const [statusKind, setStatusKind] = useState<"success" | "error">("success");
   const [submitting, setSubmitting] = useState(false);
+  const [emailHref, setEmailHref] = useState("");
 
   function getStepFields(step: number) {
     const form = formRef.current;
@@ -78,6 +79,7 @@ export function TalentForm({ dict }: Props) {
     const payload: Record<string, FormDataEntryValue | { name: string; size: number; type: string } | string> = {};
     setSubmitting(true);
     setStatus("");
+    setEmailHref("");
 
     for (const [key, value] of formData.entries()) {
       if (value instanceof File) {
@@ -113,8 +115,15 @@ export function TalentForm({ dict }: Props) {
         throw new Error("Talent request failed");
       }
 
+      const result = (await response.json()) as { mode?: string; mailtoHref?: string; destination?: string };
+
+      if (result.mailtoHref) {
+        setEmailHref(result.mailtoHref);
+        window.open(result.mailtoHref, "_blank", "noopener,noreferrer");
+      }
+
       setStatusKind("success");
-      setStatus(dict.forms.successTalent);
+      setStatus(result.mode === "email_draft" ? "Cadastro preparado para envio ao e-mail temporário da operação." : dict.forms.successTalent);
       setCurrentStep(0);
       form.reset();
     } catch {
@@ -135,6 +144,9 @@ export function TalentForm({ dict }: Props) {
       <div className="border-b border-[#d9e0e6] p-4 sm:p-6">
         <p className="text-xs font-black uppercase tracking-[0.16em] text-[#b88228]">Cadastro profissional</p>
         <h3 className="display-serif mt-2 text-2xl font-bold text-[#071f3b]">Questionário em 3 etapas</h3>
+        <p className="mt-2 text-sm font-semibold leading-6 text-[#5c6b78]">
+          Fluxo separado dos clientes: candidatos e prestadores seguem para análise profissional.
+        </p>
         <ol className="mt-5 grid gap-2 sm:grid-cols-3">
           {steps.map((step, index) => {
             const isActive = index === currentStep;
@@ -262,6 +274,12 @@ export function TalentForm({ dict }: Props) {
         <p className={`mt-4 min-h-6 text-sm font-bold ${statusKind === "success" ? "text-[#0f6f43]" : "text-[#b42318]"}`} aria-live="polite">
           {status}
         </p>
+        {emailHref ? (
+          <a href={emailHref} className="mt-2 inline-flex items-center gap-2 text-sm font-extrabold text-[#071f3b] hover:text-[#b88228]">
+            Abrir e-mail temporário novamente
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </a>
+        ) : null}
       </div>
     </form>
   );

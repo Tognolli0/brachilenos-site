@@ -91,8 +91,13 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
               <span>{dict.nav.solutions}</span>
               <ChevronDown className="h-4 w-4 shrink-0 transition group-hover:rotate-180" aria-hidden />
             </Link>
-            <div className="invisible absolute left-1/2 top-full z-50 w-72 -translate-x-1/2 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-              <div className="grid gap-1 border border-[#d9e0e6] bg-white p-2 shadow-[0_16px_40px_rgba(7,31,59,.14)]">
+            <div className="invisible absolute left-1/2 top-full z-50 w-[360px] -translate-x-1/2 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+              <div className="overflow-hidden border border-[#d9e0e6] bg-white shadow-[0_16px_40px_rgba(7,31,59,.14)]">
+                <div className="bg-[#071f3b] p-4 text-white">
+                  <span className="text-xs font-black uppercase tracking-[0.14em] text-[#d9a441]">Escolha por mercado</span>
+                  <p className="mt-2 text-sm font-semibold leading-6 text-white/75">Separe sua demanda entre Brasil, Chile ou operação internacional.</p>
+                </div>
+                <div className="grid gap-1 p-2">
                 {solutionSlugs.map((slug) => (
                   <Link
                     key={slug}
@@ -103,6 +108,10 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
                     <span className="mt-1 block text-xs font-semibold leading-5 text-[#5c6b78]">{solutions[slug].eyebrow}</span>
                   </Link>
                 ))}
+                  <Link href={`/${lang}#contato`} className="mt-1 border border-[#071f3b] bg-[#071f3b] px-3 py-3 text-center text-sm font-extrabold text-white transition hover:bg-[#102d50]">
+                    Falar com especialista
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -180,12 +189,15 @@ function MobileNavLinks({
           {item.label}
         </MobileLink>
       ))}
-      <div className={`border border-[#d9e0e6] ${activePage === "solutions" ? "bg-[#f8faf9]" : "bg-white"}`}>
-        <Link href={`/${lang}#solucoes`} className="flex items-center justify-between px-3 py-3 text-[#071f3b]">
+      <details open={activePage === "solutions"} className={`group border border-[#d9e0e6] ${activePage === "solutions" ? "bg-[#f8faf9]" : "bg-white"}`}>
+        <summary className="flex cursor-pointer list-none items-center justify-between px-3 py-3 text-[#071f3b] [&::-webkit-details-marker]:hidden">
           <span>{solutionsLabel}</span>
-          <ChevronDown className="h-4 w-4" aria-hidden />
-        </Link>
+          <ChevronDown className="h-4 w-4 transition group-open:rotate-180" aria-hidden />
+        </summary>
         <div className="grid border-t border-[#d9e0e6]">
+          <Link href={`/${lang}#solucoes`} className="px-4 py-3 text-xs font-black uppercase tracking-[0.14em] text-[#b88228] hover:bg-[#f8faf9]">
+            Visão geral
+          </Link>
           {solutionSlugs.map((slug) => (
             <Link key={slug} href={`${solutionsHref}/${slug}`} className="px-4 py-3 text-[#5c6b78] hover:bg-[#f8faf9] hover:text-[#071f3b]">
               <span className="block font-extrabold text-[#071f3b]">{solutions[slug].label}</span>
@@ -193,7 +205,7 @@ function MobileNavLinks({
             </Link>
           ))}
         </div>
-      </div>
+      </details>
       {afterSolutionsNav.map((item) => (
         <MobileLink key={item.href} href={item.href} active={activePage === "work" && item.href === activeWorkHref}>
           {item.label}

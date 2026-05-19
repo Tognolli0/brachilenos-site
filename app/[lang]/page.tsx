@@ -116,7 +116,7 @@ export default async function HomePage({ params }: PageProps) {
                 </div>
                 <div>
                   <p className="text-xs font-black uppercase text-[#d7aa52]">BRACHILENOS</p>
-                  <h2 className="font-extrabold text-white">Operação assistida Brasil x Chile</h2>
+                  <h2 className="font-extrabold text-white">Estratégia contábil Brasil x Chile</h2>
                 </div>
               </div>
               <div className="grid gap-3">

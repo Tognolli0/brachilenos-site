@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { createWhatsAppUrl } from "@/lib/conversion";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const requiredFields = ["name", "email", "whatsapp", "country", "need"] as const;
@@ -44,8 +45,26 @@ export async function POST(request: Request) {
 
   return NextResponse.json({
     ok: true,
+    destination: "whatsapp",
+    whatsappUrl: createWhatsAppUrl(createLeadMessage(sanitized)),
     mode: process.env.LEADS_WEBHOOK_URL ? "webhook" : "preview",
   });
+}
+
+function createLeadMessage(payload: Record<string, unknown>) {
+  const value = (key: string) => String(payload[key] || "").trim();
+
+  return [
+    "Olá! Quero solicitar uma análise da BRACHILENOS.",
+    "",
+    `Nome: ${value("name")}`,
+    `WhatsApp: ${value("whatsapp")}`,
+    `E-mail: ${value("email")}`,
+    `País: ${value("country")}`,
+    `Necessidade: ${value("need")}`,
+    "",
+    `Mensagem: ${value("message") || "Não informado"}`,
+  ].join("\n");
 }
 
 function sanitizePayload(payload: Record<string, unknown>) {
