@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Menu } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { localeLabels, locales, type Dictionary, type Locale } from "@/lib/dictionaries";
 import { getSiteContent, solutionSlugs } from "@/lib/site-content";
 
@@ -53,9 +53,10 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
         <details className="group justify-self-end lg:hidden">
           <summary
             aria-label="Abrir menu"
-            className="focus-ring grid h-11 w-11 cursor-pointer list-none place-items-center border border-[#d9e0e6] bg-white text-[#071f3b] [&::-webkit-details-marker]:hidden"
+            className="focus-ring grid h-12 w-12 cursor-pointer list-none place-items-center border border-[#d9e0e6] bg-white text-[#071f3b] transition hover:border-[#b88228] [&::-webkit-details-marker]:hidden"
           >
-            <Menu className="h-5 w-5" aria-hidden />
+            <Menu className="h-5 w-5 group-open:hidden" aria-hidden />
+            <X className="hidden h-5 w-5 group-open:block" aria-hidden />
           </summary>
           <div className="fixed left-4 right-4 top-[80px] z-50 max-h-[calc(100vh-96px)] overflow-y-auto border border-[#d9e0e6] bg-white p-3 shadow-[0_18px_48px_rgba(7,31,59,.2)]">
             <MobileNavLinks

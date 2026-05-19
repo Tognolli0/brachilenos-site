@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, Building2, CheckCircle2, FileText, Globe2, MessageCircle, ShieldCheck, UsersRound } from "lucide-react";
+import { ArrowRight, BadgeCheck, Building2, Calculator, CheckCircle2, ChevronDown, FileText, Globe2, Landmark, LineChart, MessageCircle, ShieldCheck, UsersRound } from "lucide-react";
 import { ButtonLink } from "@/components/ButtonLink";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/dictionaries";
+import { serviceCatalogBySlug, serviceCatalogIntro, type ServiceCatalogCard } from "@/lib/service-catalog";
 import { getSiteContent, isSolutionSlug, solutionSlugs, type SolutionSlug } from "@/lib/site-content";
 import { notFound } from "next/navigation";
 
@@ -37,6 +38,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 const icons = [FileText, ShieldCheck, Globe2, CheckCircle2, BadgeCheck, MessageCircle];
 const profileIcons = { pf: UsersRound, pj: Building2 };
+const catalogCardIcons = [Calculator, LineChart, Landmark, Globe2, ShieldCheck, FileText];
+const servicePageTabs: { slug: SolutionSlug; label: string; description: string }[] = [
+  { slug: "brasil", label: "Brasil", description: "PF e PJ no mercado brasileiro" },
+  { slug: "chile", label: "Chile", description: "PF e PJ no mercado chileno" },
+  { slug: "brasil-chile", label: "Brasil x Chile", description: "Operações internacionais" },
+];
 
 type ProfileCard = {
   title: string;
@@ -231,6 +238,17 @@ export default async function SolutionPage({ params }: PageProps) {
         <section className="border-b border-[#071f3b]/10 bg-[#f8faf9]">
           <div className="shell grid gap-8 py-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end lg:py-16">
             <div>
+              <nav className="mb-5 flex flex-wrap items-center gap-2 text-xs font-extrabold uppercase text-[#5c6b78]" aria-label="Breadcrumb">
+                <Link href={`/${lang}`} className="text-[#071f3b] hover:text-[#b88228]">
+                  Home
+                </Link>
+                <ArrowRight className="h-3.5 w-3.5 text-[#b88228]" aria-hidden />
+                <Link href={`/${lang}#solucoes`} className="text-[#071f3b] hover:text-[#b88228]">
+                  {content.labels.solutionsMenu}
+                </Link>
+                <ArrowRight className="h-3.5 w-3.5 text-[#b88228]" aria-hidden />
+                <span>{group.label}</span>
+              </nav>
               <p className="eyebrow mb-4">{group.eyebrow}</p>
               <h1 className="display-serif max-w-4xl text-balance text-[clamp(1.9rem,3.4vw,3.1rem)] font-bold leading-tight text-[#071f3b]">
                 {group.title}
@@ -266,7 +284,10 @@ export default async function SolutionPage({ params }: PageProps) {
               {group.services.map((service, index) => {
                 const Icon = icons[index] || BadgeCheck;
                 return (
-                  <article key={service.title} className="min-w-0 border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)]">
+                  <article
+                    key={service.title}
+                    className="group min-w-0 border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)] transition hover:-translate-y-1 hover:border-[#b88228] hover:shadow-[0_18px_42px_rgba(7,31,59,.12)]"
+                  >
                     <Icon className="mb-5 h-8 w-8 text-[#b88228]" />
                     <h3 className="text-xl font-extrabold text-[#071f3b]">{service.title}</h3>
                     <p className="mt-3 leading-7 text-[#5c6b78]">{service.text}</p>
@@ -277,32 +298,39 @@ export default async function SolutionPage({ params }: PageProps) {
           </div>
         </section>
 
-        <section className="section-pad bg-[#f8faf9]">
-          <div className="shell">
-            <div className="mb-10 max-w-3xl">
-              <p className="eyebrow mb-3">{audience.eyebrow}</p>
-              <h2 className="display-serif text-balance text-[clamp(1.65rem,3vw,2.35rem)] font-bold leading-tight text-[#071f3b]">
-                {audience.title}
-              </h2>
-              <p className="mt-4 max-w-2xl leading-7 text-[#5c6b78]">{audience.text}</p>
-            </div>
+        {lang === "pt-br" ? (
+          <DetailedServiceCatalog slug={slug} lang={lang} />
+        ) : (
+          <section className="section-pad bg-[#f8faf9]">
+            <div className="shell">
+              <div className="mb-10 max-w-3xl">
+                <p className="eyebrow mb-3">{audience.eyebrow}</p>
+                <h2 className="display-serif text-balance text-[clamp(1.65rem,3vw,2.35rem)] font-bold leading-tight text-[#071f3b]">
+                  {audience.title}
+                </h2>
+                <p className="mt-4 max-w-2xl leading-7 text-[#5c6b78]">{audience.text}</p>
+              </div>
 
-            <div className="grid gap-9 lg:grid-cols-2">
-              <ProfileColumn label={audience.pfLabel} icon={profileIcons.pf} cards={profileGroups.pf} tone="green" />
-              <ProfileColumn label={audience.pjLabel} icon={profileIcons.pj} cards={profileGroups.pj} tone="navy" />
+              <div className="grid gap-9 lg:grid-cols-2">
+                <ProfileColumn label={audience.pfLabel} icon={profileIcons.pf} cards={profileGroups.pf} tone="green" />
+                <ProfileColumn label={audience.pjLabel} icon={profileIcons.pj} cards={profileGroups.pj} tone="navy" />
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        <section className="bg-[#071f3b] py-12 text-white">
-          <div className="shell flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <p className="eyebrow mb-3">{content.labels.talkSpecialist}</p>
-              <h2 className="display-serif max-w-3xl text-balance text-[clamp(1.55rem,2.8vw,2.35rem)] font-bold leading-tight text-white">
+        <section className="bg-[#071f3b] py-10 text-white">
+          <div className="shell grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+            <div className="max-w-3xl">
+              <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-[#d9a441]">{content.labels.talkSpecialist}</p>
+              <h2 className="display-serif text-balance text-[clamp(1.45rem,2.5vw,2.15rem)] font-bold leading-tight text-white">
                 Precisa organizar sua operação em {group.label}?
               </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-white/75">
+                Envie seu cenário e receba o melhor caminho para diagnóstico, proposta ou atendimento recorrente.
+              </p>
             </div>
-            <ButtonLink href={`/${lang}#contato`} icon={MessageCircle} className="shrink-0 border-white bg-white text-[#071f3b]">
+            <ButtonLink href={`/${lang}#contato`} icon={MessageCircle} variant="light" className="shrink-0">
               {content.labels.requestProposal}
             </ButtonLink>
           </div>
@@ -341,6 +369,147 @@ export default async function SolutionPage({ params }: PageProps) {
   );
 }
 
+function DetailedServiceCatalog({ slug, lang }: { slug: SolutionSlug; lang: Locale }) {
+  const blocks = serviceCatalogBySlug[slug];
+  const totalServices = blocks.reduce((sum, block) => sum + block.cards.reduce((cardSum, card) => cardSum + card.services.length, 0), 0);
+
+  return (
+    <section id="catalogo-servicos" className="section-pad bg-[#f8faf9]">
+      <div className="shell">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-end">
+          <div>
+            <p className="eyebrow mb-3">Serviços por perfil</p>
+            <h2 className="display-serif text-balance text-[clamp(1.65rem,3vw,2.35rem)] font-bold leading-tight text-[#071f3b]">
+              Escolha a frente certa para o seu momento
+            </h2>
+            <div className="mt-5 grid gap-3 text-sm leading-6 text-[#5c6b78] sm:text-base sm:leading-7">
+              {serviceCatalogIntro.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+            <div className="border border-[#d9e0e6] bg-white p-3 sm:p-4">
+              <span className="display-serif block text-2xl font-bold text-[#071f3b] sm:text-3xl">{blocks.length}</span>
+              <span className="mt-1 block text-xs font-black uppercase tracking-[0.14em] text-[#5c6b78]">blocos</span>
+            </div>
+            <div className="border border-[#d9e0e6] bg-white p-3 sm:p-4">
+              <span className="display-serif block text-2xl font-bold text-[#071f3b] sm:text-3xl">{blocks.reduce((sum, block) => sum + block.cards.length, 0)}</span>
+              <span className="mt-1 block text-xs font-black uppercase tracking-[0.14em] text-[#5c6b78]">cards</span>
+            </div>
+            <div className="border border-[#d9e0e6] bg-white p-3 sm:p-4">
+              <span className="display-serif block text-2xl font-bold text-[#071f3b] sm:text-3xl">{totalServices}</span>
+              <span className="mt-1 block text-xs font-black uppercase tracking-[0.14em] text-[#5c6b78]">serviços</span>
+            </div>
+          </div>
+        </div>
+
+        <nav className="mt-8 grid grid-cols-3 gap-2 sm:gap-3" aria-label="Navegação de soluções">
+          {servicePageTabs.map((tab) => {
+            const isActive = tab.slug === slug;
+            return (
+              <Link
+                key={tab.slug}
+                href={`/${lang}/solucoes/${tab.slug}`}
+                className={`min-w-0 border p-3 transition hover:-translate-y-0.5 hover:border-[#b88228] hover:shadow-[0_14px_30px_rgba(7,31,59,.08)] sm:p-4 ${
+                  isActive ? "border-[#071f3b] bg-[#071f3b] text-white" : "border-[#d9e0e6] bg-white text-[#071f3b]"
+                }`}
+              >
+                <span className={`text-xs font-black uppercase tracking-[0.14em] ${isActive ? "text-[#d9a441]" : "text-[#b88228]"}`}>
+                  Soluções
+                </span>
+                <strong className="mt-2 block text-sm leading-5 sm:text-lg">{tab.label}</strong>
+                <span className={`mt-1 hidden text-sm leading-5 sm:block ${isActive ? "text-white/75" : "text-[#5c6b78]"}`}>{tab.description}</span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        {blocks.length > 1 ? (
+          <nav className="sticky top-20 z-10 mt-8 flex gap-2 overflow-x-auto border border-[#d9e0e6] bg-white/95 p-2 shadow-[0_12px_24px_rgba(7,31,59,.06)] backdrop-blur" aria-label="Nesta página">
+            {blocks.map((block) => (
+              <a
+                key={block.id}
+                href={`#${block.id}`}
+                className="shrink-0 border border-transparent px-4 py-3 text-sm font-extrabold text-[#071f3b] transition hover:border-[#b88228] hover:bg-[#f8faf9]"
+              >
+                {block.title}
+              </a>
+            ))}
+          </nav>
+        ) : null}
+
+        <div className="mt-8 grid gap-8">
+          {blocks.map((block) => (
+            <section key={block.id} id={block.id} className="scroll-mt-32 border border-[#d9e0e6] bg-white shadow-[0_16px_42px_rgba(7,31,59,.08)]">
+              <div className="grid gap-5 border-b border-[#d9e0e6] bg-[#071f3b] p-5 text-white sm:p-6 lg:grid-cols-[minmax(0,1fr)_220px] lg:items-end">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-[#d9a441]">{block.eyebrow}</p>
+                  <h3 className="display-serif mt-2 text-balance text-[clamp(1.55rem,2.7vw,2.25rem)] font-bold leading-tight">{block.title}</h3>
+                  <p className="mt-3 max-w-3xl text-sm leading-6 text-white/75 sm:text-base sm:leading-7">{block.text}</p>
+                </div>
+                <div className="grid grid-cols-2 gap-2 text-center">
+                  <span className="border border-white/15 bg-white/[.08] px-3 py-3 text-sm font-extrabold">{block.cards.length} áreas</span>
+                  <span className="border border-white/15 bg-white/[.08] px-3 py-3 text-sm font-extrabold">
+                    {block.cards.reduce((sum, card) => sum + card.services.length, 0)} serviços
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid gap-4 p-4 sm:p-6">
+                {block.cards.map((card, cardIndex) => (
+                  <ServiceCatalogDetails key={card.title} card={card} index={cardIndex} open={cardIndex === 0} />
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ServiceCatalogDetails({ card, index, open }: { card: ServiceCatalogCard; index: number; open?: boolean }) {
+  const Icon = catalogCardIcons[index] || BadgeCheck;
+
+  return (
+    <details
+      open={open}
+      className="group border border-[#d9e0e6] bg-[#f8faf9] transition open:bg-white open:shadow-[0_14px_34px_rgba(7,31,59,.08)]"
+    >
+      <summary className="grid cursor-pointer list-none gap-4 p-5 outline-none transition hover:bg-white sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center sm:p-6 [&::-webkit-details-marker]:hidden">
+        <span className="grid h-12 w-12 shrink-0 place-items-center border border-[#d9e0e6] bg-white text-[#b88228]">
+          <Icon className="h-6 w-6" aria-hidden />
+        </span>
+        <span className="min-w-0">
+          <span className="display-serif block text-xl font-bold leading-7 text-[#071f3b] sm:text-2xl">{card.title}</span>
+          <span className="mt-2 block text-sm leading-6 text-[#5c6b78] sm:text-base sm:leading-7">{card.text}</span>
+        </span>
+        <span className="inline-flex h-11 items-center justify-center gap-2 border border-[#071f3b] px-4 text-sm font-extrabold text-[#071f3b] transition group-open:border-[#b88228] group-open:text-[#b88228]">
+          Ver serviços
+          <ChevronDown className="h-4 w-4 transition group-open:rotate-180" aria-hidden />
+        </span>
+      </summary>
+
+      <div className="border-t border-[#d9e0e6] p-5 sm:p-6">
+        <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+          {card.services.map((service) => (
+            <span key={service} className="flex min-w-0 gap-2 border border-[#d9e0e6] bg-white px-3 py-3 text-sm font-semibold leading-5 text-[#102235]">
+              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#0f6f43]" aria-hidden />
+              <span>{service}</span>
+            </span>
+          ))}
+        </div>
+        <Link href="/pt-br#contato" className="mt-5 inline-flex items-center gap-2 border-b-2 border-[#b88228] pb-1 text-sm font-extrabold text-[#071f3b]">
+          Falar sobre este serviço
+          <ArrowRight className="h-4 w-4" aria-hidden />
+        </Link>
+      </div>
+    </details>
+  );
+}
+
 function ProfileColumn({
   label,
   icon: Icon,
@@ -355,16 +524,19 @@ function ProfileColumn({
   const toneClasses = tone === "green" ? "bg-[#0f6f43] text-white" : "bg-[#071f3b] text-white";
 
   return (
-    <div className="min-w-0">
-      <div className="mb-4 flex items-center gap-3">
+    <div className="min-w-0 border border-[#d9e0e6] bg-white shadow-[0_12px_32px_rgba(7,31,59,.06)]">
+      <div className="flex items-center justify-between gap-4 border-b border-[#d9e0e6] p-5">
+        <div className="flex min-w-0 items-center gap-3">
         <span className={`grid h-11 w-11 shrink-0 place-items-center ${toneClasses}`}>
           <Icon className="h-5 w-5" aria-hidden />
         </span>
-        <h3 className="text-xl font-extrabold text-[#071f3b]">{label}</h3>
+          <h3 className="text-xl font-extrabold text-[#071f3b]">{label}</h3>
+        </div>
+        <span className="shrink-0 text-xs font-black uppercase text-[#b88228]">{String(cards.length).padStart(2, "0")}</span>
       </div>
-      <div className="grid gap-4">
+      <div className="grid gap-4 p-4 sm:p-5">
         {cards.map((card) => (
-          <article key={card.title} className="min-w-0 border border-[#d9e0e6] bg-white p-5 shadow-[0_10px_28px_rgba(7,31,59,.05)]">
+          <article key={card.title} className="min-w-0 border border-[#d9e0e6] border-l-[#b88228] border-l-4 bg-[#f8faf9] p-5 transition hover:bg-white">
             <div className="mb-3 flex items-center gap-2">
               <BadgeCheck className="h-5 w-5 shrink-0 text-[#b88228]" aria-hidden />
               <h4 className="text-base font-extrabold leading-6 text-[#071f3b]">{card.title}</h4>

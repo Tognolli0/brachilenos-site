@@ -54,6 +54,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 const serviceIcons = [Calculator, Scale, LineChart, Building2, Globe2, ShieldCheck];
 const methodIcons = [ClipboardCheck, FileCheck2, BriefcaseBusiness, CheckCircle2];
+const serviceTargetSlugs = ["brasil", "brasil-chile", "brasil", "chile", "brasil-chile", "brasil-chile"] as const;
 
 export default async function HomePage({ params }: PageProps) {
   const { lang: paramLang } = await params;
@@ -98,29 +99,38 @@ export default async function HomePage({ params }: PageProps) {
                 <ButtonLink href={`/${lang}#contato`} icon={WhatsAppIcon} className="border-[#071f3b] bg-[#071f3b] text-white">
                   {content.home.hero.primary}
                 </ButtonLink>
-                <ButtonLink href={`/${lang}#solucoes`} icon={ArrowRight} variant="secondary">
+                <Link
+                  href={`/${lang}#solucoes`}
+                  className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 border border-transparent px-5 text-sm font-extrabold text-[#071f3b] transition hover:text-[#b88228] sm:w-auto"
+                >
                   {content.home.hero.secondary}
-                </ButtonLink>
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
               </div>
             </div>
 
-            <aside className="min-w-0 border border-[#d9e0e6] bg-white p-5 shadow-[0_18px_48px_rgba(7,31,59,.08)] sm:p-7">
-              <div className="mb-6 flex items-center gap-3">
-                <div className="grid h-12 w-12 shrink-0 place-items-center bg-[#071f3b] text-white">
+            <aside className="min-w-0 border border-[#071f3b] bg-[#071f3b] p-5 text-white shadow-[0_18px_48px_rgba(7,31,59,.18)] sm:p-7">
+              <div className="mb-6 flex items-center gap-3 border-b border-white/15 pb-5">
+                <div className="grid h-12 w-12 shrink-0 place-items-center bg-white text-[#071f3b]">
                   <Landmark className="h-6 w-6" aria-hidden />
                 </div>
                 <div>
                   <p className="text-xs font-black uppercase text-[#d7aa52]">BRACHILENOS</p>
-                  <h2 className="font-extrabold text-[#071f3b]">Operação integrada Brasil x Chile</h2>
+                  <h2 className="font-extrabold text-white">Operação assistida Brasil x Chile</h2>
                 </div>
               </div>
               <div className="grid gap-3">
                 {content.home.proof.map((item) => (
-                  <div key={item.label} className="border-l-4 border-[#b88228] bg-[#f8faf9] p-4">
-                    <strong className="display-serif block text-3xl text-[#071f3b]">{item.value}</strong>
-                    <span className="mt-1 block text-sm font-bold leading-5 text-[#5c6b78]">{item.label}</span>
+                  <div key={item.label} className="border border-white/15 bg-white/[.06] p-4">
+                    <strong className="display-serif block text-3xl text-white">{item.value}</strong>
+                    <span className="mt-1 block text-sm font-bold leading-5 text-white/75">{item.label}</span>
                   </div>
                 ))}
+              </div>
+              <div className="mt-5 grid grid-cols-3 gap-2 text-center text-[0.72rem] font-black uppercase text-white/75">
+                <span className="border border-white/15 py-2">Fiscal</span>
+                <span className="border border-white/15 py-2">Financeiro</span>
+                <span className="border border-white/15 py-2">Tributário</span>
               </div>
             </aside>
           </div>
@@ -133,10 +143,20 @@ export default async function HomePage({ params }: PageProps) {
               {content.home.serviceCards.map((service, index) => {
                 const Icon = serviceIcons[index] || BadgeCheck;
                 return (
-                  <article key={service.title} className="min-w-0 border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)]">
+                  <article
+                    key={service.title}
+                    className="group flex min-w-0 flex-col border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)] transition hover:-translate-y-1 hover:border-[#b88228] hover:shadow-[0_18px_42px_rgba(7,31,59,.12)]"
+                  >
                     <Icon className="mb-5 h-9 w-9 text-[#b88228]" aria-hidden />
                     <h3 className="text-xl font-extrabold text-[#071f3b]">{service.title}</h3>
                     <p className="mt-3 leading-7 text-[#5c6b78]">{service.text}</p>
+                    <Link
+                      href={`${solutionsHref}/${serviceTargetSlugs[index] ?? "brasil-chile"}`}
+                      className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[#071f3b] group-hover:text-[#b88228]"
+                    >
+                      Ver solução
+                      <ArrowRight className="h-4 w-4" aria-hidden />
+                    </Link>
                   </article>
                 );
               })}
@@ -151,7 +171,7 @@ export default async function HomePage({ params }: PageProps) {
               {solutionSlugs.map((slug) => {
                 const group = content.solutions.groups[slug];
                 return (
-                  <article key={slug} className="flex min-h-full min-w-0 flex-col border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)]">
+                  <article key={slug} className="flex min-h-full min-w-0 flex-col border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)] transition hover:-translate-y-1 hover:border-[#b88228] hover:shadow-[0_18px_42px_rgba(7,31,59,.12)]">
                     <span className="mb-4 inline-flex w-fit bg-[#071f3b] px-3 py-1 text-xs font-black uppercase text-white">
                       {group.label}
                     </span>
@@ -179,11 +199,11 @@ export default async function HomePage({ params }: PageProps) {
         <section className="section-pad bg-[#071f3b] text-white">
           <div className="shell">
             <SectionHeading eyebrow={content.home.method.eyebrow} title={content.home.method.title} dark />
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div className="relative grid gap-4 md:grid-cols-2 lg:grid-cols-4 lg:before:absolute lg:before:left-6 lg:before:right-6 lg:before:top-10 lg:before:h-px lg:before:bg-white/15">
               {content.home.method.steps.map((step, index) => {
                 const Icon = methodIcons[index] || CheckCircle2;
                 return (
-                  <article key={step.title} className="min-w-0 border border-white/15 bg-white/[.06] p-6">
+                  <article key={step.title} className="relative min-w-0 border border-white/15 bg-white/[.06] p-6">
                     <span className="mb-5 flex items-center justify-between gap-4">
                       <Icon className="h-8 w-8 text-[#d7aa52]" aria-hidden />
                       <span className="font-black text-white/40">{String(index + 1).padStart(2, "0")}</span>

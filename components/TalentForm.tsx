@@ -1,25 +1,83 @@
 "use client";
 
-import { Send } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Send, UploadCloud } from "lucide-react";
+import { useRef, useState } from "react";
 import type { Dictionary } from "@/lib/dictionaries";
 
 type Props = {
   dict: Dictionary;
 };
 
+const steps = [
+  { title: "Contato", description: "Dados para retorno" },
+  { title: "Perfil", description: "Formação e atuação" },
+  { title: "Envio", description: "Interesse e currículo" },
+];
+
+type FormField = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
 export function TalentForm({ dict }: Props) {
+  const formRef = useRef<HTMLFormElement>(null);
+  const [currentStep, setCurrentStep] = useState(0);
   const [status, setStatus] = useState("");
+  const [statusKind, setStatusKind] = useState<"success" | "error">("success");
   const [submitting, setSubmitting] = useState(false);
+
+  function getStepFields(step: number) {
+    const form = formRef.current;
+    if (!form) return [];
+
+    return Array.from(
+      form.querySelectorAll(`[data-form-step="${step}"] input, [data-form-step="${step}"] select, [data-form-step="${step}"] textarea`),
+    ) as FormField[];
+  }
+
+  function validateStep(step: number, report = true) {
+    const invalidField = getStepFields(step).find((field) => !field.checkValidity());
+
+    if (!invalidField) {
+      return true;
+    }
+
+    if (report && step === currentStep) {
+      invalidField.reportValidity();
+    }
+
+    return false;
+  }
+
+  function goToStep(step: number) {
+    if (step <= currentStep || validateStep(currentStep)) {
+      setStatus("");
+      setCurrentStep(step);
+    }
+  }
+
+  function goNext() {
+    if (validateStep(currentStep)) {
+      setStatus("");
+      setCurrentStep((step) => Math.min(step + 1, steps.length - 1));
+    }
+  }
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (submitting) return;
 
+    for (let step = 0; step < steps.length; step += 1) {
+      if (!validateStep(step, step === currentStep)) {
+        setCurrentStep(step);
+        setStatusKind("error");
+        setStatus("Revise os campos obrigatórios antes de enviar.");
+        return;
+      }
+    }
+
     const form = event.currentTarget;
     const formData = new FormData(form);
     const payload: Record<string, FormDataEntryValue | { name: string; size: number; type: string } | string> = {};
     setSubmitting(true);
+    setStatus("");
 
     for (const [key, value] of formData.entries()) {
       if (value instanceof File) {
@@ -55,9 +113,12 @@ export function TalentForm({ dict }: Props) {
         throw new Error("Talent request failed");
       }
 
+      setStatusKind("success");
       setStatus(dict.forms.successTalent);
+      setCurrentStep(0);
       form.reset();
     } catch {
+      setStatusKind("error");
       setStatus(dict.forms.error);
     } finally {
       setSubmitting(false);
@@ -65,57 +126,143 @@ export function TalentForm({ dict }: Props) {
   }
 
   return (
-    <form onSubmit={onSubmit} className="min-w-0 border border-[#d9e0e6] bg-white p-4 shadow-[0_12px_32px_rgba(7,31,59,0.06)] sm:p-6">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label={dict.forms.name} name="name" autoComplete="name" required />
-        <Field label="WhatsApp" name="whatsapp" type="tel" autoComplete="tel" required />
+    <form
+      ref={formRef}
+      noValidate
+      onSubmit={onSubmit}
+      className="min-w-0 border border-[#d9e0e6] bg-white shadow-[0_16px_42px_rgba(7,31,59,0.08)]"
+    >
+      <div className="border-b border-[#d9e0e6] p-4 sm:p-6">
+        <p className="text-xs font-black uppercase tracking-[0.16em] text-[#b88228]">Cadastro profissional</p>
+        <h3 className="display-serif mt-2 text-2xl font-bold text-[#071f3b]">Questionário em 3 etapas</h3>
+        <ol className="mt-5 grid gap-2 sm:grid-cols-3">
+          {steps.map((step, index) => {
+            const isActive = index === currentStep;
+            const isDone = index < currentStep;
+
+            return (
+              <li key={step.title}>
+                <button
+                  type="button"
+                  onClick={() => goToStep(index)}
+                  className={`focus-ring flex min-h-16 w-full items-center gap-3 border px-3 py-3 text-left transition ${
+                    isActive
+                      ? "border-[#071f3b] bg-[#071f3b] text-white"
+                      : isDone
+                        ? "border-[#0f6f43] bg-[#f1faf5] text-[#071f3b]"
+                        : "border-[#d9e0e6] bg-[#f8faf9] text-[#071f3b]"
+                  }`}
+                >
+                  <span
+                    className={`grid h-8 w-8 shrink-0 place-items-center border text-sm font-black ${
+                      isActive ? "border-white/35 text-white" : isDone ? "border-[#0f6f43] text-[#0f6f43]" : "border-[#cbd5df] text-[#5c6b78]"
+                    }`}
+                  >
+                    {isDone ? <CheckCircle2 className="h-4 w-4" aria-hidden /> : index + 1}
+                  </span>
+                  <span className="min-w-0">
+                    <strong className="block text-sm leading-5">{step.title}</strong>
+                    <span className={`block text-xs leading-4 ${isActive ? "text-white/70" : "text-[#5c6b78]"}`}>{step.description}</span>
+                  </span>
+                </button>
+              </li>
+            );
+          })}
+        </ol>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="E-mail" name="email" type="email" autoComplete="email" required />
-        <Select label={dict.forms.country} name="country" options={["Brasil", "Chile", dict.forms.other]} placeholder={dict.forms.choose} required />
+
+      <div className="p-4 sm:p-6">
+        <fieldset data-form-step="0" hidden={currentStep !== 0} className="grid gap-4">
+          <legend className="sr-only">Dados de contato</legend>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label={dict.forms.name} name="name" autoComplete="name" required />
+            <Field label="WhatsApp" name="whatsapp" type="tel" autoComplete="tel" required />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="E-mail" name="email" type="email" autoComplete="email" required />
+            <Select label={dict.forms.country} name="country" options={["Brasil", "Chile", dict.forms.other]} placeholder={dict.forms.choose} required />
+          </div>
+          <Field label={dict.forms.city} name="city" />
+        </fieldset>
+
+        <fieldset data-form-step="1" hidden={currentStep !== 1} className="grid gap-4">
+          <legend className="sr-only">Perfil profissional</legend>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label={dict.forms.education} name="education" />
+            <Field label={dict.forms.registry} name="registry" />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Select label={dict.forms.area} name="area" options={[...dict.forms.talentAreas]} placeholder={dict.forms.choose} />
+            <Field label={dict.forms.experience} name="experience" />
+          </div>
+          <Field label="LinkedIn" name="linkedin" type="url" />
+        </fieldset>
+
+        <fieldset data-form-step="2" hidden={currentStep !== 2} className="grid gap-4">
+          <legend className="sr-only">Interesse e envio</legend>
+          <Select label={dict.forms.interest} name="interest" options={[...dict.forms.interests]} placeholder={dict.forms.choose} required />
+          <label className="grid gap-2 text-sm font-extrabold text-[#071f3b]">
+            {dict.forms.portfolio}
+            <span className="flex min-h-20 items-center gap-3 border border-dashed border-[#b88228] bg-[#fffaf1] px-4 py-3 text-sm font-bold text-[#071f3b]">
+              <UploadCloud className="h-5 w-5 shrink-0 text-[#b88228]" aria-hidden />
+              <input
+                name="portfolio"
+                type="file"
+                accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
+                className="min-w-0 flex-1 text-sm font-normal text-[#102235] file:mr-3 file:border-0 file:bg-[#071f3b] file:px-3 file:py-2 file:text-sm file:font-bold file:text-white"
+              />
+            </span>
+          </label>
+          <label className="grid gap-2 text-sm font-extrabold text-[#071f3b]">
+            {dict.forms.message}
+            <textarea
+              name="message"
+              rows={4}
+              placeholder={dict.forms.talentPlaceholder}
+              className="focus-ring min-h-32 min-w-0 w-full border border-[#cbd5df] bg-white px-3 py-3 font-normal text-[#102235]"
+            />
+          </label>
+        </fieldset>
+
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <button
+            type="button"
+            onClick={() => {
+              setStatus("");
+              setCurrentStep((step) => Math.max(step - 1, 0));
+            }}
+            disabled={currentStep === 0 || submitting}
+            className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 border border-[#cbd5df] px-5 text-sm font-extrabold text-[#071f3b] transition hover:border-[#071f3b] disabled:cursor-not-allowed disabled:opacity-45"
+          >
+            <ArrowLeft className="h-4 w-4" aria-hidden />
+            Voltar
+          </button>
+
+          {currentStep < steps.length - 1 ? (
+            <button
+              type="button"
+              onClick={goNext}
+              className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-5 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:shadow-xl"
+            >
+              Próxima etapa
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </button>
+          ) : (
+            <button
+              type="submit"
+              disabled={submitting}
+              className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-5 text-center text-sm font-extrabold leading-tight text-white transition hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-wait disabled:opacity-70"
+            >
+              <Send className="h-5 w-5" aria-hidden />
+              <span>{submitting ? "Enviando..." : dict.forms.talentSubmit}</span>
+            </button>
+          )}
+        </div>
+
+        <p className={`mt-4 min-h-6 text-sm font-bold ${statusKind === "success" ? "text-[#0f6f43]" : "text-[#b42318]"}`} aria-live="polite">
+          {status}
+        </p>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label={dict.forms.city} name="city" />
-        <Field label={dict.forms.education} name="education" />
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label={dict.forms.registry} name="registry" />
-        <Select label={dict.forms.area} name="area" options={[...dict.forms.talentAreas]} placeholder={dict.forms.choose} />
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field label={dict.forms.experience} name="experience" />
-        <Field label="LinkedIn" name="linkedin" type="url" />
-      </div>
-      <Select label={dict.forms.interest} name="interest" options={[...dict.forms.interests]} placeholder={dict.forms.choose} required />
-      <label className="mb-4 grid gap-2 text-sm font-extrabold text-[#071f3b]">
-        {dict.forms.portfolio}
-        <input
-          name="portfolio"
-          type="file"
-          accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
-          className="focus-ring min-w-0 w-full border border-[#cbd5df] bg-white px-3 py-3 font-normal text-[#102235] file:mr-3 file:border-0 file:bg-[#071f3b] file:px-3 file:py-2 file:text-sm file:font-bold file:text-white"
-        />
-      </label>
-      <label className="mb-4 grid gap-2 text-sm font-extrabold text-[#071f3b]">
-        {dict.forms.message}
-        <textarea
-          name="message"
-          rows={4}
-          placeholder={dict.forms.talentPlaceholder}
-          className="focus-ring min-h-32 min-w-0 w-full border border-[#cbd5df] bg-white px-3 py-3 font-normal text-[#102235]"
-        />
-      </label>
-      <button
-        type="submit"
-        disabled={submitting}
-        className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-5 text-center text-sm font-extrabold leading-tight text-white transition hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-wait disabled:opacity-70"
-      >
-        <Send className="h-5 w-5" />
-        <span>{dict.forms.talentSubmit}</span>
-      </button>
-      <p className="mt-3 min-h-6 text-sm font-bold text-[#0f6f43]" aria-live="polite">
-        {status}
-      </p>
     </form>
   );
 }
@@ -134,7 +281,7 @@ function Field({
   required?: boolean;
 }) {
   return (
-    <label className="mb-4 grid gap-2 text-sm font-extrabold text-[#071f3b]">
+    <label className="grid gap-2 text-sm font-extrabold text-[#071f3b]">
       {label}
       <input
         name={name}
@@ -161,7 +308,7 @@ function Select({
   required?: boolean;
 }) {
   return (
-    <label className="mb-4 grid gap-2 text-sm font-extrabold text-[#071f3b]">
+    <label className="grid gap-2 text-sm font-extrabold text-[#071f3b]">
       {label}
       <select name={name} required={required} className="focus-ring h-12 min-w-0 w-full border border-[#cbd5df] bg-white px-3 font-normal text-[#102235]">
         <option value="">{placeholder}</option>
