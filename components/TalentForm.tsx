@@ -207,7 +207,7 @@ export function TalentForm({ dict }: Props) {
             <Select label={dict.forms.area} name="area" options={[...dict.forms.talentAreas]} placeholder={dict.forms.choose} />
             <Field label={dict.forms.experience} name="experience" />
           </div>
-          <Field label="LinkedIn" name="linkedin" type="url" />
+          <Field label="LinkedIn" name="linkedin" />
         </fieldset>
 
         <fieldset data-form-step="2" hidden={currentStep !== 2} className="grid gap-4">
@@ -215,13 +215,13 @@ export function TalentForm({ dict }: Props) {
           <Select label={dict.forms.interest} name="interest" options={[...dict.forms.interests]} placeholder={dict.forms.choose} required />
           <label className="grid gap-2 text-sm font-extrabold text-[#071f3b]">
             {dict.forms.portfolio}
-            <span className="flex min-h-20 items-center gap-3 border border-dashed border-[#b88228] bg-[#fffaf1] px-4 py-3 text-sm font-bold text-[#071f3b]">
+            <span className="flex min-h-20 flex-col items-start gap-3 border border-dashed border-[#b88228] bg-[#fffaf1] px-4 py-3 text-sm font-bold text-[#071f3b] sm:flex-row sm:items-center">
               <UploadCloud className="h-5 w-5 shrink-0 text-[#b88228]" aria-hidden />
               <input
                 name="portfolio"
                 type="file"
                 accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
-                className="min-w-0 flex-1 text-sm font-normal text-[#102235] file:mr-3 file:border-0 file:bg-[#071f3b] file:px-3 file:py-2 file:text-sm file:font-bold file:text-white"
+                className="min-w-0 max-w-full flex-1 text-sm font-normal text-[#102235] file:mr-3 file:border-0 file:bg-[#071f3b] file:px-3 file:py-2 file:text-sm file:font-bold file:text-white"
               />
             </span>
           </label>
@@ -244,7 +244,7 @@ export function TalentForm({ dict }: Props) {
               setCurrentStep((step) => Math.max(step - 1, 0));
             }}
             disabled={currentStep === 0 || submitting}
-            className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 border border-[#cbd5df] px-5 text-sm font-extrabold text-[#071f3b] transition hover:border-[#071f3b] disabled:cursor-not-allowed disabled:opacity-45"
+            className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 border border-[#cbd5df] px-5 text-sm font-extrabold text-[#071f3b] transition hover:border-[#071f3b] disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden />
             Voltar
@@ -254,7 +254,7 @@ export function TalentForm({ dict }: Props) {
             <button
               type="button"
               onClick={goNext}
-              className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-5 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:shadow-xl"
+              className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-5 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:shadow-xl sm:w-auto"
             >
               Próxima etapa
               <ArrowRight className="h-4 w-4" aria-hidden />
@@ -263,7 +263,7 @@ export function TalentForm({ dict }: Props) {
             <button
               type="submit"
               disabled={submitting}
-              className="focus-ring inline-flex min-h-12 items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-5 text-center text-sm font-extrabold leading-tight text-white transition hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-wait disabled:opacity-70"
+              className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-5 text-center text-sm font-extrabold leading-tight text-white transition hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-wait disabled:opacity-70 sm:w-auto"
             >
               <Send className="h-5 w-5" aria-hidden />
               <span>{submitting ? "Enviando..." : dict.forms.talentSubmit}</span>

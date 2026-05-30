@@ -236,8 +236,8 @@ export default async function SolutionPage({ params }: PageProps) {
       <Header lang={lang} dict={dict} page="solutions" />
       <main>
         <section className="border-b border-[#071f3b]/10 bg-[#f8faf9]">
-          <div className="shell grid gap-8 py-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end lg:py-16">
-            <div>
+          <div className="shell grid min-w-0 gap-8 py-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end lg:py-16">
+            <div className="min-w-0">
               <nav className="mb-5 flex flex-wrap items-center gap-2 text-xs font-extrabold uppercase text-[#5c6b78]" aria-label="Breadcrumb">
                 <Link href={`/${lang}`} className="text-[#071f3b] hover:text-[#b88228]">
                   Home
@@ -263,7 +263,7 @@ export default async function SolutionPage({ params }: PageProps) {
                 </ButtonLink>
               </div>
             </div>
-            <aside className="border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)]">
+            <aside className="min-w-0 border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)]">
               <span className="display-serif block text-4xl font-bold text-[#071f3b]">{group.label}</span>
               <p className="mt-4 leading-7 text-[#5c6b78]">
                 {content.solutions.text}
@@ -320,7 +320,7 @@ export default async function SolutionPage({ params }: PageProps) {
         )}
 
         <section className="bg-[#071f3b] py-10 text-white">
-          <div className="shell grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+          <div className="shell grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
             <div className="max-w-3xl">
               <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-[#d9a441]">{content.labels.talkSpecialist}</p>
               <h2 className="display-serif text-balance text-[clamp(1.45rem,2.5vw,2.15rem)] font-bold leading-tight text-white">
@@ -405,7 +405,7 @@ function DetailedServiceCatalog({ slug, lang }: { slug: SolutionSlug; lang: Loca
           </div>
         </div>
 
-        <nav className="mt-8 grid grid-cols-3 gap-2 sm:gap-3" aria-label="Navegação de soluções">
+        <nav className="mt-8 grid gap-2 sm:grid-cols-3 sm:gap-3" aria-label="Navegação de soluções">
           {servicePageTabs.map((tab) => {
             const isActive = tab.slug === slug;
             return (
@@ -427,7 +427,7 @@ function DetailedServiceCatalog({ slug, lang }: { slug: SolutionSlug; lang: Loca
         </nav>
 
         {blocks.length > 1 ? (
-          <nav className="sticky top-20 z-10 mt-8 flex gap-2 overflow-x-auto border border-[#d9e0e6] bg-white/95 p-2 shadow-[0_12px_24px_rgba(7,31,59,.06)] backdrop-blur" aria-label="Nesta página">
+          <nav className="sticky top-20 z-10 mt-8 flex max-w-full gap-2 overflow-x-auto border border-[#d9e0e6] bg-white/95 p-2 shadow-[0_12px_24px_rgba(7,31,59,.06)] backdrop-blur" aria-label="Nesta página">
             {blocks.map((block) => (
               <a
                 key={block.id}
@@ -459,7 +459,7 @@ function DetailedServiceCatalog({ slug, lang }: { slug: SolutionSlug; lang: Loca
 
               <div className="grid gap-4 p-4 sm:p-6">
                 {block.cards.map((card, cardIndex) => (
-                  <ServiceCatalogDetails key={card.title} card={card} index={cardIndex} open={cardIndex === 0} />
+                  <ServiceCatalogDetails key={card.title} card={card} index={cardIndex} open={cardIndex === 0} lang={lang} />
                 ))}
               </div>
             </section>
@@ -470,7 +470,7 @@ function DetailedServiceCatalog({ slug, lang }: { slug: SolutionSlug; lang: Loca
   );
 }
 
-function ServiceCatalogDetails({ card, index, open }: { card: ServiceCatalogCard; index: number; open?: boolean }) {
+function ServiceCatalogDetails({ card, index, open, lang }: { card: ServiceCatalogCard; index: number; open?: boolean; lang: Locale }) {
   const Icon = catalogCardIcons[index] || BadgeCheck;
 
   return (
@@ -486,7 +486,7 @@ function ServiceCatalogDetails({ card, index, open }: { card: ServiceCatalogCard
           <span className="display-serif block text-xl font-bold leading-7 text-[#071f3b] sm:text-2xl">{card.title}</span>
           <span className="mt-2 block text-sm leading-6 text-[#5c6b78] sm:text-base sm:leading-7">{card.text}</span>
         </span>
-        <span className="inline-flex h-11 items-center justify-center gap-2 border border-[#071f3b] px-4 text-sm font-extrabold text-[#071f3b] transition group-open:border-[#b88228] group-open:text-[#b88228]">
+        <span className="inline-flex h-11 w-full max-w-full items-center justify-center gap-2 border border-[#071f3b] px-4 text-sm font-extrabold text-[#071f3b] transition group-open:border-[#b88228] group-open:text-[#b88228] sm:w-auto">
           Ver serviços
           <ChevronDown className="h-4 w-4 transition group-open:rotate-180" aria-hidden />
         </span>
@@ -501,7 +501,7 @@ function ServiceCatalogDetails({ card, index, open }: { card: ServiceCatalogCard
             </span>
           ))}
         </div>
-        <Link href="/pt-br#contato" className="mt-5 inline-flex items-center gap-2 border-b-2 border-[#b88228] pb-1 text-sm font-extrabold text-[#071f3b]">
+        <Link href={`/${lang}#contato`} className="mt-5 inline-flex items-center gap-2 border-b-2 border-[#b88228] pb-1 text-sm font-extrabold text-[#071f3b]">
           Falar sobre este serviço
           <ArrowRight className="h-4 w-4" aria-hidden />
         </Link>

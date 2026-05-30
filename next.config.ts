@@ -9,6 +9,16 @@ const nextConfig: NextConfig = {
         destination: "/pt-br",
         permanent: false,
       },
+      {
+        source: "/:lang/carreiras",
+        destination: "/:lang/trabalhe-conosco",
+        permanent: true,
+      },
+      {
+        source: "/:lang/servicos",
+        destination: "/:lang#solucoes",
+        permanent: true,
+      },
     ];
   },
 };

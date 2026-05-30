@@ -37,7 +37,7 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-40 border-b border-[#071f3b]/10 bg-[#f8faf9]/95 text-[#071f3b] backdrop-blur">
-      <div className="shell grid min-h-[72px] grid-cols-[minmax(0,auto)_auto] items-center justify-between gap-4 lg:grid-cols-[auto_minmax(0,1fr)_auto]">
+      <div className="shell grid min-h-[72px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:gap-4">
         <Link href={`/${lang}`} className="display-serif flex min-w-0 items-center gap-3 font-bold text-[#071f3b]">
           <Image
             src="/assets/logo-brachilenos.jpeg"
@@ -47,7 +47,7 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
             className="h-11 w-11 shrink-0 border border-[#b88228]/40 bg-white object-cover sm:h-12 sm:w-12"
             priority
           />
-          <span className="truncate text-lg tracking-wide sm:text-xl">BRACHILENOS</span>
+          <span className="min-w-0 truncate text-base tracking-wide sm:text-xl">BRACHILENOS</span>
         </Link>
 
         <details className="group justify-self-end lg:hidden">
@@ -74,7 +74,7 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
           </div>
         </details>
 
-        <nav className="hidden min-w-0 items-center justify-center gap-5 text-sm font-bold text-[#5c6b78] lg:flex xl:gap-7">
+        <nav className="hidden min-w-0 items-center justify-center gap-4 text-sm font-bold text-[#5c6b78] lg:flex xl:gap-7">
           {beforeSolutionsNav.map((item) => (
             <DesktopLink key={item.href} href={item.href} active={page === item.pageKey}>
               {item.label}
@@ -132,7 +132,7 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
           })}
         </nav>
 
-        <div className="hidden items-center justify-end gap-3 lg:flex">
+        <div className="hidden min-w-0 items-center justify-end gap-3 lg:flex">
           <Link
             href={`/${lang}#contato`}
             className="focus-ring inline-flex min-h-10 items-center justify-center border border-[#071f3b] bg-[#071f3b] px-4 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:shadow-lg"

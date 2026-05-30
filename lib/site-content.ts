@@ -19,20 +19,20 @@ const content = {
     home: {
       hero: {
         eyebrow: "Escritório de contabilidade Brasil x Chile",
-        title: "Contabilidade estratégica para operar entre Brasil e Chile",
+        title: "Contabilidade estratégica para Brasil e Chile",
         text:
-          "Assessoria contábil, fiscal e financeira para empresas, investidores e brasileiros que precisam operar com segurança nos dois países.",
+          "Assessoria contábil, fiscal e financeira para empresas, investidores e brasileiros que precisam decidir, regularizar e crescer com segurança entre os dois países.",
         primary: "Falar pelo WhatsApp",
         secondary: "Ver soluções",
       },
       proof: [
         { value: "BR + CL", label: "Atuação pensada para dois mercados" },
         { value: "PT / ES / EN", label: "Comunicação trilíngue" },
-        { value: "360", label: "Contábil, fiscal, financeiro e tributário" },
+        { value: "360°", label: "Contábil, fiscal, financeiro e tributário" },
       ],
-      serviceTitle: "Soluções contábeis para operar com segurança",
+      serviceTitle: "Serviços contábeis para decidir e operar melhor",
       serviceText:
-        "Atendimento contábil, fiscal e financeiro organizado para quem atua no Brasil, no Chile ou entre os dois mercados.",
+        "Atendimento organizado por mercado, perfil e necessidade para reduzir dúvida, risco fiscal e perda de tempo operacional.",
       serviceCards: [
         {
           title: "Contabilidade e Fiscal",
@@ -72,7 +72,7 @@ const content = {
       ],
       method: {
         eyebrow: "Como trabalhamos",
-        title: "Diagnóstico, execução e acompanhamento sem improviso",
+        title: "Diagnóstico, plano técnico e acompanhamento contínuo",
         steps: [
           { title: "Diagnóstico", text: "Entendemos empresa, residência fiscal, faturamento, documentos e riscos." },
           { title: "Plano técnico", text: "Definimos prioridades, obrigações, regime, controles e próximos passos." },
@@ -82,14 +82,14 @@ const content = {
       },
       workBand: {
         eyebrow: "Rede técnica",
-        title: "Trabalhe com uma rede técnica Brasil x Chile",
+        title: "Faça parte da rede técnica Brasil x Chile",
         text:
           "A BRACHILENOS também recebe profissionais e prestadores de serviço para fortalecer a operação com estrutura e critérios técnicos.",
         cta: "Trabalhe Conosco",
       },
       contact: {
         eyebrow: "Contato comercial",
-        title: "Solicite uma análise inicial pelo WhatsApp",
+        title: "Fale com um especialista e organize o próximo passo",
         text:
           "Conte o cenário da sua empresa. A equipe retorna com o caminho mais adequado para diagnóstico, proposta ou atendimento recorrente.",
         highlights: ["Atendimento para Brasil, Chile e operações binacionais", "Contato comercial separado do cadastro profissional", "Base pronta para CRM, planilha ou e-mail"],

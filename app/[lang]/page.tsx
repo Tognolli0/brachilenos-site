@@ -82,8 +82,8 @@ export default async function HomePage({ params }: PageProps) {
         }}
       />
       <main>
-        <section className="overflow-hidden border-b border-[#071f3b]/10 bg-[linear-gradient(120deg,#f8faf9_0%,#ffffff_58%,#eef4f2_100%)]">
-          <div className="shell grid gap-10 py-12 lg:grid-cols-[minmax(0,1fr)_minmax(330px,.68fr)] lg:items-center lg:py-16">
+        <section className="border-b border-[#071f3b]/10 bg-[linear-gradient(120deg,#f8faf9_0%,#ffffff_58%,#eef4f2_100%)]">
+          <div className="shell grid min-w-0 gap-10 py-12 lg:grid-cols-[minmax(0,1fr)_minmax(330px,.68fr)] lg:items-center lg:py-16">
             <div className="min-w-0">
               <p className="eyebrow mb-5">{content.home.hero.eyebrow}</p>
               <h1
@@ -101,9 +101,9 @@ export default async function HomePage({ params }: PageProps) {
                 </ButtonLink>
                 <Link
                   href={`/${lang}#solucoes`}
-                  className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 border border-transparent px-5 text-sm font-extrabold text-[#071f3b] transition hover:text-[#b88228] sm:w-auto"
+                  className="focus-ring inline-flex min-h-12 w-full max-w-full items-center justify-center gap-2 border border-[#d9e0e6] bg-white px-5 text-center text-sm font-extrabold text-[#071f3b] transition hover:-translate-y-0.5 hover:border-[#b88228] hover:text-[#b88228] hover:shadow-xl sm:w-auto"
                 >
-                  {content.home.hero.secondary}
+                  <span className="min-w-0 break-words">{content.home.hero.secondary}</span>
                   <ArrowRight className="h-4 w-4" aria-hidden />
                 </Link>
               </div>
@@ -127,7 +127,7 @@ export default async function HomePage({ params }: PageProps) {
                   </div>
                 ))}
               </div>
-              <div className="mt-5 grid grid-cols-3 gap-2 text-center text-[0.72rem] font-black uppercase text-white/75">
+              <div className="mt-5 grid gap-2 text-center text-[0.72rem] font-black uppercase text-white/75 sm:grid-cols-3">
                 <span className="border border-white/15 py-2">Fiscal</span>
                 <span className="border border-white/15 py-2">Financeiro</span>
                 <span className="border border-white/15 py-2">Tributário</span>
@@ -232,7 +232,7 @@ export default async function HomePage({ params }: PageProps) {
           </div>
         </section>
 
-        <section id="contato" className="section-pad bg-[#f8faf9]">
+        <section id="contato" className="section-pad scroll-mt-24 bg-[#f8faf9]">
           <div className="shell grid gap-9 lg:grid-cols-[.82fr_1.18fr] lg:items-start">
             <div className="lg:sticky lg:top-28">
               <p className="eyebrow mb-3">{content.home.contact.eyebrow}</p>

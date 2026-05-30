@@ -19,11 +19,13 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
 
   body {
     margin: 0;
-    overflow-x: hidden;
+    min-width: 0;
+    overflow-x: clip;
     background: #f8faf9;
     color: #102235;
     font-family:
@@ -34,7 +36,8 @@
   h2,
   h3,
   p {
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
+    word-break: normal;
   }
 
   button,
@@ -43,12 +46,33 @@
   textarea {
     font: inherit;
   }
+
+  img,
+  svg,
+  video,
+  canvas {
+    max-width: 100%;
+  }
 }
 
 @layer components {
   .shell {
-    width: min(1160px, calc(100% - 32px));
+    width: 100%;
+    max-width: 1160px;
     margin-inline: auto;
+    padding-inline: 16px;
+  }
+
+  @media (min-width: 640px) {
+    .shell {
+      padding-inline: 24px;
+    }
+  }
+
+  @media (min-width: 1210px) {
+    .shell {
+      padding-inline: 0;
+    }
   }
 
   .display-serif {

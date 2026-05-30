@@ -44,6 +44,9 @@ export function Footer({ lang, dict }: FooterProps) {
         <div>
           <h3 className="mb-3 font-bold text-white">{dict.footer.seo}</h3>
           <p className="text-sm leading-6">{dict.footer.keywords}</p>
+          <FooterLink href={`/${lang}/privacidade`}>
+            {lang === "pt-br" ? "Política de Privacidade" : lang === "es" ? "Política de Privacidad" : "Privacy Policy"}
+          </FooterLink>
         </div>
       </div>
     </footer>
