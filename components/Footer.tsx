@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Dictionary, Locale } from "@/lib/dictionaries";
+import { createWhatsAppUrl } from "@/lib/conversion";
 import { getSiteContent, solutionSlugs } from "@/lib/site-content";
 
 type FooterProps = {
@@ -22,6 +23,14 @@ export function Footer({ lang, dict }: FooterProps) {
             <span>BRACHILENOS</span>
           </Link>
           <p className="max-w-sm text-sm leading-6">{dict.footer.text}</p>
+          <div className="mt-5 grid gap-2 text-sm">
+            <a href={createWhatsAppUrl("Ola! Gostaria de falar com a BRACHILENOS.")} target="_blank" rel="noopener noreferrer" className="font-semibold text-white transition hover:text-[#d7aa52]">
+              WhatsApp: +56 9 8241 9532
+            </a>
+            <a href="mailto:Mikaelen.britocl@gmail.com" className="font-semibold text-white transition hover:text-[#d7aa52]">
+              E-mail: Mikaelen.britocl@gmail.com
+            </a>
+          </div>
         </div>
 
         <div>

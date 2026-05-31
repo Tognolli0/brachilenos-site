@@ -1,4 +1,4 @@
-export const clientWhatsAppNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "5511969870407";
+export const clientWhatsAppNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "56982419532";
 
 export function createWhatsAppUrl(message: string, number = clientWhatsAppNumber) {
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;

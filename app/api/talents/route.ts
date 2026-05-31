@@ -3,7 +3,7 @@ import { createMailToUrl } from "@/lib/conversion";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const requiredFields = ["name", "email", "whatsapp", "country", "interest"] as const;
-const temporaryTalentEmail = process.env.TALENTS_EMAIL_TO || "diogotognolli38@gmail.com";
+const temporaryTalentEmail = process.env.TALENTS_EMAIL_TO || "Mikaelen.britocl@gmail.com";
 
 export async function POST(request: Request) {
   let payload: Record<string, unknown>;
