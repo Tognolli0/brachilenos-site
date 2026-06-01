@@ -10,29 +10,46 @@ const content = {
       solutions: "solucoes",
     },
     labels: {
+      home: "Home",
+      about: "Quem Somos",
+      contact: "Fale Conosco",
       solutionsMenu: "Soluções",
       viewDetails: "Ver detalhes",
+      viewSolution: "Ver solução",
       requestProposal: "Solicitar análise",
       talkSpecialist: "Falar com especialista",
       workWithUs: "Trabalhe Conosco",
+      openMenu: "Abrir menu",
+      chooseMarket: "Escolha por mercado",
+      solutionsMenuText: "Separe sua demanda entre Brasil, Chile ou operação internacional.",
+      overview: "Visão geral",
+      privacyPolicy: "Política de Privacidade",
+      whatsappAria: "Falar pelo WhatsApp",
     },
     home: {
       hero: {
         eyebrow: "Escritório de contabilidade Brasil x Chile",
-        title: "Contabilidade estratégica para Brasil e Chile",
+        title: "Contabilidade, impostos e gestão entre Brasil e Chile",
         text:
-          "Assessoria contábil, fiscal e financeira para empresas, investidores e brasileiros que precisam decidir, regularizar e crescer com segurança entre os dois países.",
+          "Apoio contábil, fiscal e financeiro para brasileiros, empresas e investidores que precisam operar com segurança nos dois países.",
         primary: "Falar pelo WhatsApp",
         secondary: "Ver soluções",
       },
       proof: [
-        { value: "BR + CL", label: "Atuação pensada para dois mercados" },
-        { value: "PT / ES / EN", label: "Comunicação trilíngue" },
-        { value: "360°", label: "Contábil, fiscal, financeiro e tributário" },
+        { value: "Brasil + Chile", label: "Atuação binacional" },
+        { value: "PF e PJ", label: "Pessoas físicas e empresas" },
+        { value: "Fiscal + Financeiro", label: "Planejamento e rotina" },
       ],
-      serviceTitle: "Serviços contábeis para decidir e operar melhor",
+      heroPanel: {
+        eyebrow: "Primeiro passo",
+        title: "Diagnóstico antes da proposta",
+        text: "A conversa inicial mapeia país, perfil, obrigação fiscal, urgência e documentos para direcionar o atendimento correto.",
+        items: ["Pessoa física ou jurídica", "Brasil, Chile ou Brasil x Chile", "Regularização, gestão ou planejamento"],
+        cta: "Solicitar análise",
+      },
+      serviceTitle: "Conheça nossas soluções contábeis",
       serviceText:
-        "Atendimento organizado por mercado, perfil e necessidade para reduzir dúvida, risco fiscal e perda de tempo operacional.",
+        "Serviços organizados por necessidade para quem quer regularizar, estruturar, controlar ou expandir operações entre Brasil e Chile.",
       serviceCards: [
         {
           title: "Contabilidade e Fiscal",
@@ -72,7 +89,7 @@ const content = {
       ],
       method: {
         eyebrow: "Como trabalhamos",
-        title: "Diagnóstico, plano técnico e acompanhamento contínuo",
+        title: "Um processo claro para sair da dúvida e organizar a operação",
         steps: [
           { title: "Diagnóstico", text: "Entendemos empresa, residência fiscal, faturamento, documentos e riscos." },
           { title: "Plano técnico", text: "Definimos prioridades, obrigações, regime, controles e próximos passos." },
@@ -104,9 +121,9 @@ const content = {
         brasil: {
           label: "Brasil",
           eyebrow: "Soluções no Brasil",
-          title: "Soluções contábeis e financeiras para operações no Brasil",
+          title: "Contabilidade e gestão para pessoas e empresas no Brasil",
           description:
-            "Apoio para manter a empresa regular, organizada e preparada para decisões fiscais, financeiras e societárias.",
+            "Apoio para regularizar obrigações, organizar finanças, manter a empresa em dia e tomar decisões fiscais com mais segurança.",
           services: [
             { title: "Contabilidade empresarial", text: "Escrituração, fechamento mensal, demonstrativos e suporte gerencial." },
             { title: "Fiscal e obrigações acessórias", text: "Apuração de impostos, declarações e acompanhamento de prazos." },
@@ -119,9 +136,9 @@ const content = {
         chile: {
           label: "Chile",
           eyebrow: "Soluções no Chile",
-          title: "Estrutura contábil e financeira para brasileiros no Chile",
+          title: "Suporte contábil e financeiro para brasileiros no Chile",
           description:
-            "Estrutura para abrir, organizar ou acompanhar operações locais com comunicação próxima e visão empresarial.",
+            "Estrutura para abrir, organizar ou acompanhar atividades no Chile com comunicação clara, visão fiscal e rotina financeira.",
           services: [
             { title: "Orientação para abertura de empresa", text: "Direcionamento documental, societário e operacional para iniciar atividades." },
             { title: "Contabilidade local", text: "Organização de rotina contábil, fiscal e relatórios para acompanhamento." },
@@ -134,9 +151,9 @@ const content = {
         "brasil-chile": {
           label: "Brasil x Chile",
           eyebrow: "Operações binacionais",
-          title: "Planejamento internacional para Brasil x Chile",
+          title: "Planejamento tributário e financeiro Brasil x Chile",
           description:
-            "Consultoria para empresas, investidores e pessoas físicas que precisam organizar decisões entre dois países.",
+            "Consultoria para pessoas, empresas e investidores que precisam organizar renda, operação, residência fiscal e patrimônio entre os dois países.",
           services: [
             { title: "Diagnóstico Brasil x Chile", text: "Leitura do cenário, riscos, obrigações e prioridades nos dois mercados." },
             { title: "Planejamento tributário internacional", text: "Estratégia para renda, créditos, tratados, remessas e distribuição de lucros." },
@@ -150,9 +167,9 @@ const content = {
     },
     work: {
       eyebrow: "Trabalhe Conosco",
-      title: "Trabalhe ou preste serviço com a BRACHILENOS",
+      title: "Faça parte da rede profissional BRACHILENOS",
       text:
-        "Recebemos profissionais e prestadores com perfil técnico, responsabilidade e interesse em projetos contábeis, fiscais, financeiros e tributários entre Brasil e Chile.",
+        "Recebemos profissionais e prestadores com perfil técnico para projetos contábeis, fiscais, financeiros e tributários entre Brasil e Chile.",
       cards: [
         {
           id: "quero-trabalhar",
@@ -173,9 +190,9 @@ const content = {
       ],
       application: {
         eyebrow: "Cadastro profissional",
-        title: "Envie seus dados para análise",
+        title: "Banco de talentos e prestadores",
         text:
-          "As informações entram em uma base separada dos leads comerciais, permitindo organizar candidatos e prestadores por área, país e disponibilidade.",
+          "As informações entram em uma base separada dos leads comerciais, com classificação por interesse, área, país, disponibilidade e modelo de atuação.",
         groups: ["Candidatos", "Prestadores de serviço"],
       },
     },
@@ -186,11 +203,21 @@ const content = {
       solutions: "solucoes",
     },
     labels: {
+      home: "Inicio",
+      about: "Quiénes Somos",
+      contact: "Contacto",
       solutionsMenu: "Soluciones",
       viewDetails: "Ver detalles",
+      viewSolution: "Ver solución",
       requestProposal: "Solicitar propuesta",
       talkSpecialist: "Hablar con especialista",
       workWithUs: "Trabaja con nosotros",
+      openMenu: "Abrir menú",
+      chooseMarket: "Elige por mercado",
+      solutionsMenuText: "Separa tu demanda entre Brasil, Chile u operación internacional.",
+      overview: "Visión general",
+      privacyPolicy: "Política de Privacidad",
+      whatsappAria: "Hablar por WhatsApp",
     },
     home: {
       hero: {
@@ -206,6 +233,13 @@ const content = {
         { value: "PT / ES / EN", label: "Comunicación trilingüe" },
         { value: "360", label: "Contable, fiscal, financiero y tributario" },
       ],
+      heroPanel: {
+        eyebrow: "Primer paso",
+        title: "Diagnóstico antes de la propuesta",
+        text: "La conversación inicial mapea país, perfil, obligación fiscal, urgencia y documentos para orientar la atención correcta.",
+        items: ["Persona natural o empresa", "Brasil, Chile o Brasil x Chile", "Regularización, gestión o planificación"],
+        cta: "Solicitar propuesta",
+      },
       serviceTitle: "Conoce nuestros servicios contables",
       serviceText: "Atención contable, fiscal y financiera organizada para quienes actúan en Brasil, Chile o entre ambos mercados.",
       serviceCards: [
@@ -303,9 +337,9 @@ const content = {
     },
     work: {
       eyebrow: "Trabaja con nosotros",
-      title: "Actúa con BRACHILENOS",
+      title: "Forma parte de la red profesional BRACHILENOS",
       text:
-        "Recibimos profesionales y prestadores con perfil técnico, responsabilidad e interés en proyectos contables, fiscales, financieros y tributarios entre Brasil y Chile.",
+        "Recibimos profesionales y prestadores con perfil técnico para proyectos contables, fiscales, financieros y tributarios entre Brasil y Chile.",
       cards: [
         {
           id: "quero-trabalhar",
@@ -324,9 +358,9 @@ const content = {
       ],
       application: {
         eyebrow: "Registro profesional",
-        title: "Envía tus datos para análisis",
+        title: "Banco de talentos y prestadores",
         text:
-          "La información entra en una base separada de los leads comerciales, permitiendo organizar candidatos y prestadores por área, país y disponibilidad.",
+          "La información entra en una base separada de los leads comerciales, con clasificación por interés, área, país, disponibilidad y modelo de actuación.",
         groups: ["Candidatos", "Prestadores de servicio"],
       },
     },
@@ -337,11 +371,21 @@ const content = {
       solutions: "solucoes",
     },
     labels: {
+      home: "Home",
+      about: "About",
+      contact: "Contact",
       solutionsMenu: "Solutions",
       viewDetails: "View details",
+      viewSolution: "View solution",
       requestProposal: "Request proposal",
       talkSpecialist: "Talk to a specialist",
       workWithUs: "Work with us",
+      openMenu: "Open menu",
+      chooseMarket: "Choose by market",
+      solutionsMenuText: "Separate your need between Brazil, Chile or international operations.",
+      overview: "Overview",
+      privacyPolicy: "Privacy Policy",
+      whatsappAria: "Talk on WhatsApp",
     },
     home: {
       hero: {
@@ -357,6 +401,13 @@ const content = {
         { value: "PT / ES / EN", label: "Trilingual communication" },
         { value: "360", label: "Accounting, tax, finance and advisory" },
       ],
+      heroPanel: {
+        eyebrow: "First step",
+        title: "Diagnosis before proposal",
+        text: "The first conversation maps country, profile, tax obligation, urgency and documents to route the service correctly.",
+        items: ["Individual or company", "Brazil, Chile or Brazil x Chile", "Regularization, management or planning"],
+        cta: "Request proposal",
+      },
       serviceTitle: "Explore our accounting services",
       serviceText: "Accounting, tax and finance support organized for those operating in Brazil, Chile or across both markets.",
       serviceCards: [
@@ -451,9 +502,9 @@ const content = {
     },
     work: {
       eyebrow: "Work with us",
-      title: "Work with BRACHILENOS",
+      title: "Join the BRACHILENOS professional network",
       text:
-        "We receive professionals and service providers with technical profile, responsibility and interest in accounting, tax, finance and advisory projects between Brazil and Chile.",
+        "We receive professionals and service providers with technical profiles for accounting, tax, finance and advisory projects between Brazil and Chile.",
       cards: [
         {
           id: "quero-trabalhar",
@@ -472,9 +523,9 @@ const content = {
       ],
       application: {
         eyebrow: "Professional registration",
-        title: "Send your information for review",
+        title: "Talent and provider bank",
         text:
-          "The information enters a base separated from commercial leads, allowing candidates and providers to be organized by area, country and availability.",
+          "The information enters a base separated from commercial leads, classified by interest, area, country, availability and work model.",
         groups: ["Candidates", "Service providers"],
       },
     },

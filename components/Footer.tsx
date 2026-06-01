@@ -24,7 +24,7 @@ export function Footer({ lang, dict }: FooterProps) {
           </Link>
           <p className="max-w-sm text-sm leading-6">{dict.footer.text}</p>
           <div className="mt-5 grid gap-2 text-sm">
-            <a href={createWhatsAppUrl("Ola! Gostaria de falar com a BRACHILENOS.")} target="_blank" rel="noopener noreferrer" className="font-semibold text-white transition hover:text-[#d7aa52]">
+            <a href={createWhatsAppUrl(dict.nav.commercialCta)} target="_blank" rel="noopener noreferrer" className="font-semibold text-white transition hover:text-[#d7aa52]">
               WhatsApp: +56 9 8241 9532
             </a>
             <a href="mailto:Mikaelen.britocl@gmail.com" className="font-semibold text-white transition hover:text-[#d7aa52]">
@@ -54,7 +54,7 @@ export function Footer({ lang, dict }: FooterProps) {
           <h3 className="mb-3 font-bold text-white">{dict.footer.seo}</h3>
           <p className="text-sm leading-6">{dict.footer.keywords}</p>
           <FooterLink href={`/${lang}/privacidade`}>
-            {lang === "pt-br" ? "Política de Privacidade" : lang === "es" ? "Política de Privacidad" : "Privacy Policy"}
+            {content.labels.privacyPolicy}
           </FooterLink>
         </div>
       </div>

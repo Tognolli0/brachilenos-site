@@ -10,7 +10,6 @@ import {
   ClipboardCheck,
   FileCheck2,
   Globe2,
-  Landmark,
   LineChart,
   ReceiptText,
   Scale,
@@ -82,56 +81,57 @@ export default async function HomePage({ params }: PageProps) {
         }}
       />
       <main>
-        <section className="border-b border-[#071f3b]/10 bg-[linear-gradient(120deg,#f8faf9_0%,#ffffff_58%,#eef4f2_100%)]">
-          <div className="shell grid min-w-0 gap-10 py-12 lg:grid-cols-[minmax(0,1fr)_minmax(330px,.68fr)] lg:items-center lg:py-16">
+        <section className="border-b border-[#071f3b]/10 bg-[#071f3b] text-white">
+          <div className="shell grid min-w-0 gap-8 py-12 lg:grid-cols-[minmax(0,1fr)_minmax(320px,.62fr)] lg:items-center lg:py-16">
             <div className="min-w-0">
               <p className="eyebrow mb-5">{content.home.hero.eyebrow}</p>
               <h1
-                className="display-serif max-w-3xl text-balance font-bold text-[#071f3b]"
-                style={{ fontSize: "clamp(1.9rem, 3.1vw, 2.8rem)", lineHeight: 1.12 }}
+                className="max-w-3xl text-balance font-black text-white"
+                style={{ fontSize: "clamp(2rem, 4vw, 3.35rem)", lineHeight: 1.05 }}
               >
                 {content.home.hero.title}
               </h1>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-[#31465a] sm:text-lg">
+              <p className="mt-5 max-w-2xl text-base leading-7 text-white/78 sm:text-lg">
                 {content.home.hero.text}
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-                <ButtonLink href={`/${lang}#contato`} icon={WhatsAppIcon} className="border-[#071f3b] bg-[#071f3b] text-white">
+                <ButtonLink href={`/${lang}#contato`} icon={WhatsAppIcon} variant="light">
                   {content.home.hero.primary}
                 </ButtonLink>
                 <Link
                   href={`/${lang}#solucoes`}
-                  className="focus-ring inline-flex min-h-12 w-full max-w-full items-center justify-center gap-2 border border-[#d9e0e6] bg-white px-5 text-center text-sm font-extrabold text-[#071f3b] transition hover:-translate-y-0.5 hover:border-[#b88228] hover:text-[#b88228] hover:shadow-xl sm:w-auto"
+                  className="focus-ring inline-flex min-h-12 w-full max-w-full items-center justify-center gap-2 border border-white/35 bg-transparent px-5 text-center text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:border-white hover:bg-white hover:text-[#071f3b] hover:shadow-xl sm:w-auto"
                 >
                   <span className="min-w-0 break-words">{content.home.hero.secondary}</span>
                   <ArrowRight className="h-4 w-4" aria-hidden />
                 </Link>
               </div>
-            </div>
-
-            <aside className="min-w-0 border border-[#071f3b] bg-[#071f3b] p-5 text-white shadow-[0_18px_48px_rgba(7,31,59,.18)] sm:p-7">
-              <div className="mb-6 flex items-center gap-3 border-b border-white/15 pb-5">
-                <div className="grid h-12 w-12 shrink-0 place-items-center bg-white text-[#071f3b]">
-                  <Landmark className="h-6 w-6" aria-hidden />
-                </div>
-                <div>
-                  <p className="text-xs font-black uppercase text-[#d7aa52]">BRACHILENOS</p>
-                  <h2 className="font-extrabold text-white">Estratégia contábil Brasil x Chile</h2>
-                </div>
-              </div>
-              <div className="grid gap-3">
+              <div className="mt-8 grid gap-3 sm:grid-cols-3">
                 {content.home.proof.map((item) => (
                   <div key={item.label} className="border border-white/15 bg-white/[.06] p-4">
-                    <strong className="display-serif block text-3xl text-white">{item.value}</strong>
-                    <span className="mt-1 block text-sm font-bold leading-5 text-white/75">{item.label}</span>
+                    <strong className="block text-sm font-black uppercase text-[#d7aa52]">{item.value}</strong>
+                    <span className="mt-2 block text-sm font-semibold leading-5 text-white/72">{item.label}</span>
                   </div>
                 ))}
               </div>
-              <div className="mt-5 grid gap-2 text-center text-[0.72rem] font-black uppercase text-white/75 sm:grid-cols-3">
-                <span className="border border-white/15 py-2">Fiscal</span>
-                <span className="border border-white/15 py-2">Financeiro</span>
-                <span className="border border-white/15 py-2">Tributário</span>
+            </div>
+
+            <aside className="min-w-0 border border-white/15 bg-white/[.07] p-5 shadow-[0_18px_48px_rgba(0,0,0,.18)] sm:p-7">
+              <p className="text-xs font-black uppercase text-[#d7aa52]">{content.home.heroPanel.eyebrow}</p>
+              <h2 className="mt-3 text-2xl font-black leading-tight text-white">{content.home.heroPanel.title}</h2>
+              <p className="mt-3 text-sm leading-6 text-white/72">{content.home.heroPanel.text}</p>
+              <div className="mt-6 grid gap-3">
+                {content.home.heroPanel.items.map((item) => (
+                  <span key={item} className="flex items-center gap-3 border border-white/15 bg-[#071f3b]/35 p-3 text-sm font-bold text-white/82">
+                    <CheckCircle2 className="h-4 w-4 shrink-0 text-[#d7aa52]" aria-hidden />
+                    {item}
+                  </span>
+                ))}
               </div>
+              <Link href={`/${lang}#contato`} className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 bg-white px-5 text-sm font-extrabold text-[#071f3b] transition hover:-translate-y-0.5 hover:shadow-xl">
+                {content.home.heroPanel.cta}
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
             </aside>
           </div>
         </section>
@@ -154,7 +154,7 @@ export default async function HomePage({ params }: PageProps) {
                       href={`${solutionsHref}/${serviceTargetSlugs[index] ?? "brasil-chile"}`}
                       className="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[#071f3b] group-hover:text-[#b88228]"
                     >
-                      Ver solução
+                      {content.labels.viewSolution}
                       <ArrowRight className="h-4 w-4" aria-hidden />
                     </Link>
                   </article>
@@ -196,20 +196,20 @@ export default async function HomePage({ params }: PageProps) {
           </div>
         </section>
 
-        <section className="section-pad bg-[#071f3b] text-white">
+        <section className="bg-[#071f3b] py-12 text-white">
           <div className="shell">
             <SectionHeading eyebrow={content.home.method.eyebrow} title={content.home.method.title} dark />
-            <div className="relative grid gap-4 md:grid-cols-2 lg:grid-cols-4 lg:before:absolute lg:before:left-6 lg:before:right-6 lg:before:top-10 lg:before:h-px lg:before:bg-white/15">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {content.home.method.steps.map((step, index) => {
                 const Icon = methodIcons[index] || CheckCircle2;
                 return (
-                  <article key={step.title} className="relative min-w-0 border border-white/15 bg-white/[.06] p-6">
-                    <span className="mb-5 flex items-center justify-between gap-4">
-                      <Icon className="h-8 w-8 text-[#d7aa52]" aria-hidden />
-                      <span className="font-black text-white/40">{String(index + 1).padStart(2, "0")}</span>
+                  <article key={step.title} className="relative min-w-0 border border-white/15 bg-white/[.06] p-5">
+                    <span className="mb-4 flex items-center justify-between gap-4">
+                      <Icon className="h-7 w-7 text-[#d7aa52]" aria-hidden />
+                      <span className="text-sm font-black text-white/40">{String(index + 1).padStart(2, "0")}</span>
                     </span>
-                    <h3 className="text-xl font-extrabold text-white">{step.title}</h3>
-                    <p className="mt-3 leading-7 text-white/75">{step.text}</p>
+                    <h3 className="text-lg font-extrabold text-white">{step.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-white/72">{step.text}</p>
                   </article>
                 );
               })}

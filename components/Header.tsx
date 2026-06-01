@@ -19,7 +19,7 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
   const solutions = content.solutions.groups;
   const solutionsHref = `/${lang}/${content.routes.solutions}`;
   const workHref = `/${lang}/${content.routes.work}`;
-  const contactLabel = lang === "pt-br" ? "Fale Conosco" : lang === "es" ? "Contacto" : "Contact";
+  const contactLabel = content.labels.contact;
 
   const switchHref = (target: Locale) => {
     const parts = pathname.split("/");
@@ -29,8 +29,8 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
   };
 
   const beforeSolutionsNav: Array<{ href: string; label: string; pageKey: "home" | "about" }> = [
-    { href: `/${lang}`, label: lang === "pt-br" ? "Home" : lang === "es" ? "Inicio" : "Home", pageKey: "home" },
-    { href: `/${lang}/sobre`, label: lang === "pt-br" ? "Quem Somos" : lang === "es" ? "Quiénes Somos" : "About", pageKey: "about" },
+    { href: `/${lang}`, label: content.labels.home, pageKey: "home" },
+    { href: `/${lang}/sobre`, label: content.labels.about, pageKey: "about" },
   ];
 
   const afterSolutionsNav = [{ href: workHref, label: dict.nav.careers }];
@@ -52,7 +52,7 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
 
         <details className="group justify-self-end lg:hidden">
           <summary
-            aria-label="Abrir menu"
+            aria-label={content.labels.openMenu}
             className="focus-ring grid h-12 w-12 cursor-pointer list-none place-items-center border border-[#d9e0e6] bg-white text-[#071f3b] transition hover:border-[#b88228] [&::-webkit-details-marker]:hidden"
           >
             <Menu className="h-5 w-5 group-open:hidden" aria-hidden />
@@ -70,6 +70,7 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
               activePage={page}
               solutionsLabel={dict.nav.solutions}
               contactLabel={contactLabel}
+              overviewLabel={content.labels.overview}
             />
           </div>
         </details>
@@ -94,8 +95,8 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
             <div className="invisible absolute left-1/2 top-full z-50 w-[360px] -translate-x-1/2 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
               <div className="overflow-hidden border border-[#d9e0e6] bg-white shadow-[0_16px_40px_rgba(7,31,59,.14)]">
                 <div className="bg-[#071f3b] p-4 text-white">
-                  <span className="text-xs font-black uppercase tracking-[0.14em] text-[#d9a441]">Escolha por mercado</span>
-                  <p className="mt-2 text-sm font-semibold leading-6 text-white/75">Separe sua demanda entre Brasil, Chile ou operação internacional.</p>
+                  <span className="text-xs font-black uppercase tracking-[0.14em] text-[#d9a441]">{content.labels.chooseMarket}</span>
+                  <p className="mt-2 text-sm font-semibold leading-6 text-white/75">{content.labels.solutionsMenuText}</p>
                 </div>
                 <div className="grid gap-1 p-2">
                 {solutionSlugs.map((slug) => (
@@ -109,7 +110,7 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
                   </Link>
                 ))}
                   <Link href={`/${lang}#contato`} className="mt-1 border border-[#071f3b] bg-[#071f3b] px-3 py-3 text-center text-sm font-extrabold text-white transition hover:bg-[#102d50]">
-                    Falar com especialista
+                    {content.labels.talkSpecialist}
                   </Link>
                 </div>
               </div>
@@ -170,6 +171,7 @@ function MobileNavLinks({
   activeWorkHref,
   solutionsLabel,
   contactLabel,
+  overviewLabel,
 }: {
   beforeSolutionsNav: Array<{ href: string; label: string; pageKey: "home" | "about" }>;
   afterSolutionsNav: Array<{ href: string; label: string }>;
@@ -181,6 +183,7 @@ function MobileNavLinks({
   activeWorkHref: string;
   solutionsLabel: string;
   contactLabel: string;
+  overviewLabel: string;
 }) {
   return (
     <div className="grid gap-2 text-sm font-bold">
@@ -196,7 +199,7 @@ function MobileNavLinks({
         </summary>
         <div className="grid border-t border-[#d9e0e6]">
           <Link href={`/${lang}#solucoes`} className="px-4 py-3 text-xs font-black uppercase tracking-[0.14em] text-[#b88228] hover:bg-[#f8faf9]">
-            Visão geral
+            {overviewLabel}
           </Link>
           {solutionSlugs.map((slug) => (
             <Link key={slug} href={`${solutionsHref}/${slug}`} className="px-4 py-3 text-[#5c6b78] hover:bg-[#f8faf9] hover:text-[#071f3b]">

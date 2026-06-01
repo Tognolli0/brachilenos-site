@@ -15,12 +15,14 @@ export function generateStaticParams() {
 const privacyContent: Record<
   Locale,
   {
+    eyebrow: string;
     title: string;
     description: string;
     sections: Array<{ title: string; text: string }>;
   }
 > = {
   "pt-br": {
+    eyebrow: "Dados e segurança",
     title: "Política de Privacidade",
     description:
       "Entenda como a BRACHILENOS trata dados enviados por clientes, candidatos e prestadores nos formulários do site.",
@@ -53,6 +55,7 @@ const privacyContent: Record<
     ],
   },
   es: {
+    eyebrow: "Datos y seguridad",
     title: "Política de Privacidad",
     description:
       "Conoce cómo BRACHILENOS trata los datos enviados por clientes, candidatos y prestadores en los formularios del sitio.",
@@ -85,6 +88,7 @@ const privacyContent: Record<
     ],
   },
   en: {
+    eyebrow: "Data and security",
     title: "Privacy Policy",
     description:
       "Learn how BRACHILENOS handles data submitted by clients, candidates and service providers through the website forms.",
@@ -145,7 +149,7 @@ export default async function PrivacyPage({ params }: PageProps) {
         <section className="border-b border-[#071f3b]/10 bg-[#f8faf9]">
           <div className="shell py-12 lg:py-16">
             <div className="max-w-3xl min-w-0">
-              <p className="eyebrow mb-4">Dados e segurança</p>
+              <p className="eyebrow mb-4">{content.eyebrow}</p>
               <h1 className="display-serif text-balance text-[clamp(1.85rem,7vw,3rem)] font-bold leading-tight text-[#071f3b]">
                 {content.title}
               </h1>

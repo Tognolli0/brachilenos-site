@@ -151,8 +151,8 @@ export default async function AboutPage({ params }: PageProps) {
               {copy.title}
             </h1>
             <div className="mt-5 flex items-center gap-2 text-sm font-bold text-[#5c6b78]">
-              <Link href={`/${lang}`} className="text-[#071f3b] hover:text-[#b88228]">
-                Home
+                <Link href={`/${lang}`} className="text-[#071f3b] hover:text-[#b88228]">
+                {content.labels.home}
               </Link>
               <ArrowRight className="h-4 w-4" aria-hidden />
               <span>{copy.breadcrumb}</span>

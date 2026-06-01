@@ -27,6 +27,10 @@ export async function POST(request: Request) {
   const record = {
     source: "brachilenos-site",
     type: "talent-bank",
+    pipeline: "professional-network",
+    status: "novo",
+    group: inferTalentGroup(sanitized),
+    tags: buildTalentTags(sanitized),
     createdAt: new Date().toISOString(),
     payload: sanitized,
   };
@@ -99,37 +103,88 @@ function sanitizePayload(payload: Record<string, unknown>) {
 }
 
 function createTalentSubject(payload: Record<string, unknown>) {
-  return `Novo cadastro profissional BRACHILENOS - ${String(payload.interest || "Talento")}`;
+  const name = String(payload.name || "Profissional").trim();
+  const interest = String(payload.interest || "Talento").trim();
+  const area = String(payload.area || "Área não informada").trim();
+
+  return `BRACHILENOS | ${interest} | ${area} | ${name}`;
 }
 
-function createTalentEmailBody(record: { source: string; type: string; createdAt: string; payload: Record<string, unknown> }) {
+function createTalentEmailBody(record: {
+  source: string;
+  type: string;
+  pipeline: string;
+  status: string;
+  group: string;
+  tags: string[];
+  createdAt: string;
+  payload: Record<string, unknown>;
+}) {
   const value = (key: string) => String(record.payload[key] || "").trim() || "Não informado";
 
   return [
-    "Novo cadastro recebido pelo site BRACHILENOS.",
+    "Novo cadastro profissional recebido pelo site BRACHILENOS.",
     "",
+    "Classificação interna:",
     `Origem: ${record.source}`,
     `Tipo: ${record.type}`,
+    `Pipeline: ${record.pipeline}`,
+    `Status: ${record.status}`,
+    `Grupo: ${record.group}`,
+    `Tags: ${record.tags.join(", ") || "Não informado"}`,
     `Data: ${record.createdAt}`,
     "",
-    "Dados do profissional:",
+    "Contato:",
     `Nome: ${value("name")}`,
     `WhatsApp: ${value("whatsapp")}`,
     `E-mail: ${value("email")}`,
     `País: ${value("country")}`,
     `Cidade: ${value("city")}`,
+    "",
+    "Perfil técnico:",
     `Formação: ${value("education")}`,
     `CRC / Registro: ${value("registry")}`,
     `Área: ${value("area")}`,
     `Experiência: ${value("experience")}`,
+    `Onde pode atuar: ${value("operationCountry")}`,
+    `Idiomas: ${value("languages")}`,
+    `Modelo de atuação: ${value("workMode")}`,
+    `Disponibilidade: ${value("availability")}`,
     `LinkedIn: ${value("linkedin")}`,
+    "",
+    "Interesse:",
     `Interesse: ${value("interest")}`,
-    `Grupo interno: ${value("group")}`,
+    `Grupo enviado pelo formulário: ${value("group")}`,
     `Currículo / portfólio: ${formatPortfolio(record.payload.portfolio)}`,
+    `Página de origem: ${value("sourcePath")}`,
     "",
     "Mensagem:",
     value("message"),
+    "",
+    "Próximo passo sugerido:",
+    "Responder o profissional, validar perfil técnico e registrar na base de talentos/planilha quando ela for conectada.",
   ].join("\n");
+}
+
+function inferTalentGroup(payload: Record<string, unknown>) {
+  const interest = String(payload.interest || "").toLowerCase();
+
+  if (interest.includes("prest") || interest.includes("service") || interest.includes("servicio")) {
+    return "prestadores";
+  }
+
+  return "candidatos";
+}
+
+function buildTalentTags(payload: Record<string, unknown>) {
+  return [
+    inferTalentGroup(payload),
+    String(payload.area || "").trim(),
+    String(payload.country || "").trim(),
+    String(payload.operationCountry || "").trim(),
+    String(payload.workMode || "").trim(),
+    String(payload.availability || "").trim(),
+  ].filter(Boolean);
 }
 
 function formatPortfolio(portfolio: unknown) {

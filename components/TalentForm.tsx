@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowLeft, ArrowRight, CheckCircle2, Send, UploadCloud } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import type { Dictionary } from "@/lib/dictionaries";
 
@@ -8,15 +9,15 @@ type Props = {
   dict: Dictionary;
 };
 
-const steps = [
-  { title: "Contato", description: "Dados para retorno" },
-  { title: "Perfil", description: "Formação e atuação" },
-  { title: "Envio", description: "Interesse e currículo" },
-];
-
 type FormField = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
 export function TalentForm({ dict }: Props) {
+  const steps = [
+    { title: dict.forms.talentStepContact, description: dict.forms.talentStepContactText },
+    { title: dict.forms.talentStepProfile, description: dict.forms.talentStepProfileText },
+    { title: dict.forms.talentStepSend, description: dict.forms.talentStepSendText },
+  ];
+  const pathname = usePathname();
   const formRef = useRef<HTMLFormElement>(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [status, setStatus] = useState("");
@@ -69,7 +70,7 @@ export function TalentForm({ dict }: Props) {
       if (!validateStep(step, step === currentStep)) {
         setCurrentStep(step);
         setStatusKind("error");
-        setStatus("Revise os campos obrigatórios antes de enviar.");
+        setStatus(dict.forms.validationRequired);
         return;
       }
     }
@@ -97,13 +98,7 @@ export function TalentForm({ dict }: Props) {
     payload.group = groupByInterest[String(payload.interest)] || "candidatos";
 
     try {
-      localStorage.setItem(
-        "brachilenos.talentBank",
-        JSON.stringify([
-          ...JSON.parse(localStorage.getItem("brachilenos.talentBank") || "[]"),
-          { ...payload, createdAt: new Date().toISOString() },
-        ]),
-      );
+      saveLocalTalent(payload);
 
       const response = await fetch("/api/talents", {
         method: "POST",
@@ -123,7 +118,7 @@ export function TalentForm({ dict }: Props) {
       }
 
       setStatusKind("success");
-      setStatus(result.mode === "email_draft" ? "Cadastro preparado para envio ao e-mail temporário da operação." : dict.forms.successTalent);
+      setStatus(result.mode === "email_draft" ? dict.forms.emailDraftReady : dict.forms.successTalent);
       setCurrentStep(0);
       form.reset();
     } catch {
@@ -142,11 +137,14 @@ export function TalentForm({ dict }: Props) {
       className="min-w-0 border border-[#d9e0e6] bg-white shadow-[0_16px_42px_rgba(7,31,59,0.08)]"
     >
       <div className="border-b border-[#d9e0e6] p-4 sm:p-6">
-        <p className="text-xs font-black uppercase tracking-[0.16em] text-[#b88228]">Cadastro profissional</p>
-        <h3 className="display-serif mt-2 text-2xl font-bold text-[#071f3b]">Questionário em 3 etapas</h3>
-        <p className="mt-2 text-sm font-semibold leading-6 text-[#5c6b78]">
-          Fluxo separado dos clientes: candidatos e prestadores seguem para análise profissional.
-        </p>
+        <p className="text-xs font-black uppercase tracking-[0.16em] text-[#b88228]">{dict.forms.talentFormEyebrow}</p>
+        <h3 className="display-serif mt-2 text-2xl font-bold text-[#071f3b]">{dict.forms.talentFormTitle}</h3>
+        <p className="mt-2 text-sm font-semibold leading-6 text-[#5c6b78]">{dict.forms.talentFormText}</p>
+        <div className="mt-4 grid gap-2 border border-[#d9e0e6] bg-[#f8faf9] p-3 text-sm font-semibold leading-6 text-[#31465a] sm:grid-cols-3">
+          <span>{dict.forms.talentBaseCandidates}</span>
+          <span>{dict.forms.talentBaseProviders}</span>
+          <span>{dict.forms.talentEmailDestination}</span>
+        </div>
         <ol className="mt-5 grid gap-2 sm:grid-cols-3">
           {steps.map((step, index) => {
             const isActive = index === currentStep;
@@ -184,8 +182,9 @@ export function TalentForm({ dict }: Props) {
       </div>
 
       <div className="p-4 sm:p-6">
+        <input type="hidden" name="sourcePath" value={pathname || ""} />
         <fieldset data-form-step="0" hidden={currentStep !== 0} className="grid gap-4">
-          <legend className="sr-only">Dados de contato</legend>
+          <legend className="sr-only">{dict.forms.contactLegend}</legend>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label={dict.forms.name} name="name" autoComplete="name" required />
             <Field label="WhatsApp" name="whatsapp" type="tel" autoComplete="tel" required />
@@ -198,7 +197,7 @@ export function TalentForm({ dict }: Props) {
         </fieldset>
 
         <fieldset data-form-step="1" hidden={currentStep !== 1} className="grid gap-4">
-          <legend className="sr-only">Perfil profissional</legend>
+          <legend className="sr-only">{dict.forms.professionalLegend}</legend>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label={dict.forms.education} name="education" />
             <Field label={dict.forms.registry} name="registry" />
@@ -207,11 +206,19 @@ export function TalentForm({ dict }: Props) {
             <Select label={dict.forms.area} name="area" options={[...dict.forms.talentAreas]} placeholder={dict.forms.choose} />
             <Field label={dict.forms.experience} name="experience" />
           </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Select label={dict.forms.operationCountry} name="operationCountry" options={[...dict.forms.operationCountryOptions]} placeholder={dict.forms.choose} />
+            <Select label={dict.forms.languages} name="languages" options={[...dict.forms.languageOptions]} placeholder={dict.forms.choose} />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Select label={dict.forms.workMode} name="workMode" options={[...dict.forms.workModeOptions]} placeholder={dict.forms.choose} />
+            <Select label={dict.forms.availability} name="availability" options={[...dict.forms.availabilityOptions]} placeholder={dict.forms.choose} />
+          </div>
           <Field label="LinkedIn" name="linkedin" />
         </fieldset>
 
         <fieldset data-form-step="2" hidden={currentStep !== 2} className="grid gap-4">
-          <legend className="sr-only">Interesse e envio</legend>
+          <legend className="sr-only">{dict.forms.interestLegend}</legend>
           <Select label={dict.forms.interest} name="interest" options={[...dict.forms.interests]} placeholder={dict.forms.choose} required />
           <label className="grid gap-2 text-sm font-extrabold text-[#071f3b]">
             {dict.forms.portfolio}
@@ -247,7 +254,7 @@ export function TalentForm({ dict }: Props) {
             className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 border border-[#cbd5df] px-5 text-sm font-extrabold text-[#071f3b] transition hover:border-[#071f3b] disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden />
-            Voltar
+            {dict.forms.back}
           </button>
 
           {currentStep < steps.length - 1 ? (
@@ -256,7 +263,7 @@ export function TalentForm({ dict }: Props) {
               onClick={goNext}
               className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-5 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:shadow-xl sm:w-auto"
             >
-              Próxima etapa
+              {dict.forms.nextStep}
               <ArrowRight className="h-4 w-4" aria-hidden />
             </button>
           ) : (
@@ -266,7 +273,7 @@ export function TalentForm({ dict }: Props) {
               className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-5 text-center text-sm font-extrabold leading-tight text-white transition hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-wait disabled:opacity-70 sm:w-auto"
             >
               <Send className="h-5 w-5" aria-hidden />
-              <span>{submitting ? "Enviando..." : dict.forms.talentSubmit}</span>
+              <span>{submitting ? dict.forms.sending : dict.forms.talentSubmit}</span>
             </button>
           )}
         </div>
@@ -276,13 +283,26 @@ export function TalentForm({ dict }: Props) {
         </p>
         {emailHref ? (
           <a href={emailHref} className="mt-2 inline-flex items-center gap-2 text-sm font-extrabold text-[#071f3b] hover:text-[#b88228]">
-            Abrir e-mail temporário novamente
+            {dict.forms.reopenEmailDraft}
             <ArrowRight className="h-4 w-4" aria-hidden />
           </a>
         ) : null}
       </div>
     </form>
   );
+}
+
+function saveLocalTalent(payload: Record<string, FormDataEntryValue | { name: string; size: number; type: string } | string>) {
+  const key = "brachilenos.talentBank";
+  const nextTalent = { ...payload, createdAt: new Date().toISOString() };
+
+  try {
+    const stored = JSON.parse(localStorage.getItem(key) || "[]");
+    const talents = Array.isArray(stored) ? stored : [];
+    localStorage.setItem(key, JSON.stringify([...talents, nextTalent]));
+  } catch {
+    localStorage.setItem(key, JSON.stringify([nextTalent]));
+  }
 }
 
 function Field({

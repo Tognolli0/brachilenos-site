@@ -1,6 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, Building2, Calculator, CheckCircle2, ChevronDown, FileText, Globe2, Landmark, LineChart, MessageCircle, ShieldCheck, UsersRound } from "lucide-react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Building2,
+  Calculator,
+  CheckCircle2,
+  ChevronDown,
+  FileText,
+  Globe2,
+  Landmark,
+  LineChart,
+  MessageCircle,
+  ShieldCheck,
+  UsersRound,
+} from "lucide-react";
 import { ButtonLink } from "@/components/ButtonLink";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -26,10 +40,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const group = getSiteContent(lang).solutions.groups[slug];
+  const copy = solutionPageCopy[lang];
 
   return {
-    title: `${group.label} | Soluções Contábeis`,
+    title: `${group.label} | ${copy.metaTitleSuffix}`,
     description: group.description,
+    keywords: copy.keywords,
     alternates: {
       canonical: `/${lang}/solucoes/${slug}`,
     },
@@ -44,6 +60,101 @@ const servicePageTabs: { slug: SolutionSlug; label: string; description: string 
   { slug: "chile", label: "Chile", description: "PF e PJ no mercado chileno" },
   { slug: "brasil-chile", label: "Brasil x Chile", description: "Operações internacionais" },
 ];
+
+const solutionPageCopy: Record<
+  Locale,
+  {
+    metaTitleSuffix: string;
+    keywords: string[];
+    sidebarEyebrow: string;
+    quickTitle: (market: string) => string;
+    quickText: string;
+    ctaTitle: (market: string) => string;
+    ctaText: string;
+    backHome: string;
+    catalogEyebrow: string;
+    catalogTitle: string;
+    profileShortcut: string;
+    areasOfService: (count: number) => string;
+    serviceNavigation: string;
+    solutionsLabel: string;
+    viewServicesList: string;
+    onThisPage: string;
+    areas: (count: number) => string;
+    services: (count: number) => string;
+    viewServices: string;
+    talkAboutService: string;
+  }
+> = {
+  "pt-br": {
+    metaTitleSuffix: "Soluções Contábeis BRACHILENOS",
+    keywords: ["contabilidade Brasil Chile", "BPO financeiro", "planejamento tributário internacional", "contador brasileiro no Chile"],
+    sidebarEyebrow: "Nesta página",
+    quickTitle: (market) => `O que podemos resolver em ${market}`,
+    quickText:
+      "Uma visão rápida dos serviços mais buscados antes de entrar no detalhe por pessoa física, pessoa jurídica ou operação internacional.",
+    ctaTitle: (market) => `Precisa organizar sua operação em ${market}?`,
+    ctaText: "Envie seu cenário e receba o melhor caminho para diagnóstico, proposta ou atendimento recorrente.",
+    backHome: "Voltar para a home",
+    catalogEyebrow: "Catálogo de atendimento",
+    catalogTitle: "Escolha pelo perfil e veja os serviços disponíveis",
+    profileShortcut: "Atalho de perfil",
+    areasOfService: (count) => `${count} ${count === 1 ? "área" : "áreas"} de atendimento`,
+    serviceNavigation: "Navegação de soluções",
+    solutionsLabel: "Soluções",
+    viewServicesList: "Ver lista de serviços",
+    onThisPage: "Nesta página",
+    areas: (count) => `${count} ${count === 1 ? "área" : "áreas"}`,
+    services: (count) => `${count} ${count === 1 ? "serviço" : "serviços"}`,
+    viewServices: "Ver serviços",
+    talkAboutService: "Falar sobre este serviço",
+  },
+  es: {
+    metaTitleSuffix: "Soluciones contables BRACHILENOS",
+    keywords: ["contabilidad Brasil Chile", "BPO financiero", "planificación tributaria internacional", "contador brasileño en Chile"],
+    sidebarEyebrow: "En esta página",
+    quickTitle: (market) => `Lo que podemos resolver en ${market}`,
+    quickText:
+      "Una visión rápida de los servicios más buscados antes de ver el detalle por persona natural, empresa u operación internacional.",
+    ctaTitle: (market) => `¿Necesitas organizar tu operación en ${market}?`,
+    ctaText: "Envía tu escenario y recibe el mejor camino para diagnóstico, propuesta o atención recurrente.",
+    backHome: "Volver al inicio",
+    catalogEyebrow: "Catálogo de atención",
+    catalogTitle: "Elige por perfil y revisa los servicios disponibles",
+    profileShortcut: "Atajo por perfil",
+    areasOfService: (count) => `${count} ${count === 1 ? "área" : "áreas"} de atención`,
+    serviceNavigation: "Navegación de soluciones",
+    solutionsLabel: "Soluciones",
+    viewServicesList: "Ver lista de servicios",
+    onThisPage: "En esta página",
+    areas: (count) => `${count} ${count === 1 ? "área" : "áreas"}`,
+    services: (count) => `${count} ${count === 1 ? "servicio" : "servicios"}`,
+    viewServices: "Ver servicios",
+    talkAboutService: "Hablar sobre este servicio",
+  },
+  en: {
+    metaTitleSuffix: "Accounting solutions BRACHILENOS",
+    keywords: ["Brazil Chile accounting", "finance BPO", "international tax planning", "Brazilian accountant in Chile"],
+    sidebarEyebrow: "On this page",
+    quickTitle: (market) => `What we can solve in ${market}`,
+    quickText: "A quick view of the most requested services before the detailed breakdown by individual, company or international operation.",
+    ctaTitle: (market) => `Need to organize your ${market} operation?`,
+    ctaText: "Send your scenario and receive the best path for diagnosis, proposal or ongoing service.",
+    backHome: "Back to home",
+    catalogEyebrow: "Service catalog",
+    catalogTitle: "Choose by profile and view available services",
+    profileShortcut: "Profile shortcut",
+    areasOfService: (count) => `${count} ${count === 1 ? "service area" : "service areas"}`,
+    serviceNavigation: "Solutions navigation",
+    solutionsLabel: "Solutions",
+    viewServicesList: "View service list",
+    onThisPage: "On this page",
+    areas: (count) => `${count} ${count === 1 ? "area" : "areas"}`,
+    services: (count) => `${count} ${count === 1 ? "service" : "services"}`,
+    viewServices: "View services",
+    talkAboutService: "Talk about this service",
+  },
+};
 
 type ProfileCard = {
   title: string;
@@ -228,6 +339,7 @@ export default async function SolutionPage({ params }: PageProps) {
   const dict = getDictionary(lang);
   const content = getSiteContent(lang);
   const group = content.solutions.groups[slug];
+  const copy = solutionPageCopy[lang];
   const audience = audienceCopy[lang];
   const profileGroups = audience.profiles[slug];
 
@@ -236,11 +348,11 @@ export default async function SolutionPage({ params }: PageProps) {
       <Header lang={lang} dict={dict} page="solutions" />
       <main>
         <section className="border-b border-[#071f3b]/10 bg-[#f8faf9]">
-          <div className="shell grid min-w-0 gap-8 py-12 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end lg:py-16">
+          <div className="shell grid min-w-0 gap-7 py-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end lg:py-14">
             <div className="min-w-0">
               <nav className="mb-5 flex flex-wrap items-center gap-2 text-xs font-extrabold uppercase text-[#5c6b78]" aria-label="Breadcrumb">
                 <Link href={`/${lang}`} className="text-[#071f3b] hover:text-[#b88228]">
-                  Home
+                  {content.labels.home}
                 </Link>
                 <ArrowRight className="h-3.5 w-3.5 text-[#b88228]" aria-hidden />
                 <Link href={`/${lang}#solucoes`} className="text-[#071f3b] hover:text-[#b88228]">
@@ -250,11 +362,11 @@ export default async function SolutionPage({ params }: PageProps) {
                 <span>{group.label}</span>
               </nav>
               <p className="eyebrow mb-4">{group.eyebrow}</p>
-              <h1 className="display-serif max-w-4xl text-balance text-[clamp(1.9rem,3.4vw,3.1rem)] font-bold leading-tight text-[#071f3b]">
+              <h1 className="max-w-4xl break-words text-balance text-[clamp(1.45rem,6.2vw,2.55rem)] font-black leading-tight text-[#071f3b]">
                 {group.title}
               </h1>
-              <p className="mt-5 max-w-3xl text-base leading-7 text-[#31465a] sm:text-lg">{group.description}</p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <p className="mt-4 max-w-3xl text-base leading-7 text-[#31465a] sm:text-lg">{group.description}</p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <ButtonLink href={`/${lang}#contato`} icon={MessageCircle}>
                   {content.labels.requestProposal}
                 </ButtonLink>
@@ -263,22 +375,29 @@ export default async function SolutionPage({ params }: PageProps) {
                 </ButtonLink>
               </div>
             </div>
-            <aside className="min-w-0 border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)]">
-              <span className="display-serif block text-4xl font-bold text-[#071f3b]">{group.label}</span>
-              <p className="mt-4 leading-7 text-[#5c6b78]">
-                {content.solutions.text}
-              </p>
+            <aside className="min-w-0 border border-[#d9e0e6] bg-white p-4 shadow-[0_12px_32px_rgba(7,31,59,.06)] sm:p-6">
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-[#b88228]">{copy.sidebarEyebrow}</p>
+              <span className="mt-2 block text-2xl font-black text-[#071f3b]">{group.label}</span>
+              <div className="mt-4 grid gap-2">
+                {group.services.slice(0, 4).map((service) => (
+                  <span key={service.title} className="flex gap-2 border border-[#d9e0e6] bg-[#f8faf9] px-3 py-3 text-sm font-bold leading-5 text-[#102235]">
+                    <BadgeCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#0f6f43]" aria-hidden />
+                    {service.title}
+                  </span>
+                ))}
+              </div>
             </aside>
           </div>
         </section>
 
-        <section className="section-pad bg-white">
+        <section className="bg-white py-10 sm:py-12">
           <div className="shell">
             <div className="mb-10 max-w-3xl">
               <p className="eyebrow mb-3">{content.solutions.indexEyebrow}</p>
-              <h2 className="display-serif text-balance text-[clamp(1.65rem,3vw,2.35rem)] font-bold leading-tight text-[#071f3b]">
-                Serviços principais para {group.label}
+              <h2 className="break-words text-balance text-[clamp(1.45rem,5.7vw,2.1rem)] font-black leading-tight text-[#071f3b]">
+                {copy.quickTitle(group.label)}
               </h2>
+              <p className="mt-3 leading-7 text-[#5c6b78]">{copy.quickText}</p>
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {group.services.map((service, index) => {
@@ -286,11 +405,11 @@ export default async function SolutionPage({ params }: PageProps) {
                 return (
                   <article
                     key={service.title}
-                    className="group min-w-0 border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)] transition hover:-translate-y-1 hover:border-[#b88228] hover:shadow-[0_18px_42px_rgba(7,31,59,.12)]"
+                    className="group min-w-0 border border-[#d9e0e6] bg-white p-5 shadow-[0_12px_32px_rgba(7,31,59,.06)] transition hover:-translate-y-1 hover:border-[#b88228] hover:shadow-[0_18px_42px_rgba(7,31,59,.12)]"
                   >
-                    <Icon className="mb-5 h-8 w-8 text-[#b88228]" />
-                    <h3 className="text-xl font-extrabold text-[#071f3b]">{service.title}</h3>
-                    <p className="mt-3 leading-7 text-[#5c6b78]">{service.text}</p>
+                    <Icon className="mb-4 h-7 w-7 text-[#b88228]" aria-hidden />
+                    <h3 className="text-lg font-extrabold leading-6 text-[#071f3b]">{service.title}</h3>
+                    <p className="mt-3 text-sm leading-6 text-[#5c6b78]">{service.text}</p>
                   </article>
                 );
               })}
@@ -305,7 +424,7 @@ export default async function SolutionPage({ params }: PageProps) {
             <div className="shell">
               <div className="mb-10 max-w-3xl">
                 <p className="eyebrow mb-3">{audience.eyebrow}</p>
-                <h2 className="display-serif text-balance text-[clamp(1.65rem,3vw,2.35rem)] font-bold leading-tight text-[#071f3b]">
+                <h2 className="break-words text-balance text-[clamp(1.45rem,5.7vw,2.2rem)] font-black leading-tight text-[#071f3b]">
                   {audience.title}
                 </h2>
                 <p className="mt-4 max-w-2xl leading-7 text-[#5c6b78]">{audience.text}</p>
@@ -323,12 +442,10 @@ export default async function SolutionPage({ params }: PageProps) {
           <div className="shell grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
             <div className="max-w-3xl">
               <p className="mb-3 text-xs font-black uppercase tracking-[0.16em] text-[#d9a441]">{content.labels.talkSpecialist}</p>
-              <h2 className="display-serif text-balance text-[clamp(1.45rem,2.5vw,2.15rem)] font-bold leading-tight text-white">
-                Precisa organizar sua operação em {group.label}?
+              <h2 className="break-words text-balance text-[clamp(1.4rem,5.4vw,2.05rem)] font-black leading-tight text-white">
+                {copy.ctaTitle(group.label)}
               </h2>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-white/75">
-                Envie seu cenário e receba o melhor caminho para diagnóstico, proposta ou atendimento recorrente.
-              </p>
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-white/75">{copy.ctaText}</p>
             </div>
             <ButtonLink href={`/${lang}#contato`} icon={MessageCircle} variant="light" className="shrink-0">
               {content.labels.requestProposal}
@@ -339,9 +456,9 @@ export default async function SolutionPage({ params }: PageProps) {
         <section className="section-pad bg-[#eef4f2]">
           <div className="shell">
             <div className="mb-8 flex items-end justify-between gap-6">
-              <h2 className="display-serif text-3xl font-bold text-[#071f3b]">{content.labels.solutionsMenu}</h2>
+              <h2 className="text-2xl font-black text-[#071f3b]">{content.labels.solutionsMenu}</h2>
               <Link href={`/${lang}#solucoes`} className="hidden font-extrabold text-[#071f3b] sm:inline-flex">
-                Voltar para a home
+                {copy.backHome}
               </Link>
             </div>
             <div className="grid gap-4 md:grid-cols-3">
@@ -371,16 +488,23 @@ export default async function SolutionPage({ params }: PageProps) {
 
 function DetailedServiceCatalog({ slug, lang }: { slug: SolutionSlug; lang: Locale }) {
   const blocks = serviceCatalogBySlug[slug];
-  const totalServices = blocks.reduce((sum, block) => sum + block.cards.reduce((cardSum, card) => cardSum + card.services.length, 0), 0);
+  const copy = solutionPageCopy[lang];
+  const summaryCards = blocks.flatMap((block) =>
+    block.cards.map((card, cardIndex) => ({
+      block,
+      card,
+      id: `${block.id}-area-${cardIndex + 1}`,
+    })),
+  );
 
   return (
     <section id="catalogo-servicos" className="section-pad bg-[#f8faf9]">
       <div className="shell">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-end">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(300px,0.55fr)] lg:items-start">
           <div>
-            <p className="eyebrow mb-3">Catálogo de atendimento</p>
-            <h2 className="display-serif text-balance text-[clamp(1.65rem,3vw,2.35rem)] font-bold leading-tight text-[#071f3b]">
-              Encontre o serviço certo para o seu cenário
+            <p className="eyebrow mb-3">{copy.catalogEyebrow}</p>
+            <h2 className="break-words text-balance text-[clamp(1.45rem,5.7vw,2.2rem)] font-black leading-tight text-[#071f3b]">
+              {copy.catalogTitle}
             </h2>
             <div className="mt-5 grid gap-3 text-sm leading-6 text-[#5c6b78] sm:text-base sm:leading-7">
               {serviceCatalogIntro.map((paragraph) => (
@@ -389,23 +513,25 @@ function DetailedServiceCatalog({ slug, lang }: { slug: SolutionSlug; lang: Loca
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 sm:gap-3">
-            <div className="border border-[#d9e0e6] bg-white p-3 sm:p-4">
-              <span className="display-serif block text-2xl font-bold text-[#071f3b] sm:text-3xl">{blocks.length}</span>
-              <span className="mt-1 block text-xs font-black uppercase tracking-[0.14em] text-[#5c6b78]">blocos</span>
+          <aside className="border border-[#d9e0e6] bg-white p-5 shadow-[0_12px_32px_rgba(7,31,59,.06)]">
+            <p className="text-xs font-black uppercase tracking-[0.14em] text-[#b88228]">{copy.profileShortcut}</p>
+            <div className="mt-4 grid gap-2">
+              {blocks.map((block) => (
+                <a
+                  key={block.id}
+                  href={`#${block.id}`}
+                  className="group border border-[#d9e0e6] bg-[#f8faf9] p-3 transition hover:border-[#b88228] hover:bg-white"
+                >
+                  <span className="block text-xs font-black uppercase text-[#b88228]">{block.eyebrow}</span>
+                  <span className="mt-1 block font-extrabold leading-5 text-[#071f3b] group-hover:text-[#b88228]">{block.title}</span>
+                  <span className="mt-1 block text-xs font-semibold text-[#5c6b78]">{copy.areasOfService(block.cards.length)}</span>
+                </a>
+              ))}
             </div>
-            <div className="border border-[#d9e0e6] bg-white p-3 sm:p-4">
-              <span className="display-serif block text-2xl font-bold text-[#071f3b] sm:text-3xl">{blocks.reduce((sum, block) => sum + block.cards.length, 0)}</span>
-              <span className="mt-1 block text-xs font-black uppercase tracking-[0.14em] text-[#5c6b78]">cards</span>
-            </div>
-            <div className="border border-[#d9e0e6] bg-white p-3 sm:p-4">
-              <span className="display-serif block text-2xl font-bold text-[#071f3b] sm:text-3xl">{totalServices}</span>
-              <span className="mt-1 block text-xs font-black uppercase tracking-[0.14em] text-[#5c6b78]">serviços</span>
-            </div>
-          </div>
+          </aside>
         </div>
 
-        <nav className="mt-8 grid gap-2 sm:grid-cols-3 sm:gap-3" aria-label="Navegação de soluções">
+        <nav className="mt-8 grid gap-2 sm:grid-cols-3 sm:gap-3" aria-label={copy.serviceNavigation}>
           {servicePageTabs.map((tab) => {
             const isActive = tab.slug === slug;
             return (
@@ -417,7 +543,7 @@ function DetailedServiceCatalog({ slug, lang }: { slug: SolutionSlug; lang: Loca
                 }`}
               >
                 <span className={`text-xs font-black uppercase tracking-[0.14em] ${isActive ? "text-[#d9a441]" : "text-[#b88228]"}`}>
-                  Soluções
+                  {copy.solutionsLabel}
                 </span>
                 <strong className="mt-2 block text-sm leading-5 sm:text-lg">{tab.label}</strong>
                 <span className={`mt-1 hidden text-sm leading-5 sm:block ${isActive ? "text-white/75" : "text-[#5c6b78]"}`}>{tab.description}</span>
@@ -426,8 +552,34 @@ function DetailedServiceCatalog({ slug, lang }: { slug: SolutionSlug; lang: Loca
           })}
         </nav>
 
+        <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {summaryCards.map(({ block, card, id }, index) => {
+            const Icon = catalogCardIcons[index] || BadgeCheck;
+            return (
+              <a
+                key={id}
+                href={`#${id}`}
+                className="group flex min-w-0 flex-col border border-[#d9e0e6] bg-white p-5 shadow-[0_12px_32px_rgba(7,31,59,.06)] transition hover:-translate-y-1 hover:border-[#b88228] hover:shadow-[0_18px_42px_rgba(7,31,59,.1)]"
+              >
+                <span className="flex items-center justify-between gap-3">
+                  <span className="grid h-11 w-11 shrink-0 place-items-center bg-[#071f3b] text-white">
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </span>
+                  <span className="text-xs font-black uppercase text-[#b88228]">{block.eyebrow}</span>
+                </span>
+                <strong className="mt-4 text-lg leading-6 text-[#071f3b]">{card.title}</strong>
+                <span className="mt-3 block text-sm leading-6 text-[#5c6b78]">{card.text}</span>
+                <span className="mt-4 inline-flex items-center gap-2 text-sm font-extrabold text-[#071f3b] group-hover:text-[#b88228]">
+                  {copy.viewServicesList}
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </span>
+              </a>
+            );
+          })}
+        </div>
+
         {blocks.length > 1 ? (
-          <nav className="sticky top-20 z-10 mt-8 flex max-w-full gap-2 overflow-x-auto border border-[#d9e0e6] bg-white/95 p-2 shadow-[0_12px_24px_rgba(7,31,59,.06)] backdrop-blur" aria-label="Nesta página">
+          <nav className="sticky top-20 z-10 mt-8 flex max-w-full gap-2 overflow-x-auto border border-[#d9e0e6] bg-white/95 p-2 shadow-[0_12px_24px_rgba(7,31,59,.06)] backdrop-blur" aria-label={copy.onThisPage}>
             {blocks.map((block) => (
               <a
                 key={block.id}
@@ -446,20 +598,28 @@ function DetailedServiceCatalog({ slug, lang }: { slug: SolutionSlug; lang: Loca
               <div className="grid gap-5 border-b border-[#d9e0e6] bg-[#071f3b] p-5 text-white sm:p-6 lg:grid-cols-[minmax(0,1fr)_220px] lg:items-end">
                 <div>
                   <p className="text-xs font-black uppercase tracking-[0.16em] text-[#d9a441]">{block.eyebrow}</p>
-                  <h3 className="display-serif mt-2 text-balance text-[clamp(1.55rem,2.7vw,2.25rem)] font-bold leading-tight">{block.title}</h3>
+                  <h3 className="mt-2 break-words text-balance text-[clamp(1.35rem,5.4vw,2rem)] font-black leading-tight">{block.title}</h3>
                   <p className="mt-3 max-w-3xl text-sm leading-6 text-white/75 sm:text-base sm:leading-7">{block.text}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-2 text-center">
-                  <span className="border border-white/15 bg-white/[.08] px-3 py-3 text-sm font-extrabold">{block.cards.length} áreas</span>
+                  <span className="border border-white/15 bg-white/[.08] px-3 py-3 text-sm font-extrabold">{copy.areas(block.cards.length)}</span>
                   <span className="border border-white/15 bg-white/[.08] px-3 py-3 text-sm font-extrabold">
-                    {block.cards.reduce((sum, card) => sum + card.services.length, 0)} serviços
+                    {copy.services(block.cards.reduce((sum, card) => sum + card.services.length, 0))}
                   </span>
                 </div>
               </div>
 
               <div className="grid gap-4 p-4 sm:p-6">
                 {block.cards.map((card, cardIndex) => (
-                  <ServiceCatalogDetails key={card.title} card={card} index={cardIndex} open={cardIndex === 0} lang={lang} />
+                  <ServiceCatalogDetails
+                    key={card.title}
+                    id={`${block.id}-area-${cardIndex + 1}`}
+                    card={card}
+                    index={cardIndex}
+                    open={cardIndex === 0}
+                    lang={lang}
+                    copy={copy}
+                  />
                 ))}
               </div>
             </section>
@@ -470,24 +630,39 @@ function DetailedServiceCatalog({ slug, lang }: { slug: SolutionSlug; lang: Loca
   );
 }
 
-function ServiceCatalogDetails({ card, index, open, lang }: { card: ServiceCatalogCard; index: number; open?: boolean; lang: Locale }) {
+function ServiceCatalogDetails({
+  id,
+  card,
+  index,
+  open,
+  lang,
+  copy,
+}: {
+  id: string;
+  card: ServiceCatalogCard;
+  index: number;
+  open?: boolean;
+  lang: Locale;
+  copy: (typeof solutionPageCopy)[Locale];
+}) {
   const Icon = catalogCardIcons[index] || BadgeCheck;
 
   return (
     <details
+      id={id}
       open={open}
-      className="group border border-[#d9e0e6] bg-[#f8faf9] transition open:bg-white open:shadow-[0_14px_34px_rgba(7,31,59,.08)]"
+      className="group scroll-mt-36 border border-[#d9e0e6] bg-[#f8faf9] transition open:bg-white open:shadow-[0_14px_34px_rgba(7,31,59,.08)]"
     >
       <summary className="grid cursor-pointer list-none gap-4 p-5 outline-none transition hover:bg-white sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center sm:p-6 [&::-webkit-details-marker]:hidden">
         <span className="grid h-12 w-12 shrink-0 place-items-center border border-[#d9e0e6] bg-white text-[#b88228]">
           <Icon className="h-6 w-6" aria-hidden />
         </span>
         <span className="min-w-0">
-          <span className="display-serif block text-xl font-bold leading-7 text-[#071f3b] sm:text-2xl">{card.title}</span>
+          <span className="block text-xl font-black leading-7 text-[#071f3b] sm:text-2xl">{card.title}</span>
           <span className="mt-2 block text-sm leading-6 text-[#5c6b78] sm:text-base sm:leading-7">{card.text}</span>
         </span>
         <span className="inline-flex h-11 w-full max-w-full items-center justify-center gap-2 border border-[#071f3b] px-4 text-sm font-extrabold text-[#071f3b] transition group-open:border-[#b88228] group-open:text-[#b88228] sm:w-auto">
-          Ver serviços
+          {copy.viewServices}
           <ChevronDown className="h-4 w-4 transition group-open:rotate-180" aria-hidden />
         </span>
       </summary>
@@ -502,7 +677,7 @@ function ServiceCatalogDetails({ card, index, open, lang }: { card: ServiceCatal
           ))}
         </div>
         <Link href={`/${lang}#contato`} className="mt-5 inline-flex items-center gap-2 border-b-2 border-[#b88228] pb-1 text-sm font-extrabold text-[#071f3b]">
-          Falar sobre este serviço
+          {copy.talkAboutService}
           <ArrowRight className="h-4 w-4" aria-hidden />
         </Link>
       </div>

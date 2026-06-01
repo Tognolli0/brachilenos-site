@@ -4,31 +4,39 @@ import "../globals.css";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { assetPath } from "@/lib/assets";
 import { getHtmlLang, isLocale, locales, type Locale } from "@/lib/dictionaries";
+import { getSiteContent } from "@/lib/site-content";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://brachilenos.com"),
   title: {
-    default: "Contabilidade Brachilenos | Brasil x Chile",
-    template: "%s | Contabilidade Brachilenos",
+    default: "BRACHILENOS | Contabilidade Brasil x Chile",
+    template: "%s | BRACHILENOS",
   },
   description:
-    "Consultoria contábil, financeira e tributária para brasileiros, empresas e operações entre Brasil e Chile.",
+    "Contabilidade, gestão financeira, BPO e planejamento tributário para brasileiros, empresas e operações entre Brasil e Chile.",
+  keywords: [
+    "contabilidade Brasil Chile",
+    "contador brasileiro no Chile",
+    "planejamento tributário internacional",
+    "BPO financeiro Chile",
+    "consultoria tributária Brasil Chile",
+  ],
   icons: {
     icon: assetPath("/assets/logo-brachilenos.jpeg"),
   },
   openGraph: {
     type: "website",
     siteName: "BRACHILENOS",
-    title: "Contabilidade Brachilenos | Brasil x Chile",
+    title: "BRACHILENOS | Contabilidade Brasil x Chile",
     description:
-      "Consultoria contábil, financeira e tributária para brasileiros, empresas e operações entre Brasil e Chile.",
+      "Contabilidade, gestão financeira, BPO e planejamento tributário para brasileiros, empresas e operações entre Brasil e Chile.",
     images: [{ url: assetPath("/assets/santiago-hero.webp"), width: 1024, height: 1536, alt: "Contabilidade Brachilenos Brasil x Chile" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contabilidade Brachilenos | Brasil x Chile",
+    title: "BRACHILENOS | Contabilidade Brasil x Chile",
     description:
-      "Consultoria contábil, financeira e tributária para brasileiros, empresas e operações entre Brasil e Chile.",
+      "Contabilidade, gestão financeira, BPO e planejamento tributário para brasileiros, empresas e operações entre Brasil e Chile.",
     images: [assetPath("/assets/santiago-hero.webp")],
   },
   robots: {
@@ -60,11 +68,14 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  const locale = lang as Locale;
+  const content = getSiteContent(locale);
+
   return (
-    <html lang={getHtmlLang(lang as Locale)} data-scroll-behavior="smooth">
+    <html lang={getHtmlLang(locale)} data-scroll-behavior="smooth">
       <body>
         {children}
-        <WhatsAppFloat />
+        <WhatsAppFloat message={content.labels.talkSpecialist} ariaLabel={content.labels.whatsappAria} />
       </body>
     </html>
   );

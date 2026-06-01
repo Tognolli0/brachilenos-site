@@ -47,25 +47,25 @@ export default async function WorkWithUsPage({ params }: PageProps) {
       <Header lang={lang} dict={dict} page="work" />
       <main>
         <section className="border-b border-[#071f3b]/10 bg-[#f8faf9]">
-          <div className="shell py-12 lg:py-16">
+          <div className="shell py-10 lg:py-14">
             <div className="max-w-4xl min-w-0">
               <p className="eyebrow mb-4">{content.work.eyebrow}</p>
-              <h1 className="display-serif text-balance text-[clamp(1.85rem,7.5vw,3.35rem)] font-bold leading-tight text-[#071f3b]">
+              <h1 className="text-balance text-[clamp(1.8rem,4vw,3rem)] font-black leading-tight text-[#071f3b]">
                 {content.work.title}
               </h1>
-              <p className="mt-6 max-w-3xl text-base leading-7 text-[#31465a] sm:text-lg sm:leading-8">{content.work.text}</p>
+              <p className="mt-5 max-w-3xl text-base leading-7 text-[#31465a] sm:text-lg sm:leading-8">{content.work.text}</p>
             </div>
           </div>
         </section>
 
-        <section className="section-pad bg-white">
+        <section className="bg-white py-10 sm:py-12">
           <div className="shell grid gap-5 lg:grid-cols-2">
             {content.work.cards.map((card, index) => {
               const Icon = cardIcons[index] || BriefcaseBusiness;
               return (
                 <article key={card.id} id={card.id} className="min-w-0 border border-[#d9e0e6] bg-white p-6 shadow-[0_12px_32px_rgba(7,31,59,.06)] sm:p-7">
                   <Icon className="mb-5 h-9 w-9 text-[#b88228]" />
-                  <h2 className="display-serif text-balance text-[clamp(1.55rem,6vw,1.875rem)] font-bold leading-tight text-[#071f3b]">{card.title}</h2>
+                  <h2 className="text-balance text-[clamp(1.35rem,4vw,1.7rem)] font-black leading-tight text-[#071f3b]">{card.title}</h2>
                   <p className="mt-4 leading-7 text-[#5c6b78]">{card.text}</p>
                   <ul className="my-6 grid gap-3 text-[#102235]">
                     {card.items.map((item) => (
@@ -89,7 +89,7 @@ export default async function WorkWithUsPage({ params }: PageProps) {
           <div className="shell grid gap-9 lg:grid-cols-[.82fr_1.18fr] lg:items-start">
             <div>
               <p className="eyebrow mb-3">{content.work.application.eyebrow}</p>
-              <h2 className="display-serif text-balance text-[clamp(1.65rem,7vw,3rem)] font-bold leading-tight text-[#071f3b]">
+              <h2 className="text-balance text-[clamp(1.55rem,4vw,2.4rem)] font-black leading-tight text-[#071f3b]">
                 {content.work.application.title}
               </h2>
               <p className="mt-4 leading-7 text-[#5c6b78]">{content.work.application.text}</p>
