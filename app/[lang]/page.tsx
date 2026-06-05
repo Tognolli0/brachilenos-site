@@ -23,6 +23,7 @@ import { Header } from "@/components/Header";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/dictionaries";
 import { getSiteContent, solutionSlugs } from "@/lib/site-content";
+import { getSiteUrl } from "@/lib/site-url";
 
 type PageProps = {
   params: Promise<{ lang: string }>;
@@ -62,6 +63,7 @@ export default async function HomePage({ params }: PageProps) {
   const content = getSiteContent(lang);
   const workHref = `/${lang}/${content.routes.work}`;
   const solutionsHref = `/${lang}/${content.routes.solutions}`;
+  const siteUrl = getSiteUrl();
 
   return (
     <>
@@ -76,7 +78,9 @@ export default async function HomePage({ params }: PageProps) {
             areaServed: ["Brazil", "Chile"],
             serviceType: ["Accounting", "Tax planning", "Finance BPO", "International tax advisory"],
             availableLanguage: ["pt-BR", "es", "en"],
-            url: process.env.NEXT_PUBLIC_SITE_URL || "https://brachilenos.com",
+            url: `${siteUrl}/${lang}`,
+            email: "Mikaelen.britocl@gmail.com",
+            telephone: "+56 9 8241 9532",
           }),
         }}
       />
