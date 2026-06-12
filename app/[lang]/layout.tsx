@@ -15,16 +15,16 @@ export const metadata: Metadata = {
     template: "%s | BRACHILENOS",
   },
   description:
-    "Contabilidade, gestão financeira, BPO e planejamento tributário para brasileiros, empresas e operações entre Brasil e Chile.",
+    "Contabilidade, gestão financeira, BPO e estruturação empresarial para brasileiros, empresas e operações entre Brasil e Chile.",
   keywords: [
     "contabilidade Brasil Chile",
     "contador brasileiro no Chile",
-    "planejamento tributário internacional",
+    "gestão financeira Chile",
     "BPO financeiro Chile",
-    "consultoria tributária Brasil Chile",
+    "consultoria empresarial Brasil Chile",
   ],
   icons: {
-    icon: assetPath("/assets/logo-brachilenos.jpeg"),
+    icon: assetPath("/assets/logo-brachilenos-favicon.png"),
   },
   openGraph: {
     type: "website",
@@ -32,15 +32,15 @@ export const metadata: Metadata = {
     siteName: "BRACHILENOS",
     title: "BRACHILENOS | Contabilidade Brasil x Chile",
     description:
-      "Contabilidade, gestão financeira, BPO e planejamento tributário para brasileiros, empresas e operações entre Brasil e Chile.",
-    images: [{ url: assetPath("/assets/santiago-hero.webp"), width: 1024, height: 1536, alt: "Contabilidade Brachilenos Brasil x Chile" }],
+      "Contabilidade, gestão financeira, BPO e estruturação empresarial para brasileiros, empresas e operações entre Brasil e Chile.",
+    images: [{ url: assetPath("/assets/logo-brachilenos-premium.png"), width: 1024, height: 1024, alt: "Contabilidade Brachilenos Brasil x Chile" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "BRACHILENOS | Contabilidade Brasil x Chile",
     description:
-      "Contabilidade, gestão financeira, BPO e planejamento tributário para brasileiros, empresas e operações entre Brasil e Chile.",
-    images: [assetPath("/assets/santiago-hero.webp")],
+      "Contabilidade, gestão financeira, BPO e estruturação empresarial para brasileiros, empresas e operações entre Brasil e Chile.",
+    images: [assetPath("/assets/logo-brachilenos-premium.png")],
   },
   robots: {
     index: true,

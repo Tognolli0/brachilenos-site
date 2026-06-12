@@ -144,7 +144,7 @@ export default async function PrivacyPage({ params }: PageProps) {
 
   return (
     <>
-      <Header lang={lang} dict={dict} page="about" />
+      <Header lang={lang} page="about" />
       <main>
         <section className="border-b border-[#071f3b]/10 bg-[#f8faf9]">
           <div className="shell py-12 lg:py-16">

@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
+import { contactEmail } from "@/lib/contact";
 import { createMailToUrl } from "@/lib/conversion";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const requiredFields = ["name", "email", "whatsapp", "country", "interest"] as const;
-const temporaryTalentEmail = process.env.TALENTS_EMAIL_TO || "Mikaelen.britocl@gmail.com";
+const requiredFields = ["name", "email", "whatsapp", "country", "interest", "privacyConsent"] as const;
+const temporaryTalentEmail = process.env.TALENTS_EMAIL_TO || contactEmail;
 
 export async function POST(request: Request) {
   let payload: Record<string, unknown>;
@@ -15,6 +16,10 @@ export async function POST(request: Request) {
   }
 
   const sanitized = sanitizePayload(payload);
+
+  if (sanitized.company) {
+    return NextResponse.json({ ok: true, mode: "spam_ignored" });
+  }
 
   if (requiredFields.some((field) => !sanitized[field])) {
     return NextResponse.json({ ok: false, error: "missing_required_fields" }, { status: 400 });
@@ -157,6 +162,7 @@ function createTalentEmailBody(record: {
     `Grupo enviado pelo formulário: ${value("group")}`,
     `Currículo / portfólio: ${formatPortfolio(record.payload.portfolio)}`,
     `Página de origem: ${value("sourcePath")}`,
+    `Consentimento de contato: ${value("privacyConsent") === "on" ? "Sim" : value("privacyConsent")}`,
     "",
     "Mensagem:",
     value("message"),

@@ -1,4 +1,6 @@
-export const clientWhatsAppNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "56982419532";
+import { contactWhatsAppNumber } from "@/lib/contact";
+
+export const clientWhatsAppNumber = contactWhatsAppNumber;
 
 export function createWhatsAppUrl(message: string, number = clientWhatsAppNumber) {
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
@@ -22,6 +24,7 @@ export function buildCommercialLeadMessage(payload: Record<string, unknown>) {
     `Cidade: ${value("city") || "Não informado"}`,
     `Necessidade: ${value("need")}`,
     `Urgência: ${value("urgency") || "Não informado"}`,
+    `Página de origem: ${value("sourcePath") || "Não informado"}`,
     "",
     "*Mensagem do cliente*",
     value("message") || "Não informado",

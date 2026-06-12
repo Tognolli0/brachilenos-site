@@ -22,7 +22,7 @@ export const dictionaries = {
       homeTitle: "Contabilidade Brasil x Chile para empresas e pessoas físicas",
       careersTitle: "Trabalhe Conosco",
       homeDescription:
-        "Contabilidade, gestão financeira, BPO e planejamento tributário para brasileiros, empresas e investidores com operações entre Brasil e Chile.",
+        "Contabilidade, gestão financeira, BPO e estruturação empresarial para brasileiros, empresas e investidores com operações entre Brasil e Chile.",
       careersDescription:
         "Cadastre-se no banco de talentos ou como prestador de serviço da rede técnica Brasil x Chile da BRACHILENOS.",
     },
@@ -351,7 +351,7 @@ export const dictionaries = {
     },
     careers: {
       hero: {
-        eyebrow: "Carreiras e parceiros",
+        eyebrow: "Trabalhe Conosco",
         title: "Trabalhe Conosco BRACHILENOS",
         titleLine: "Carreiras",
         titleBrand: "BRACHILENOS",
@@ -362,7 +362,7 @@ export const dictionaries = {
         networkLabel: "Rede Brasil x Chile",
         networkTitle: "Técnica, estruturada e internacional",
         networkText:
-          "Candidatos, parceiros e prestadores entram por uma base separada para crescimento ordenado da operação.",
+          "Candidatos e prestadores entram por uma base separada para crescimento ordenado da operação.",
       },
       tracks: [
         {
@@ -380,9 +380,9 @@ export const dictionaries = {
           cta: "Enviar currículo",
         },
         {
-          title: "Seja um Parceiro",
+          title: "Prestar serviço",
           text:
-            "Estamos formando uma rede de parceiros estratégicos no Brasil e no Chile para atuação colaborativa em projetos contábeis, tributários, financeiros e societários.",
+            "Recebemos prestadores especializados no Brasil e no Chile para atuação colaborativa em projetos contábeis, tributários, financeiros e societários.",
           items: [
             "Contabilidade, fiscal e folha",
             "Tributário e societário",
@@ -390,7 +390,7 @@ export const dictionaries = {
             "Legalização e abertura de empresas",
             "Compliance",
           ],
-          cta: "Prestar serviço",
+          cta: "Cadastrar perfil",
         },
         {
           title: "Rede Brasil x Chile",
@@ -398,7 +398,7 @@ export const dictionaries = {
             "Conectamos profissionais e especialistas que desejam atuar em operações entre Brasil e Chile, com foco em suporte técnico, execução e crescimento estruturado.",
           items: [
             "Especialistas por área técnica",
-            "Parceiros por país e cidade",
+            "Prestadores por país e cidade",
             "Prestadores por disponibilidade e perfil",
           ],
           cta: "Entrar para a rede",
@@ -408,8 +408,8 @@ export const dictionaries = {
         eyebrow: "Banco de talentos",
         title: "Envie seus dados para a área correta",
         text:
-          "O formulário separa perfis em candidatos, parceiros e prestadores para que a operação possa crescer com organização e rastreabilidade.",
-        groups: ["Candidatos", "Parceiros", "Prestadores"],
+          "O formulário separa perfis em candidatos e prestadores para que a operação possa crescer com organização e rastreabilidade.",
+        groups: ["Candidatos", "Prestadores"],
       },
     },
     forms: {
@@ -432,13 +432,14 @@ export const dictionaries = {
       clientUrgency: "Urgência",
       clientUrgencyOptions: ["Preciso resolver agora", "Tenho prazo nos próximos dias", "Estou planejando com antecedência"],
       clientNeed: "Qual apoio você procura?",
-      clientOptions: ["Diagnóstico Brasil x Chile", "Contabilidade e fiscal", "Planejamento tributário", "BPO financeiro", "Abertura ou regularização", "Residência fiscal", "Imposto de renda", "Outro"],
+      clientOptions: ["Diagnóstico Brasil x Chile", "Contabilidade empresarial", "Estruturação estratégica", "BPO financeiro", "Abertura ou regularização", "Organização de documentos", "Gestão financeira", "Outro"],
       clientPlaceholder: "Descreva sua situação, onde mora/opera, se existe prazo e qual é a principal dúvida.",
       clientSubmit: "Enviar pelo WhatsApp",
       commercialEyebrow: "Atendimento comercial",
       commercialText: "Preencha o diagnóstico e o WhatsApp abrirá com a mensagem pronta. Depois é só revisar e enviar.",
+      privacyConsent: "Autorizo a BRACHILENOS a usar estes dados para retornar meu contato e conduzir o atendimento solicitado.",
       reopenWhatsapp: "Abrir WhatsApp novamente",
-      talentAreas: ["Contábil", "Fiscal", "Financeiro", "BPO financeiro", "Consultoria tributária", "Outro"],
+      talentAreas: ["Contábil", "Administrativo", "Financeiro", "BPO financeiro", "Consultoria empresarial", "Outro"],
       talentFormEyebrow: "Cadastro profissional",
       talentFormTitle: "Questionário em 3 etapas",
       talentFormText: "Fluxo separado dos clientes: candidatos e prestadores seguem para análise profissional.",
@@ -477,7 +478,7 @@ export const dictionaries = {
     },
     footer: {
       text:
-        "Contabilidade, consultoria financeira e planejamento tributário internacional para brasileiros entre Brasil e Chile.",
+        "Contabilidade, consultoria financeira e estruturação empresarial para brasileiros entre Brasil e Chile.",
       clients: "Clientes",
       professionals: "Trabalhe Conosco",
       partners: "Prestadores",
@@ -492,7 +493,7 @@ export const dictionaries = {
       homeTitle: "Contabilidad Brasil x Chile para empresas y personas",
       careersTitle: "Trabaja con nosotros",
       homeDescription:
-        "Contabilidad, gestión financiera, BPO y planificación tributaria para brasileños, empresas e inversionistas con operaciones entre Brasil y Chile.",
+        "Contabilidad, gestión financiera, BPO y estructuración empresarial para brasileños, empresas e inversionistas con operaciones entre Brasil y Chile.",
       careersDescription:
         "Regístrate en el banco de talentos o como prestador de servicios de la red técnica Brasil x Chile de BRACHILENOS.",
     },
@@ -786,13 +787,14 @@ export const dictionaries = {
       clientUrgency: "Urgencia",
       clientUrgencyOptions: ["Necesito resolver ahora", "Tengo plazo en los próximos días", "Estoy planificando con anticipación"],
       clientNeed: "¿Qué apoyo necesitas?",
-      clientOptions: ["Diagnóstico Brasil x Chile", "Contabilidad y fiscal", "Planificación tributaria", "BPO financiero", "Apertura o regularización", "Residencia fiscal", "Impuesto a la renta", "Otro"],
+      clientOptions: ["Diagnóstico Brasil x Chile", "Contabilidad empresarial", "Estructuración estratégica", "BPO financiero", "Apertura o regularización", "Organización de documentos", "Gestión financiera", "Otro"],
       clientPlaceholder: "Describe tu situación, dónde vives/operas, si existe plazo y cuál es la principal duda.",
       clientSubmit: "Enviar por WhatsApp",
       commercialEyebrow: "Atención comercial",
       commercialText: "Completa el diagnóstico y WhatsApp se abrirá con el mensaje listo. Luego solo revisa y envía.",
+      privacyConsent: "Autorizo a BRACHILENOS a usar estos datos para responder mi contacto y conducir la atención solicitada.",
       reopenWhatsapp: "Abrir WhatsApp nuevamente",
-      talentAreas: ["Contable", "Fiscal", "Financiero", "BPO financiero", "Consultoría tributaria", "Otro"],
+      talentAreas: ["Contable", "Administrativo", "Financiero", "BPO financiero", "Consultoría empresarial", "Otro"],
       talentFormEyebrow: "Registro profesional",
       talentFormTitle: "Cuestionario en 3 etapas",
       talentFormText: "Flujo separado de clientes: candidatos y prestadores pasan a análisis profesional.",
@@ -831,7 +833,7 @@ export const dictionaries = {
     },
     footer: {
       text:
-        "Contabilidad, consultoría financiera y planificación tributaria internacional para brasileños entre Brasil y Chile.",
+        "Contabilidad, consultoría financiera y estructuración empresarial para brasileños entre Brasil y Chile.",
       clients: "Clientes",
       professionals: "Trabaja con nosotros",
       partners: "Prestadores",
@@ -845,7 +847,7 @@ export const dictionaries = {
       homeTitle: "Brazil x Chile accounting for companies and individuals",
       careersTitle: "Work with us",
       homeDescription:
-        "Accounting, financial management, finance BPO and tax planning for Brazilians, companies and investors operating between Brazil and Chile.",
+        "Accounting, financial management, finance BPO and business structuring for Brazilians, companies and investors operating between Brazil and Chile.",
       careersDescription:
         "Join the talent bank or register as a service provider for the BRACHILENOS Brazil x Chile technical network.",
     },
@@ -1075,27 +1077,27 @@ export const dictionaries = {
     },
     careers: {
       hero: {
-        eyebrow: "Careers and partners",
+        eyebrow: "Work with us",
         title: "BRACHILENOS Careers",
         titleLine: "Careers",
         titleBrand: "BRACHILENOS",
         text: "Join a consultancy specialized in accounting, finance and tax planning between Brazil and Chile.",
         primary: "Send application",
-        secondary: "I want to partner",
+        secondary: "Provide services",
         networkLabel: "Brazil x Chile network",
         networkTitle: "Technical, structured and international",
-        networkText: "Candidates, partners and service providers enter through a separate base for organized operation growth.",
+        networkText: "Candidates and service providers enter through a separate base for organized operation growth.",
       },
       tracks: [
         { title: "Work With Us", text: "We seek professionals with technical profile, strategic vision and interest in an international environment focused on excellence, structure and growth.", items: ["Accounting Analyst", "Accounting Assistant", "Tax Analyst", "Finance Analyst", "Finance BPO", "Tax Consultant"], cta: "Send resume" },
-        { title: "Become a Partner", text: "We are building a network of strategic partners in Brazil and Chile for collaborative accounting, tax, finance and corporate projects.", items: ["Accounting, tax and payroll", "Tax and corporate", "Finance and BPO", "Company legalization and opening", "Compliance"], cta: "I want to partner" },
-        { title: "Brazil x Chile Network", text: "We connect professionals and specialists who want to work in operations between Brazil and Chile, focused on technical support, execution and structured growth.", items: ["Specialists by technical area", "Partners by country and city", "Providers by availability and profile"], cta: "Join the network" },
+        { title: "Provide services", text: "We receive specialized service providers in Brazil and Chile for collaborative accounting, tax, finance and corporate projects.", items: ["Accounting, tax and payroll", "Tax and corporate", "Finance and BPO", "Company legalization and opening", "Compliance"], cta: "Register profile" },
+        { title: "Brazil x Chile Network", text: "We connect professionals and specialists who want to work in operations between Brazil and Chile, focused on technical support, execution and structured growth.", items: ["Specialists by technical area", "Providers by country and city", "Providers by availability and profile"], cta: "Join the network" },
       ],
       application: {
         eyebrow: "Talent bank",
         title: "Send your data to the correct area",
-        text: "The form separates profiles into candidates, partners and providers so the operation can grow with organization and traceability.",
-        groups: ["Candidates", "Partners", "Providers"],
+        text: "The form separates profiles into candidates and providers so the operation can grow with organization and traceability.",
+        groups: ["Candidates", "Providers"],
       },
     },
     forms: {
@@ -1118,13 +1120,14 @@ export const dictionaries = {
       clientUrgency: "Urgency",
       clientUrgencyOptions: ["I need to solve it now", "I have a deadline soon", "I am planning ahead"],
       clientNeed: "What support do you need?",
-      clientOptions: ["Brazil x Chile diagnosis", "Accounting and tax", "Tax planning", "Finance BPO", "Opening or regularization", "Tax residence", "Income tax", "Other"],
+      clientOptions: ["Brazil x Chile diagnosis", "Business accounting", "Strategic structuring", "Finance BPO", "Opening or regularization", "Document organization", "Financial management", "Other"],
       clientPlaceholder: "Describe your situation, where you live/operate, whether there is a deadline and the main question.",
       clientSubmit: "Send via WhatsApp",
       commercialEyebrow: "Commercial service",
       commercialText: "Complete the diagnosis and WhatsApp will open with the message ready. Then review it and send.",
+      privacyConsent: "I authorize BRACHILENOS to use this data to return my contact and conduct the requested service.",
       reopenWhatsapp: "Open WhatsApp again",
-      talentAreas: ["Accounting", "Tax", "Finance", "Finance BPO", "Tax consulting", "Other"],
+      talentAreas: ["Accounting", "Administrative", "Finance", "Finance BPO", "Business consulting", "Other"],
       talentFormEyebrow: "Professional registration",
       talentFormTitle: "3-step questionnaire",
       talentFormText: "Separate flow from clients: candidates and providers go to professional review.",
@@ -1162,7 +1165,7 @@ export const dictionaries = {
       error: "It was not possible to send now. The data was kept locally for testing.",
     },
     footer: {
-      text: "Accounting, financial advisory and international tax planning for Brazilians between Brazil and Chile.",
+      text: "Accounting, financial advisory and business structuring for Brazilians between Brazil and Chile.",
       clients: "Clients",
       professionals: "Work with us",
       partners: "Service providers",

@@ -42,7 +42,7 @@ const aboutCopy = {
     history: "Nossa atuação",
     historyTitle: "Estratégia contábil para quem opera entre Brasil e Chile.",
     historyText:
-      "A BRACHILENOS nasce para atender clientes que precisam de clareza técnica, organização financeira e segurança fiscal em decisões que envolvem dois mercados.",
+      "A BRACHILENOS nasce para atender clientes que precisam de clareza técnica, organização financeira e segurança operacional em decisões que envolvem dois mercados.",
     systemTitle: "Visão, Missão, Valores e Política",
     systemText:
       "Nossa estrutura combina atendimento próximo, rede técnica especializada e processos pensados para reduzir riscos e dar previsibilidade ao cliente.",
@@ -67,7 +67,7 @@ const aboutCopy = {
     numbers: [
       { value: "BR + CL", label: "Atuação conectada aos dois mercados" },
       { value: "PT / ES / EN", label: "Comunicação para clientes internacionais" },
-      { value: "360", label: "Contábil, fiscal, financeiro e tributário" },
+      { value: "360", label: "Contábil, financeiro e estratégico" },
     ],
     ctaTitle: "Precisa organizar sua operação entre Brasil e Chile?",
     ctaText: "Fale com a BRACHILENOS e receba um caminho claro para análise, proposta ou atendimento recorrente.",
@@ -81,7 +81,7 @@ const aboutCopy = {
     history: "Nuestra actuación",
     historyTitle: "Estrategia contable para quienes operan entre Brasil y Chile.",
     historyText:
-      "BRACHILENOS atiende clientes que necesitan claridad técnica, organización financiera y seguridad fiscal en decisiones que involucran dos mercados.",
+      "BRACHILENOS atiende clientes que necesitan claridad técnica, organización financiera y seguridad operacional en decisiones que involucran dos mercados.",
     systemTitle: "Visión, Misión, Valores y Política",
     systemText:
       "Nuestra estructura combina atención cercana, red técnica especializada y procesos pensados para reducir riesgos y dar previsibilidad.",
@@ -94,7 +94,7 @@ const aboutCopy = {
     numbers: [
       { value: "BR + CL", label: "Actuación conectada a dos mercados" },
       { value: "PT / ES / EN", label: "Comunicación internacional" },
-      { value: "360", label: "Contable, fiscal, financiero y tributario" },
+      { value: "360", label: "Contable, financiero y estratégico" },
     ],
     ctaTitle: "¿Necesitas organizar tu operación entre Brasil y Chile?",
     ctaText: "Habla con BRACHILENOS y recibe un camino claro para análisis, propuesta o atención recurrente.",
@@ -108,7 +108,7 @@ const aboutCopy = {
     history: "Our work",
     historyTitle: "Accounting strategy for those operating between Brazil and Chile.",
     historyText:
-      "BRACHILENOS serves clients who need technical clarity, financial organization and tax confidence in decisions involving two markets.",
+      "BRACHILENOS serves clients who need technical clarity, financial organization and operational confidence in decisions involving two markets.",
     systemTitle: "Vision, Mission, Values and Policy",
     systemText:
       "Our structure combines close service, a specialized technical network and processes designed to reduce risk and bring predictability.",
@@ -121,7 +121,7 @@ const aboutCopy = {
     numbers: [
       { value: "BR + CL", label: "Connected to both markets" },
       { value: "PT / ES / EN", label: "International communication" },
-      { value: "360", label: "Accounting, tax, finance and advisory" },
+      { value: "360", label: "Accounting, finance and strategy" },
     ],
     ctaTitle: "Need to organize your Brazil and Chile operation?",
     ctaText: "Talk to BRACHILENOS and receive a clear path for analysis, proposal or ongoing service.",
@@ -142,7 +142,7 @@ export default async function AboutPage({ params }: PageProps) {
 
   return (
     <>
-      <Header lang={lang} dict={dict} page="about" />
+      <Header lang={lang} page="about" />
       <main>
         <section className="border-b border-[#071f3b]/10 bg-[#f8faf9]">
           <div className="shell py-12 lg:py-14">

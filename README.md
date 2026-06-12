@@ -29,9 +29,23 @@ npm run start
 
 Hospedagens indicadas:
 
-- Vercel, melhor encaixe para Next.js.
+- Netlify, hospedagem atual temporaria.
+- Vercel, bom encaixe para Next.js.
 - Cloudflare Pages, com adapter para Next.js se desejarem edge.
-- Netlify, tambem suporta Next.js.
+
+## Produção atual
+
+Enquanto o dominio proprio nao for comprado, o site usa:
+
+```bash
+NEXT_PUBLIC_SITE_URL=https://brachilenos-site.netlify.app
+```
+
+Quando o dominio real estiver ativo, atualize essa variavel no Netlify e rode uma nova publicacao.
+
+## Roadmap
+
+As melhorias planejadas estao registradas em `docs/roadmap.md`.
 
 ## Integracoes futuras
 

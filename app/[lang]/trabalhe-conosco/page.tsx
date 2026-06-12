@@ -44,7 +44,7 @@ export default async function WorkWithUsPage({ params }: PageProps) {
 
   return (
     <>
-      <Header lang={lang} dict={dict} page="work" />
+      <Header lang={lang} page="work" />
       <main>
         <section className="border-b border-[#071f3b]/10 bg-[#f8faf9]">
           <div className="shell py-10 lg:py-14">
@@ -105,7 +105,7 @@ export default async function WorkWithUsPage({ params }: PageProps) {
                 })}
               </div>
             </div>
-            <TalentForm dict={dict} />
+            <TalentForm forms={dict.forms} />
           </div>
         </section>
       </main>

@@ -6,16 +6,16 @@ import { useRef, useState } from "react";
 import type { Dictionary } from "@/lib/dictionaries";
 
 type Props = {
-  dict: Dictionary;
+  forms: Dictionary["forms"];
 };
 
 type FormField = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
-export function TalentForm({ dict }: Props) {
+export function TalentForm({ forms }: Props) {
   const steps = [
-    { title: dict.forms.talentStepContact, description: dict.forms.talentStepContactText },
-    { title: dict.forms.talentStepProfile, description: dict.forms.talentStepProfileText },
-    { title: dict.forms.talentStepSend, description: dict.forms.talentStepSendText },
+    { title: forms.talentStepContact, description: forms.talentStepContactText },
+    { title: forms.talentStepProfile, description: forms.talentStepProfileText },
+    { title: forms.talentStepSend, description: forms.talentStepSendText },
   ];
   const pathname = usePathname();
   const formRef = useRef<HTMLFormElement>(null);
@@ -70,7 +70,7 @@ export function TalentForm({ dict }: Props) {
       if (!validateStep(step, step === currentStep)) {
         setCurrentStep(step);
         setStatusKind("error");
-        setStatus(dict.forms.validationRequired);
+        setStatus(forms.validationRequired);
         return;
       }
     }
@@ -91,8 +91,8 @@ export function TalentForm({ dict }: Props) {
     }
 
     const groupByInterest: Record<string, string> = {
-      [dict.forms.interests[0]]: "candidatos",
-      [dict.forms.interests[1]]: "prestadores",
+      [forms.interests[0]]: "candidatos",
+      [forms.interests[1]]: "prestadores",
     };
 
     payload.group = groupByInterest[String(payload.interest)] || "candidatos";
@@ -118,12 +118,12 @@ export function TalentForm({ dict }: Props) {
       }
 
       setStatusKind("success");
-      setStatus(result.mode === "email_draft" ? dict.forms.emailDraftReady : dict.forms.successTalent);
+      setStatus(result.mode === "email_draft" ? forms.emailDraftReady : forms.successTalent);
       setCurrentStep(0);
       form.reset();
     } catch {
       setStatusKind("error");
-      setStatus(dict.forms.error);
+      setStatus(forms.error);
     } finally {
       setSubmitting(false);
     }
@@ -137,13 +137,13 @@ export function TalentForm({ dict }: Props) {
       className="min-w-0 border border-[#d9e0e6] bg-white shadow-[0_16px_42px_rgba(7,31,59,0.08)]"
     >
       <div className="border-b border-[#d9e0e6] p-4 sm:p-6">
-        <p className="text-xs font-black uppercase tracking-[0.16em] text-[#b88228]">{dict.forms.talentFormEyebrow}</p>
-        <h3 className="display-serif mt-2 text-2xl font-bold text-[#071f3b]">{dict.forms.talentFormTitle}</h3>
-        <p className="mt-2 text-sm font-semibold leading-6 text-[#5c6b78]">{dict.forms.talentFormText}</p>
+        <p className="text-xs font-black uppercase tracking-[0.16em] text-[#b88228]">{forms.talentFormEyebrow}</p>
+        <h3 className="display-serif mt-2 text-2xl font-bold text-[#071f3b]">{forms.talentFormTitle}</h3>
+        <p className="mt-2 text-sm font-semibold leading-6 text-[#5c6b78]">{forms.talentFormText}</p>
         <div className="mt-4 grid gap-2 border border-[#d9e0e6] bg-[#f8faf9] p-3 text-sm font-semibold leading-6 text-[#31465a] sm:grid-cols-3">
-          <span>{dict.forms.talentBaseCandidates}</span>
-          <span>{dict.forms.talentBaseProviders}</span>
-          <span>{dict.forms.talentEmailDestination}</span>
+          <span>{forms.talentBaseCandidates}</span>
+          <span>{forms.talentBaseProviders}</span>
+          <span>{forms.talentEmailDestination}</span>
         </div>
         <ol className="mt-5 grid gap-2 sm:grid-cols-3">
           {steps.map((step, index) => {
@@ -183,45 +183,46 @@ export function TalentForm({ dict }: Props) {
 
       <div className="p-4 sm:p-6">
         <input type="hidden" name="sourcePath" value={pathname || ""} />
+        <input type="text" name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
         <fieldset data-form-step="0" hidden={currentStep !== 0} className="grid gap-4">
-          <legend className="sr-only">{dict.forms.contactLegend}</legend>
+          <legend className="sr-only">{forms.contactLegend}</legend>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label={dict.forms.name} name="name" autoComplete="name" required />
+            <Field label={forms.name} name="name" autoComplete="name" required />
             <Field label="WhatsApp" name="whatsapp" type="tel" autoComplete="tel" required />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label="E-mail" name="email" type="email" autoComplete="email" required />
-            <Select label={dict.forms.country} name="country" options={["Brasil", "Chile", dict.forms.other]} placeholder={dict.forms.choose} required />
+            <Select label={forms.country} name="country" options={["Brasil", "Chile", forms.other]} placeholder={forms.choose} required />
           </div>
-          <Field label={dict.forms.city} name="city" />
+          <Field label={forms.city} name="city" />
         </fieldset>
 
         <fieldset data-form-step="1" hidden={currentStep !== 1} className="grid gap-4">
-          <legend className="sr-only">{dict.forms.professionalLegend}</legend>
+          <legend className="sr-only">{forms.professionalLegend}</legend>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label={dict.forms.education} name="education" />
-            <Field label={dict.forms.registry} name="registry" />
+            <Field label={forms.education} name="education" />
+            <Field label={forms.registry} name="registry" />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Select label={dict.forms.area} name="area" options={[...dict.forms.talentAreas]} placeholder={dict.forms.choose} />
-            <Field label={dict.forms.experience} name="experience" />
+            <Select label={forms.area} name="area" options={[...forms.talentAreas]} placeholder={forms.choose} />
+            <Field label={forms.experience} name="experience" />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Select label={dict.forms.operationCountry} name="operationCountry" options={[...dict.forms.operationCountryOptions]} placeholder={dict.forms.choose} />
-            <Select label={dict.forms.languages} name="languages" options={[...dict.forms.languageOptions]} placeholder={dict.forms.choose} />
+            <Select label={forms.operationCountry} name="operationCountry" options={[...forms.operationCountryOptions]} placeholder={forms.choose} />
+            <Select label={forms.languages} name="languages" options={[...forms.languageOptions]} placeholder={forms.choose} />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Select label={dict.forms.workMode} name="workMode" options={[...dict.forms.workModeOptions]} placeholder={dict.forms.choose} />
-            <Select label={dict.forms.availability} name="availability" options={[...dict.forms.availabilityOptions]} placeholder={dict.forms.choose} />
+            <Select label={forms.workMode} name="workMode" options={[...forms.workModeOptions]} placeholder={forms.choose} />
+            <Select label={forms.availability} name="availability" options={[...forms.availabilityOptions]} placeholder={forms.choose} />
           </div>
           <Field label="LinkedIn" name="linkedin" />
         </fieldset>
 
         <fieldset data-form-step="2" hidden={currentStep !== 2} className="grid gap-4">
-          <legend className="sr-only">{dict.forms.interestLegend}</legend>
-          <Select label={dict.forms.interest} name="interest" options={[...dict.forms.interests]} placeholder={dict.forms.choose} required />
+          <legend className="sr-only">{forms.interestLegend}</legend>
+          <Select label={forms.interest} name="interest" options={[...forms.interests]} placeholder={forms.choose} required />
           <label className="grid gap-2 text-sm font-extrabold text-[#071f3b]">
-            {dict.forms.portfolio}
+            {forms.portfolio}
             <span className="flex min-h-20 flex-col items-start gap-3 border border-dashed border-[#b88228] bg-[#fffaf1] px-4 py-3 text-sm font-bold text-[#071f3b] sm:flex-row sm:items-center">
               <UploadCloud className="h-5 w-5 shrink-0 text-[#b88228]" aria-hidden />
               <input
@@ -233,13 +234,17 @@ export function TalentForm({ dict }: Props) {
             </span>
           </label>
           <label className="grid gap-2 text-sm font-extrabold text-[#071f3b]">
-            {dict.forms.message}
+            {forms.message}
             <textarea
               name="message"
               rows={4}
-              placeholder={dict.forms.talentPlaceholder}
+              placeholder={forms.talentPlaceholder}
               className="focus-ring min-h-32 min-w-0 w-full border border-[#cbd5df] bg-white px-3 py-3 font-normal text-[#102235]"
             />
+          </label>
+          <label className="flex gap-3 border border-[#d9e0e6] bg-[#f8faf9] p-3 text-sm font-semibold leading-6 text-[#31465a]">
+            <input type="checkbox" name="privacyConsent" required className="mt-1 h-4 w-4 shrink-0 accent-[#071f3b]" />
+            <span>{forms.privacyConsent}</span>
           </label>
         </fieldset>
 
@@ -254,7 +259,7 @@ export function TalentForm({ dict }: Props) {
             className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 border border-[#cbd5df] px-5 text-sm font-extrabold text-[#071f3b] transition hover:border-[#071f3b] disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden />
-            {dict.forms.back}
+            {forms.back}
           </button>
 
           {currentStep < steps.length - 1 ? (
@@ -263,7 +268,7 @@ export function TalentForm({ dict }: Props) {
               onClick={goNext}
               className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-5 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:shadow-xl sm:w-auto"
             >
-              {dict.forms.nextStep}
+              {forms.nextStep}
               <ArrowRight className="h-4 w-4" aria-hidden />
             </button>
           ) : (
@@ -273,17 +278,17 @@ export function TalentForm({ dict }: Props) {
               className="focus-ring inline-flex min-h-12 w-full items-center justify-center gap-2 border border-[#071f3b] bg-[#071f3b] px-5 text-center text-sm font-extrabold leading-tight text-white transition hover:-translate-y-0.5 hover:shadow-xl disabled:cursor-wait disabled:opacity-70 sm:w-auto"
             >
               <Send className="h-5 w-5" aria-hidden />
-              <span>{submitting ? dict.forms.sending : dict.forms.talentSubmit}</span>
+              <span>{submitting ? forms.sending : forms.talentSubmit}</span>
             </button>
           )}
         </div>
 
-        <p className={`mt-4 min-h-6 text-sm font-bold ${statusKind === "success" ? "text-[#0f6f43]" : "text-[#b42318]"}`} aria-live="polite">
+        <p className={`mt-4 min-h-6 text-sm font-bold ${statusKind === "success" ? "text-[#0f6f43]" : "text-[#b42318]"}`} role="status" aria-live="polite">
           {status}
         </p>
         {emailHref ? (
           <a href={emailHref} className="mt-2 inline-flex items-center gap-2 text-sm font-extrabold text-[#071f3b] hover:text-[#b88228]">
-            {dict.forms.reopenEmailDraft}
+            {forms.reopenEmailDraft}
             <ArrowRight className="h-4 w-4" aria-hidden />
           </a>
         ) : null}

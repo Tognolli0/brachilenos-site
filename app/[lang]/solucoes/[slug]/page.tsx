@@ -88,7 +88,7 @@ const solutionPageCopy: Record<
 > = {
   "pt-br": {
     metaTitleSuffix: "Soluções Contábeis BRACHILENOS",
-    keywords: ["contabilidade Brasil Chile", "BPO financeiro", "planejamento tributário internacional", "contador brasileiro no Chile"],
+    keywords: ["contabilidade Brasil Chile", "BPO financeiro", "gestão empresarial internacional", "contador brasileiro no Chile"],
     sidebarEyebrow: "Nesta página",
     quickTitle: (market) => `O que podemos resolver em ${market}`,
     quickText:
@@ -111,7 +111,7 @@ const solutionPageCopy: Record<
   },
   es: {
     metaTitleSuffix: "Soluciones contables BRACHILENOS",
-    keywords: ["contabilidad Brasil Chile", "BPO financiero", "planificación tributaria internacional", "contador brasileño en Chile"],
+    keywords: ["contabilidad Brasil Chile", "BPO financiero", "gestión empresarial internacional", "contador brasileño en Chile"],
     sidebarEyebrow: "En esta página",
     quickTitle: (market) => `Lo que podemos resolver en ${market}`,
     quickText:
@@ -134,7 +134,7 @@ const solutionPageCopy: Record<
   },
   en: {
     metaTitleSuffix: "Accounting solutions BRACHILENOS",
-    keywords: ["Brazil Chile accounting", "finance BPO", "international tax planning", "Brazilian accountant in Chile"],
+    keywords: ["Brazil Chile accounting", "finance BPO", "international business management", "Brazilian accountant in Chile"],
     sidebarEyebrow: "On this page",
     quickTitle: (market) => `What we can solve in ${market}`,
     quickText: "A quick view of the most requested services before the detailed breakdown by individual, company or international operation.",
@@ -175,20 +175,20 @@ const audienceCopy: Record<
   "pt-br": {
     eyebrow: "Atendimento por perfil",
     title: "Soluções para pessoa física e pessoa jurídica",
-    text: "Cada serviço é orientado pelo tipo de cliente, pela jurisdição envolvida e pelo nível de risco da operação.",
+    text: "Cada serviço é orientado pelo tipo de cliente, pela jurisdição envolvida e pelo nível de complexidade da operação.",
     pfLabel: "Pessoa Física",
     pjLabel: "Pessoa Jurídica",
     profiles: {
       brasil: {
         pf: [
-          { title: "Regularização fiscal", text: "Organização de pendências, declarações e documentos pessoais no Brasil." },
-          { title: "Residência fiscal", text: "Análise de vínculo fiscal, renda mundial e comprovantes necessários." },
+          { title: "Regularização documental", text: "Organização de pendências, declarações e documentos pessoais no Brasil." },
+          { title: "Residência e vínculos", text: "Análise de vínculos, renda mundial e comprovantes necessários." },
           { title: "Organização patrimonial", text: "Separação entre pessoa física, empresa, bens, rendimentos e investimentos." },
-          { title: "Planejamento de renda", text: "Apoio para decisões com impacto tributário, financeiro e documental." },
+          { title: "Planejamento de renda", text: "Apoio para decisões com impacto financeiro, patrimonial e documental." },
         ],
         pj: [
           { title: "Contabilidade empresarial", text: "Rotina contábil, fechamento mensal e relatórios para gestão." },
-          { title: "Fiscal e obrigações", text: "Apuração de impostos, declarações e calendário fiscal acompanhado." },
+          { title: "Rotinas e documentos", text: "Organização de declarações, documentos, prazos e acompanhamentos recorrentes." },
           { title: "Abertura e regularização", text: "Constituição, alterações, certidões e ajuste de pendências." },
           { title: "BPO financeiro", text: "Contas, conciliação, fluxo de caixa e indicadores para decisão." },
         ],
@@ -196,27 +196,27 @@ const audienceCopy: Record<
       chile: {
         pf: [
           { title: "Orientação para brasileiros", text: "Suporte em português para reduzir dúvidas sobre obrigações locais." },
-          { title: "Regularização documental", text: "Mapeamento de documentos, prazos e pontos fiscais relevantes." },
+          { title: "Regularização documental", text: "Mapeamento de documentos, prazos e pontos operacionais relevantes." },
           { title: "Planejamento financeiro", text: "Organização de renda, custos, remessas e decisões entre países." },
           { title: "Apoio preventivo", text: "Leitura de riscos antes de investir, empreender ou movimentar recursos." },
         ],
         pj: [
           { title: "Abertura de empresa", text: "Direcionamento societário, documental e operacional para iniciar atividades." },
-          { title: "Contabilidade local", text: "Rotina contábil e fiscal com acompanhamento claro para o empresário." },
+          { title: "Contabilidade local", text: "Rotina contábil e documental com acompanhamento claro para o empresário." },
           { title: "Gestão financeira", text: "Controle de contas, conciliação, fluxo de caixa e relatórios." },
           { title: "Compliance operacional", text: "Processos e evidências para manter a empresa organizada." },
         ],
       },
       "brasil-chile": {
         pf: [
-          { title: "Residência fiscal", text: "Definição do cenário fiscal e impactos de renda nos dois países." },
-          { title: "Dupla tributação", text: "Análise de regras, créditos e documentos para evitar pagamento duplicado." },
+          { title: "Residência e vínculos", text: "Definição do cenário de residência, renda e documentação nos dois países." },
+          { title: "Renda em dois países", text: "Análise de regras, comprovantes e documentos para evitar cobranças ou pagamentos duplicados." },
           { title: "Remessas e renda mundial", text: "Organização de entradas, saídas, lucros, comprovantes e declarações." },
           { title: "Dossiê de evidências", text: "Contratos, extratos e documentos preparados para maior segurança." },
         ],
         pj: [
           { title: "Estruturação binacional", text: "Avaliação de onde faturar, como operar e como comprovar fluxos." },
-          { title: "Planejamento tributário", text: "Estratégia para reduzir risco fiscal e melhorar eficiência legal." },
+          { title: "Planejamento binacional", text: "Estratégia para reduzir riscos, organizar fluxos e melhorar eficiência operacional." },
           { title: "Gestão financeira entre países", text: "Fluxo de caixa, conciliação e indicadores para operação internacional." },
           { title: "Contratos e compliance", text: "Organização documental, responsabilidades e rotinas de controle." },
         ],
@@ -226,20 +226,20 @@ const audienceCopy: Record<
   es: {
     eyebrow: "Atención por perfil",
     title: "Soluciones para persona natural y empresa",
-    text: "Cada servicio se orienta por el tipo de cliente, la jurisdicción y el nivel de riesgo de la operación.",
+    text: "Cada servicio se orienta por el tipo de cliente, la jurisdicción y el nivel de complejidad de la operación.",
     pfLabel: "Persona Natural",
     pjLabel: "Empresa",
     profiles: {
       brasil: {
         pf: [
-          { title: "Regularización fiscal", text: "Organización de pendientes, declaraciones y documentos personales en Brasil." },
-          { title: "Residencia fiscal", text: "Análisis de vínculo fiscal, renta mundial y comprobantes necesarios." },
+          { title: "Regularización documental", text: "Organización de pendientes, declaraciones y documentos personales en Brasil." },
+          { title: "Residencia y vínculos", text: "Análisis de vínculos, renta mundial y comprobantes necesarios." },
           { title: "Organización patrimonial", text: "Separación entre persona, empresa, bienes, ingresos e inversiones." },
-          { title: "Planificación de renta", text: "Apoyo para decisiones con impacto tributario, financiero y documental." },
+          { title: "Planificación de renta", text: "Apoyo para decisiones con impacto financiero, patrimonial y documental." },
         ],
         pj: [
           { title: "Contabilidad empresarial", text: "Rutina contable, cierre mensual e informes de gestión." },
-          { title: "Fiscal y obligaciones", text: "Cálculo de impuestos, declaraciones y calendario fiscal." },
+          { title: "Rutinas y documentos", text: "Organización de declaraciones, documentos, plazos y acompañamientos recurrentes." },
           { title: "Apertura y regularización", text: "Constitución, modificaciones, certificados y pendientes." },
           { title: "BPO financiero", text: "Cuentas, conciliación, flujo de caja e indicadores." },
         ],
@@ -247,27 +247,27 @@ const audienceCopy: Record<
       chile: {
         pf: [
           { title: "Orientación para brasileños", text: "Soporte en portugués para reducir dudas sobre obligaciones locales." },
-          { title: "Regularización documental", text: "Mapeo de documentos, plazos y puntos fiscales relevantes." },
+          { title: "Regularización documental", text: "Mapeo de documentos, plazos y puntos operacionales relevantes." },
           { title: "Planificación financiera", text: "Organización de renta, costos, remesas y decisiones entre países." },
           { title: "Apoyo preventivo", text: "Lectura de riesgos antes de invertir, emprender o mover recursos." },
         ],
         pj: [
           { title: "Apertura de empresa", text: "Dirección societaria, documental y operacional para iniciar actividades." },
-          { title: "Contabilidad local", text: "Rutina contable y fiscal con acompañamiento claro." },
+          { title: "Contabilidad local", text: "Rutina contable y documental con acompañamiento claro." },
           { title: "Gestión financiera", text: "Control de cuentas, conciliación, caja e informes." },
           { title: "Compliance operacional", text: "Procesos y evidencias para mantener la empresa organizada." },
         ],
       },
       "brasil-chile": {
         pf: [
-          { title: "Residencia fiscal", text: "Definición del escenario fiscal e impactos de renta en ambos países." },
-          { title: "Doble tributación", text: "Análisis de reglas, créditos y documentos para evitar pago duplicado." },
+          { title: "Residencia y vínculos", text: "Definición del escenario de residencia, renta y documentación en ambos países." },
+          { title: "Renta en dos países", text: "Análisis de reglas, comprobantes y documentos para evitar cobros o pagos duplicados." },
           { title: "Remesas y renta mundial", text: "Organización de ingresos, salidas, utilidades y declaraciones." },
           { title: "Dossier de evidencias", text: "Contratos, extractos y documentos preparados para más seguridad." },
         ],
         pj: [
           { title: "Estructuración binacional", text: "Evaluación de dónde facturar, cómo operar y comprobar flujos." },
-          { title: "Planificación tributaria", text: "Estrategia para reducir riesgo fiscal y mejorar eficiencia legal." },
+          { title: "Planificación binacional", text: "Estrategia para reducir riesgos, organizar flujos y mejorar eficiencia operacional." },
           { title: "Gestión financiera", text: "Caja, conciliación e indicadores para operación internacional." },
           { title: "Contratos y compliance", text: "Organización documental, responsabilidades y controles." },
         ],
@@ -283,14 +283,14 @@ const audienceCopy: Record<
     profiles: {
       brasil: {
         pf: [
-          { title: "Tax regularization", text: "Organization of pending items, filings and personal documents in Brazil." },
-          { title: "Tax residence", text: "Review of tax ties, worldwide income and supporting evidence." },
+          { title: "Document regularization", text: "Organization of pending items, filings and personal documents in Brazil." },
+          { title: "Residence and ties", text: "Review of ties, worldwide income and supporting evidence." },
           { title: "Asset organization", text: "Separation between individual, company, assets, income and investments." },
-          { title: "Income planning", text: "Support for decisions with tax, finance and documentation impact." },
+          { title: "Income planning", text: "Support for decisions with financial, asset and documentation impact." },
         ],
         pj: [
           { title: "Business accounting", text: "Accounting routine, monthly closing and management reports." },
-          { title: "Tax and filings", text: "Tax calculations, declarations and tracked fiscal calendar." },
+          { title: "Routines and documents", text: "Organization of declarations, documents, deadlines and recurring follow-up." },
           { title: "Opening and regularization", text: "Formation, amendments, certificates and pending items." },
           { title: "Finance BPO", text: "Accounts, reconciliation, cash flow and decision indicators." },
         ],
@@ -298,27 +298,27 @@ const audienceCopy: Record<
       chile: {
         pf: [
           { title: "Guidance for Brazilians", text: "Portuguese-language support to reduce doubts about local obligations." },
-          { title: "Document regularization", text: "Mapping documents, deadlines and relevant tax points." },
+          { title: "Document regularization", text: "Mapping documents, deadlines and relevant operational points." },
           { title: "Financial planning", text: "Organization of income, costs, remittances and cross-border decisions." },
           { title: "Preventive support", text: "Risk review before investing, starting a business or moving funds." },
         ],
         pj: [
           { title: "Company opening", text: "Corporate, document and operational guidance to start activities." },
-          { title: "Local accounting", text: "Accounting and tax routine with clear business follow-up." },
+          { title: "Local accounting", text: "Accounting and document routine with clear business follow-up." },
           { title: "Financial management", text: "Account control, reconciliation, cash flow and reports." },
           { title: "Operational compliance", text: "Processes and evidence to keep the company organized." },
         ],
       },
       "brasil-chile": {
         pf: [
-          { title: "Tax residence", text: "Definition of the fiscal scenario and income impacts in both countries." },
-          { title: "Double taxation", text: "Rule, credit and documentation review to avoid duplicate payment." },
+          { title: "Residence and ties", text: "Definition of the residence, income and documentation scenario in both countries." },
+          { title: "Income in two countries", text: "Rule, evidence and document review to avoid duplicate charges or payments." },
           { title: "Remittances and income", text: "Organization of inflows, outflows, profits, evidence and filings." },
           { title: "Evidence dossier", text: "Contracts, statements and documents prepared for greater security." },
         ],
         pj: [
           { title: "Binational structuring", text: "Review of where to bill, how to operate and how to evidence flows." },
-          { title: "Tax planning", text: "Strategy to reduce fiscal risk and improve legal efficiency." },
+          { title: "Binational planning", text: "Strategy to reduce risks, organize flows and improve operational efficiency." },
           { title: "Cross-border finance", text: "Cash flow, reconciliation and indicators for international operations." },
           { title: "Contracts and compliance", text: "Document organization, responsibilities and control routines." },
         ],
@@ -345,7 +345,7 @@ export default async function SolutionPage({ params }: PageProps) {
 
   return (
     <>
-      <Header lang={lang} dict={dict} page="solutions" />
+      <Header lang={lang} page="solutions" />
       <main>
         <section className="border-b border-[#071f3b]/10 bg-[#f8faf9]">
           <div className="shell grid min-w-0 gap-7 py-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end lg:py-14">

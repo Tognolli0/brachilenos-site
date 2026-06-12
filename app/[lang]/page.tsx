@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -21,6 +22,7 @@ import { CommercialLeadForm } from "@/components/CommercialLeadForm";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { contactEmail, contactWhatsAppDisplay } from "@/lib/contact";
 import { getDictionary, isLocale, locales, type Locale } from "@/lib/dictionaries";
 import { getSiteContent, solutionSlugs } from "@/lib/site-content";
 import { getSiteUrl } from "@/lib/site-url";
@@ -67,7 +69,7 @@ export default async function HomePage({ params }: PageProps) {
 
   return (
     <>
-      <Header lang={lang} dict={dict} page="home" />
+      <Header lang={lang} page="home" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -76,29 +78,29 @@ export default async function HomePage({ params }: PageProps) {
             "@type": "AccountingService",
             name: "BRACHILENOS",
             areaServed: ["Brazil", "Chile"],
-            serviceType: ["Accounting", "Tax planning", "Finance BPO", "International tax advisory"],
+            serviceType: ["Accounting", "Finance BPO", "Business management", "International business advisory"],
             availableLanguage: ["pt-BR", "es", "en"],
             url: `${siteUrl}/${lang}`,
-            email: "Mikaelen.britocl@gmail.com",
-            telephone: "+56 9 8241 9532",
+            email: contactEmail,
+            telephone: contactWhatsAppDisplay,
           }),
         }}
       />
       <main>
         <section className="border-b border-[#071f3b]/10 bg-[#071f3b] text-white">
-          <div className="shell grid min-w-0 gap-8 py-12 lg:grid-cols-[minmax(0,1fr)_minmax(320px,.62fr)] lg:items-center lg:py-16">
+          <div className="shell grid min-w-0 gap-7 py-9 lg:min-h-[calc(100svh-73px)] lg:grid-cols-[minmax(0,1fr)_minmax(330px,.55fr)] lg:items-center lg:py-10 xl:gap-9">
             <div className="min-w-0">
-              <p className="eyebrow mb-5">{content.home.hero.eyebrow}</p>
+              <p className="eyebrow mb-4">{content.home.hero.eyebrow}</p>
               <h1
                 className="max-w-3xl text-balance font-black text-white"
-                style={{ fontSize: "clamp(2rem, 4vw, 3.35rem)", lineHeight: 1.05 }}
+                style={{ fontSize: "clamp(2rem, 4vw, 3.12rem)", lineHeight: 1.04 }}
               >
                 {content.home.hero.title}
               </h1>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-white/78 sm:text-lg">
+              <p className="mt-5 max-w-2xl text-base leading-7 text-white/78 sm:text-lg lg:max-w-xl xl:max-w-2xl">
                 {content.home.hero.text}
               </p>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <ButtonLink href={`/${lang}#contato`} icon={WhatsAppIcon} variant="light">
                   {content.home.hero.primary}
                 </ButtonLink>
@@ -110,9 +112,9 @@ export default async function HomePage({ params }: PageProps) {
                   <ArrowRight className="h-4 w-4" aria-hidden />
                 </Link>
               </div>
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
+              <div className="mt-7 grid gap-3 sm:grid-cols-3">
                 {content.home.proof.map((item) => (
-                  <div key={item.label} className="border border-white/15 bg-white/[.06] p-4">
+                  <div key={item.label} className="border border-white/15 bg-white/[.06] p-3.5">
                     <strong className="block text-sm font-black uppercase text-[#d7aa52]">{item.value}</strong>
                     <span className="mt-2 block text-sm font-semibold leading-5 text-white/72">{item.label}</span>
                   </div>
@@ -120,19 +122,34 @@ export default async function HomePage({ params }: PageProps) {
               </div>
             </div>
 
-            <aside className="min-w-0 border border-white/15 bg-white/[.07] p-5 shadow-[0_18px_48px_rgba(0,0,0,.18)] sm:p-7">
-              <p className="text-xs font-black uppercase text-[#d7aa52]">{content.home.heroPanel.eyebrow}</p>
-              <h2 className="mt-3 text-2xl font-black leading-tight text-white">{content.home.heroPanel.title}</h2>
+            <aside className="min-w-0 border border-white/15 bg-white/[.07] p-4 shadow-[0_18px_48px_rgba(0,0,0,.18)] sm:p-5 xl:p-6">
+              <div className="mb-5 grid gap-4 border-b border-white/15 pb-5 sm:grid-cols-[112px_minmax(0,1fr)] sm:items-center lg:grid-cols-[104px_minmax(0,1fr)] xl:grid-cols-[116px_minmax(0,1fr)]">
+                <Image
+                  src="/assets/logo-brachilenos-symbol-large.webp"
+                  width={640}
+                  height={640}
+                  alt="Logo BRACHILENOS Contabilidade Brasil x Chile"
+                  className="mx-auto h-28 w-28 rounded-full object-contain drop-shadow-[0_16px_24px_rgba(0,0,0,.35)] sm:h-28 sm:w-28 lg:h-[104px] lg:w-[104px] xl:h-[116px] xl:w-[116px]"
+                  priority
+                />
+                <div className="min-w-0 text-center sm:text-left">
+                  <p className="text-xs font-black uppercase tracking-[0.16em] text-[#d7aa52]">{content.home.brandSeal.eyebrow}</p>
+                  <p className="mt-2 display-serif text-[1.3rem] font-bold leading-tight text-white sm:text-[1.4rem]">{content.home.brandSeal.title}</p>
+                  <p className="mt-2 text-sm leading-6 text-white/68">{content.home.brandSeal.text}</p>
+                </div>
+              </div>
+              <p className="text-xs font-black uppercase tracking-[0.14em] text-[#d7aa52]">{content.home.heroPanel.eyebrow}</p>
+              <h2 className="mt-2 text-[1.35rem] font-black leading-tight text-white sm:text-2xl">{content.home.heroPanel.title}</h2>
               <p className="mt-3 text-sm leading-6 text-white/72">{content.home.heroPanel.text}</p>
-              <div className="mt-6 grid gap-3">
+              <div className="mt-5 grid gap-2.5">
                 {content.home.heroPanel.items.map((item) => (
-                  <span key={item} className="flex items-center gap-3 border border-white/15 bg-[#071f3b]/35 p-3 text-sm font-bold text-white/82">
+                  <span key={item} className="flex min-h-11 items-center gap-3 border border-white/15 bg-[#071f3b]/35 px-3 py-2.5 text-sm font-bold text-white/82">
                     <CheckCircle2 className="h-4 w-4 shrink-0 text-[#d7aa52]" aria-hidden />
                     {item}
                   </span>
                 ))}
               </div>
-              <Link href={`/${lang}#contato`} className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 bg-white px-5 text-sm font-extrabold text-[#071f3b] transition hover:-translate-y-0.5 hover:shadow-xl">
+              <Link href={`/${lang}#contato`} className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 bg-white px-5 text-sm font-extrabold text-[#071f3b] transition hover:-translate-y-0.5 hover:shadow-xl">
                 {content.home.heroPanel.cta}
                 <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
@@ -253,7 +270,7 @@ export default async function HomePage({ params }: PageProps) {
                 ))}
               </div>
             </div>
-            <CommercialLeadForm dict={dict} />
+            <CommercialLeadForm forms={dict.forms} />
           </div>
         </section>
       </main>

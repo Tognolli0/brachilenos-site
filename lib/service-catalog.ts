@@ -16,7 +16,7 @@ export type ServiceCatalogBlock = {
 };
 
 export const serviceCatalogIntro = [
-  "Na Brachilenos, oferecemos soluções estratégicas para brasileiros no Chile e chilenos no Brasil, conectando contabilidade, finanças, tributação e estruturação empresarial de forma integrada entre os dois países.",
+  "Na Brachilenos, oferecemos soluções estratégicas para brasileiros no Chile e chilenos no Brasil, conectando contabilidade, finanças, organização documental e estruturação empresarial de forma integrada entre os dois países.",
   "Nossa atuação é voltada para pessoas físicas, empresários, investidores, prestadores de serviços e empresas que desejam operar com mais segurança, organização e planejamento no cenário internacional.",
 ];
 
@@ -27,23 +27,23 @@ export const serviceCatalogBySlug: Record<SolutionSlug, ServiceCatalogBlock[]> =
       slug: "brasil",
       eyebrow: "Pessoa Física",
       title: "Pessoa Física — Brasil",
-      text: "Regularização, planejamento fiscal e organização financeira para brasileiros no Brasil ou residentes no exterior.",
+      text: "Regularização documental, planejamento de renda e organização financeira para brasileiros no Brasil ou residentes no exterior.",
       cards: [
         {
           title: "Contabilidade Pessoa Física",
           text:
-            "Assessoria fiscal e tributária para brasileiros no Brasil ou residentes no exterior, com foco em regularização, planejamento e conformidade junto à Receita Federal.",
+            "Assessoria contábil e documental para brasileiros no Brasil ou residentes no exterior, com foco em regularização, planejamento e conformidade cadastral.",
           services: [
-            "IRPF — Declaração anual do imposto de renda pessoa física",
+            "Declaração anual de pessoa física",
             "Carnê-Leão — Apuração mensal de rendimentos recebidos do exterior ou de pessoas físicas",
-            "Ganho de Capital — Cálculo tributário sobre venda de bens e direitos",
+            "Ganho de Capital — Cálculo sobre venda de bens e direitos",
             "Regularização de CPF — Suporte para CPF irregular, suspenso ou pendente",
-            "Declaração de Saída Definitiva — Regularização fiscal para quem deixou o Brasil",
+            "Declaração de Saída Definitiva — Regularização cadastral para quem deixou o Brasil",
             "Declaração de Bens no Exterior — Organização patrimonial internacional",
-            "Planejamento Tributário PF — Estratégias para organização fiscal e redução de riscos",
-            "Regularização Fiscal — Apoio junto à Receita Federal",
+            "Planejamento de Renda PF — Estratégias para organização documental e redução de riscos",
+            "Regularização Cadastral — Apoio em pendências e atualizações",
             "Consultoria para Residentes no Exterior — Assessoria para brasileiros expatriados",
-            "Análise de Bitributação Brasil x Chile — Avaliação tributária internacional",
+            "Análise Brasil x Chile — Avaliação documental internacional",
           ],
         },
         {
@@ -75,12 +75,12 @@ export const serviceCatalogBySlug: Record<SolutionSlug, ServiceCatalogBlock[]> =
       slug: "brasil",
       eyebrow: "Pessoa Jurídica",
       title: "Pessoa Jurídica — Brasil",
-      text: "Contabilidade, fiscal, societário e gestão financeira para empresas brasileiras e estruturas com sócios internacionais.",
+      text: "Contabilidade, rotinas societárias e gestão financeira para empresas brasileiras e estruturas com sócios internacionais.",
       cards: [
         {
           title: "Contabilidade Empresarial",
           text:
-            "Soluções contábeis, fiscais e societárias para empresas brasileiras e operações com sócios ou estruturas internacionais.",
+            "Soluções contábeis, societárias e documentais para empresas brasileiras e operações com sócios ou estruturas internacionais.",
           services: [
             "Abertura de Empresas",
             "Alteração Contratual",
@@ -89,24 +89,24 @@ export const serviceCatalogBySlug: Record<SolutionSlug, ServiceCatalogBlock[]> =
             "Regularização de CNPJ",
             "DAS / Simples Nacional",
             "DASN",
-            "Emissão de Notas Fiscais",
-            "Apuração de Impostos",
+            "Emissão de documentos",
+            "Apuração mensal",
             "Folha de Pagamento",
             "Pró-labore",
             "Escrituração Contábil",
-            "Escrituração Fiscal",
+            "Escrituração e rotinas",
             "Conciliação Bancária",
             "Balanço Patrimonial",
             "DRE",
             "Distribuição de Lucros",
-            "Parcelamentos Fiscais",
+            "Parcelamentos e pendências",
             "DEFIS",
             "DCTFWeb",
             "SPED",
             "ECD",
             "ECF",
             "Consultoria para Sócios no Exterior",
-            "Estruturação Fiscal Brasil x Chile",
+            "Estruturação Brasil x Chile",
           ],
         },
         {
@@ -139,25 +139,25 @@ export const serviceCatalogBySlug: Record<SolutionSlug, ServiceCatalogBlock[]> =
       slug: "chile",
       eyebrow: "Pessoa Física",
       title: "Pessoa Física — Chile",
-      text: "Orientação tributária e financeira para brasileiros residentes no Chile e contribuintes perante o SII.",
+      text: "Orientação contábil, documental e financeira para brasileiros residentes no Chile.",
       cards: [
         {
           title: "Contabilidade Pessoa Física Chile",
           text:
-            "Assessoria tributária e regularização fiscal para brasileiros residentes no Chile e contribuintes perante o SII.",
+            "Assessoria contábil e regularização documental para brasileiros residentes no Chile.",
           services: [
             "Operación Renta (F22)",
             "Declaração Anual de Renda",
-            "Regularização Tributária no SII",
+            "Regularização no SII",
             "Inicio de Actividades",
             "Emissão de Boletas",
             "Honorarios",
-            "Planejamento Tributário",
+            "Planejamento de renda",
             "Consultoria para Brasileiros no Chile",
             "Regularização de RUT",
-            "Residência Fiscal",
+            "Residência e vínculos",
             "Declaração de Renda Exterior",
-            "Créditos Tributários",
+            "Créditos e benefícios aplicáveis",
             "Consultoria sobre APV e DFL2",
           ],
         },
@@ -187,7 +187,7 @@ export const serviceCatalogBySlug: Record<SolutionSlug, ServiceCatalogBlock[]> =
       cards: [
         {
           title: "Contabilidade Empresarial Chile",
-          text: "Estruturação empresarial e assessoria tributária para empresas operando no Chile.",
+          text: "Estruturação empresarial e assessoria contábil para empresas operando no Chile.",
           services: [
             "Abertura de Empresa no Chile",
             "Constitución de SpA",
@@ -201,8 +201,8 @@ export const serviceCatalogBySlug: Record<SolutionSlug, ServiceCatalogBlock[]> =
             "F29 Mensal",
             "F22 Anual",
             "Contabilidade Mensal",
-            "Apuração de Impostos",
-            "Planejamento Tributário",
+            "Apuração mensal",
+            "Planejamento empresarial",
             "Escrituração Contábil",
             "Conciliação Bancária",
             "Remunerações",
@@ -239,19 +239,19 @@ export const serviceCatalogBySlug: Record<SolutionSlug, ServiceCatalogBlock[]> =
       slug: "brasil-chile",
       eyebrow: "Operação binacional",
       title: "Serviços Internacionais — Brasil x Chile",
-      text: "Consultoria fiscal, financeira e patrimonial para pessoas e empresas com renda, operação ou estrutura entre países.",
+      text: "Consultoria financeira, patrimonial e empresarial para pessoas e empresas com renda, operação ou estrutura entre países.",
       cards: [
         {
-          title: "Consultoria Tributária Internacional",
-          text: "Estruturação fiscal e tributária para operações, patrimônio e rendimentos entre Brasil e Chile.",
+          title: "Consultoria Internacional Brasil x Chile",
+          text: "Estruturação documental, financeira e patrimonial para operações, patrimônio e rendimentos entre Brasil e Chile.",
           services: [
-            "Planejamento Tributário Internacional",
-            "Consultoria Fiscal Brasil x Chile",
-            "Residência Fiscal",
+            "Planejamento Internacional",
+            "Consultoria Brasil x Chile",
+            "Residência e vínculos",
             "Estruturação Patrimonial Internacional",
             "Estruturação Societária",
-            "Bitributação",
-            "Aplicação do Acordo Brasil-Chile",
+            "Análise de pagamentos duplicados",
+            "Aplicação de regras Brasil-Chile",
             "Regularização de Rendimentos no Exterior",
             "Retirada de Lucros",
             "Pró-labore Internacional",

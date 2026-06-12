@@ -4,16 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Menu, X } from "lucide-react";
-import { localeLabels, locales, type Dictionary, type Locale } from "@/lib/dictionaries";
+import { localeLabels, locales, type Locale } from "@/lib/dictionaries";
 import { getSiteContent, solutionSlugs } from "@/lib/site-content";
 
 type HeaderProps = {
   lang: Locale;
-  dict: Dictionary;
   page?: "home" | "about" | "work" | "solutions";
 };
 
-export function Header({ lang, dict, page = "home" }: HeaderProps) {
+export function Header({ lang, page = "home" }: HeaderProps) {
   const pathname = usePathname() || `/${lang}`;
   const content = getSiteContent(lang);
   const solutions = content.solutions.groups;
@@ -33,21 +32,31 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
     { href: `/${lang}/sobre`, label: content.labels.about, pageKey: "about" },
   ];
 
-  const afterSolutionsNav = [{ href: workHref, label: dict.nav.careers }];
+  const afterSolutionsNav = [{ href: workHref, label: content.labels.workWithUs }];
 
   return (
     <header className="sticky top-0 z-40 border-b border-[#071f3b]/10 bg-[#f8faf9]/95 text-[#071f3b] backdrop-blur">
       <div className="shell grid min-h-[72px] grid-cols-[minmax(0,1fr)_auto] items-center gap-3 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:gap-4">
-        <Link href={`/${lang}`} className="display-serif flex min-w-0 items-center gap-3 font-bold text-[#071f3b]">
+        <Link href={`/${lang}`} className="flex min-w-0 items-center gap-3 text-[#071f3b]">
           <Image
-            src="/assets/logo-brachilenos.jpeg"
-            width={52}
-            height={52}
+            src="/assets/logo-brachilenos-symbol.webp"
+            width={56}
+            height={56}
             alt="BRACHILENOS"
-            className="h-11 w-11 shrink-0 border border-[#b88228]/40 bg-white object-cover sm:h-12 sm:w-12"
+            className="h-11 w-11 shrink-0 rounded-full object-contain drop-shadow-[0_6px_10px_rgba(7,31,59,.18)] sm:h-12 sm:w-12 lg:h-[52px] lg:w-[52px]"
             priority
           />
-          <span className="min-w-0 truncate text-base tracking-wide sm:text-xl">BRACHILENOS</span>
+          <span className="grid min-w-0 gap-0.5 leading-none">
+            <span className="hidden truncate text-[9px] font-black uppercase tracking-[0.22em] text-[#b88228] sm:block">
+              Contabilidade
+            </span>
+            <span className="display-serif block truncate text-[1.05rem] font-bold tracking-wide sm:text-xl">
+              BRACHILENOS
+            </span>
+            <span className="truncate text-[9px] font-black uppercase tracking-[0.14em] text-[#5c6b78] sm:text-[10px]">
+              Brasil x Chile
+            </span>
+          </span>
         </Link>
 
         <details className="group justify-self-end lg:hidden">
@@ -68,7 +77,7 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
               switchHref={switchHref}
               activeWorkHref={workHref}
               activePage={page}
-              solutionsLabel={dict.nav.solutions}
+              solutionsLabel={content.labels.solutionsMenu}
               contactLabel={contactLabel}
               overviewLabel={content.labels.overview}
             />
@@ -89,7 +98,7 @@ export function Header({ lang, dict, page = "home" }: HeaderProps) {
                 page === "solutions" ? "border-[#b88228] text-[#071f3b]" : "border-transparent"
               }`}
             >
-              <span>{dict.nav.solutions}</span>
+              <span>{content.labels.solutionsMenu}</span>
               <ChevronDown className="h-4 w-4 shrink-0 transition group-hover:rotate-180" aria-hidden />
             </Link>
             <div className="invisible absolute left-1/2 top-full z-50 w-[360px] -translate-x-1/2 pt-3 opacity-0 transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">

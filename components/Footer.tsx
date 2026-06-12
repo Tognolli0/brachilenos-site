@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { contactEmail, contactWhatsAppDisplay } from "@/lib/contact";
 import type { Dictionary, Locale } from "@/lib/dictionaries";
 import { createWhatsAppUrl } from "@/lib/conversion";
 import { getSiteContent, solutionSlugs } from "@/lib/site-content";
@@ -18,17 +19,21 @@ export function Footer({ lang, dict }: FooterProps) {
     <footer className="bg-[#061a30] py-12 text-white/75">
       <div className="shell grid gap-9 md:grid-cols-2 lg:grid-cols-[1.4fr_0.65fr_0.75fr_1fr]">
         <div>
-          <Link href={`/${lang}`} className="display-serif mb-4 flex items-center gap-3 text-lg font-bold text-white">
-            <Image src="/assets/logo-brachilenos.jpeg" width={48} height={48} alt="BRACHILENOS" className="h-12 w-12 object-cover" />
-            <span>BRACHILENOS</span>
+          <Link href={`/${lang}`} className="mb-4 flex items-center gap-3 text-white">
+            <Image src="/assets/logo-brachilenos-symbol.webp" width={54} height={54} alt="BRACHILENOS" className="h-[54px] w-[54px] rounded-full object-contain drop-shadow-[0_10px_18px_rgba(0,0,0,.28)]" />
+            <span className="grid gap-1 leading-none">
+              <span className="text-[9px] font-black uppercase tracking-[0.22em] text-[#d7aa52]">Contabilidade</span>
+              <span className="display-serif block text-xl font-bold tracking-wide">BRACHILENOS</span>
+              <span className="block text-[10px] font-black uppercase tracking-[0.14em] text-white/55">Brasil x Chile</span>
+            </span>
           </Link>
           <p className="max-w-sm text-sm leading-6">{dict.footer.text}</p>
           <div className="mt-5 grid gap-2 text-sm">
             <a href={createWhatsAppUrl(dict.nav.commercialCta)} target="_blank" rel="noopener noreferrer" className="font-semibold text-white transition hover:text-[#d7aa52]">
-              WhatsApp: +56 9 8241 9532
+              WhatsApp: {contactWhatsAppDisplay}
             </a>
-            <a href="mailto:Mikaelen.britocl@gmail.com" className="font-semibold text-white transition hover:text-[#d7aa52]">
-              E-mail: Mikaelen.britocl@gmail.com
+            <a href={`mailto:${contactEmail}`} className="font-semibold text-white transition hover:text-[#d7aa52]">
+              E-mail: {contactEmail}
             </a>
           </div>
         </div>
