@@ -1,18 +1,55 @@
+import { Buffer } from "node:buffer";
 import { NextResponse } from "next/server";
 import { contactEmail } from "@/lib/contact";
 import { createMailToUrl } from "@/lib/conversion";
 
+export const runtime = "nodejs";
+
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const requiredFields = ["name", "email", "whatsapp", "country", "interest", "privacyConsent"] as const;
 const temporaryTalentEmail = process.env.TALENTS_EMAIL_TO || contactEmail;
+const maxAttachmentBytes = 8 * 1024 * 1024;
+
+const allowedAttachmentTypes = new Set([
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  "image/jpeg",
+  "image/png",
+]);
+
+const allowedAttachmentExtensions = new Set([".pdf", ".doc", ".docx", ".jpg", ".jpeg", ".png"]);
+
+type TalentAttachment = {
+  filename: string;
+  content: string;
+  contentType?: string;
+  size: number;
+};
+
+class TalentRequestError extends Error {
+  constructor(
+    public code: string,
+    public status = 400,
+  ) {
+    super(code);
+  }
+}
 
 export async function POST(request: Request) {
   let payload: Record<string, unknown>;
+  let attachment: TalentAttachment | null = null;
 
   try {
-    payload = await request.json();
-  } catch {
-    return NextResponse.json({ ok: false, error: "invalid_json" }, { status: 400 });
+    const parsed = await readTalentRequest(request);
+    payload = parsed.payload;
+    attachment = parsed.attachment;
+  } catch (error) {
+    if (error instanceof TalentRequestError) {
+      return NextResponse.json({ ok: false, error: error.code }, { status: error.status });
+    }
+
+    return NextResponse.json({ ok: false, error: "invalid_payload" }, { status: 400 });
   }
 
   const sanitized = sanitizePayload(payload);
@@ -40,6 +77,8 @@ export async function POST(request: Request) {
     payload: sanitized,
   };
 
+  let webhookDelivered = false;
+
   if (process.env.TALENTS_WEBHOOK_URL) {
     const response = await fetch(process.env.TALENTS_WEBHOOK_URL, {
       method: "POST",
@@ -52,26 +91,40 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: false, error: "webhook_failed" }, { status: 502 });
     }
 
-    return NextResponse.json({
-      ok: true,
-      destination: "talent-webhook",
-      mode: "webhook",
-    });
+    webhookDelivered = true;
   }
 
   if (process.env.RESEND_API_KEY && process.env.TALENTS_EMAIL_FROM) {
+    const emailPayload: {
+      from: string;
+      to: string[];
+      subject: string;
+      text: string;
+      attachments?: Array<{ filename: string; content: string; contentType?: string }>;
+    } = {
+      from: process.env.TALENTS_EMAIL_FROM,
+      to: [temporaryTalentEmail],
+      subject: createTalentSubject(sanitized),
+      text: createTalentEmailBody(record),
+    };
+
+    if (attachment) {
+      emailPayload.attachments = [
+        {
+          filename: attachment.filename,
+          content: attachment.content,
+          contentType: attachment.contentType,
+        },
+      ];
+    }
+
     const emailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        from: process.env.TALENTS_EMAIL_FROM,
-        to: [temporaryTalentEmail],
-        subject: createTalentSubject(sanitized),
-        text: createTalentEmailBody(record),
-      }),
+      body: JSON.stringify(emailPayload),
       cache: "no-store",
     });
 
@@ -82,7 +135,17 @@ export async function POST(request: Request) {
     return NextResponse.json({
       ok: true,
       destination: temporaryTalentEmail,
-      mode: "email",
+      mode: webhookDelivered ? "webhook_email" : "email",
+      attachmentIncluded: Boolean(attachment),
+    });
+  }
+
+  if (webhookDelivered) {
+    return NextResponse.json({
+      ok: true,
+      destination: "talent-webhook",
+      mode: "webhook",
+      attachmentSkipped: Boolean(attachment),
     });
   }
 
@@ -90,12 +153,112 @@ export async function POST(request: Request) {
     ok: true,
     destination: temporaryTalentEmail,
     mode: "email_draft",
+    attachmentSkipped: Boolean(attachment),
     mailtoHref: createMailToUrl({
       to: temporaryTalentEmail,
       subject: createTalentSubject(sanitized),
       body: createTalentEmailBody(record),
     }),
   });
+}
+
+async function readTalentRequest(request: Request) {
+  const contentType = request.headers.get("content-type") || "";
+
+  if (contentType.includes("multipart/form-data")) {
+    return readTalentFormData(await request.formData());
+  }
+
+  try {
+    return {
+      payload: (await request.json()) as Record<string, unknown>,
+      attachment: null,
+    };
+  } catch {
+    throw new TalentRequestError("invalid_json", 400);
+  }
+}
+
+async function readTalentFormData(formData: FormData) {
+  const payload: Record<string, unknown> = {};
+  let attachment: TalentAttachment | null = null;
+
+  for (const [key, value] of formData.entries()) {
+    if (isFile(value)) {
+      if (key === "portfolio" && value.name && value.size > 0) {
+        attachment = await createTalentAttachment(value);
+        payload[key] = {
+          name: attachment.filename,
+          size: attachment.size,
+          type: attachment.contentType || "application/octet-stream",
+          selected: true,
+        };
+      } else {
+        payload[key] = "";
+      }
+
+      continue;
+    }
+
+    payload[key] = value;
+  }
+
+  return { payload, attachment };
+}
+
+async function createTalentAttachment(file: File): Promise<TalentAttachment> {
+  const filename = sanitizeFileName(file.name);
+  const contentType = file.type && file.type !== "application/octet-stream" ? file.type : inferContentType(filename);
+
+  if (file.size > maxAttachmentBytes) {
+    throw new TalentRequestError("attachment_too_large", 413);
+  }
+
+  if (!isAllowedAttachment(filename, contentType)) {
+    throw new TalentRequestError("attachment_type_not_allowed", 400);
+  }
+
+  const buffer = Buffer.from(await file.arrayBuffer());
+
+  return {
+    filename,
+    content: buffer.toString("base64"),
+    contentType,
+    size: file.size,
+  };
+}
+
+function isFile(value: FormDataEntryValue): value is File {
+  return typeof File !== "undefined" && value instanceof File;
+}
+
+function sanitizeFileName(name: string) {
+  return name
+    .replace(/[^\w.\- ()]/g, "_")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 120) || "curriculo";
+}
+
+function getExtension(filename: string) {
+  const dotIndex = filename.lastIndexOf(".");
+  return dotIndex >= 0 ? filename.slice(dotIndex).toLowerCase() : "";
+}
+
+function inferContentType(filename: string) {
+  const extension = getExtension(filename);
+
+  if (extension === ".pdf") return "application/pdf";
+  if (extension === ".doc") return "application/msword";
+  if (extension === ".docx") return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+  if (extension === ".png") return "image/png";
+  if (extension === ".jpg" || extension === ".jpeg") return "image/jpeg";
+
+  return "application/octet-stream";
+}
+
+function isAllowedAttachment(filename: string, contentType: string) {
+  return allowedAttachmentTypes.has(contentType) || allowedAttachmentExtensions.has(getExtension(filename));
 }
 
 function sanitizePayload(payload: Record<string, unknown>) {
@@ -199,8 +362,10 @@ function formatPortfolio(portfolio: unknown) {
   if (typeof portfolio === "string") return portfolio || "Não informado";
 
   if (typeof portfolio === "object" && "name" in portfolio) {
-    const file = portfolio as { name?: unknown; size?: unknown; type?: unknown };
-    return `${String(file.name || "Arquivo sem nome")} (${String(file.type || "tipo não informado")}, ${String(file.size || "tamanho não informado")} bytes)`;
+    const file = portfolio as { name?: unknown; size?: unknown; type?: unknown; selected?: unknown };
+    const selected = file.selected ? ", arquivo selecionado no formulário" : "";
+
+    return `${String(file.name || "Arquivo sem nome")} (${String(file.type || "tipo não informado")}, ${String(file.size || "tamanho não informado")} bytes${selected})`;
   }
 
   return "Arquivo informado";

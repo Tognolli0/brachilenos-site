@@ -10,6 +10,7 @@ type Props = {
 };
 
 type FormField = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+type TalentPayloadValue = string | { name: string; size: number; type: string };
 
 export function TalentForm({ forms }: Props) {
   const steps = [
@@ -77,16 +78,16 @@ export function TalentForm({ forms }: Props) {
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const payload: Record<string, FormDataEntryValue | { name: string; size: number; type: string } | string> = {};
+    const payload: Record<string, TalentPayloadValue> = {};
     setSubmitting(true);
     setStatus("");
     setEmailHref("");
 
     for (const [key, value] of formData.entries()) {
       if (value instanceof File) {
-        payload[key] = value.name ? { name: value.name, size: value.size, type: value.type } : "";
+        payload[key] = value.name ? { name: value.name, size: value.size, type: value.type || "application/octet-stream" } : "";
       } else {
-        payload[key] = value;
+        payload[key] = value.toString();
       }
     }
 
@@ -96,21 +97,21 @@ export function TalentForm({ forms }: Props) {
     };
 
     payload.group = groupByInterest[String(payload.interest)] || "candidatos";
+    formData.set("group", payload.group);
 
     try {
       saveLocalTalent(payload);
 
       const response = await fetch("/api/talents", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: formData,
       });
 
       if (!response.ok) {
         throw new Error("Talent request failed");
       }
 
-      const result = (await response.json()) as { mode?: string; mailtoHref?: string; destination?: string };
+      const result = (await response.json()) as { mode?: string; mailtoHref?: string; destination?: string; attachmentSkipped?: boolean };
 
       if (result.mailtoHref) {
         setEmailHref(result.mailtoHref);
@@ -118,7 +119,11 @@ export function TalentForm({ forms }: Props) {
       }
 
       setStatusKind("success");
-      setStatus(result.mode === "email_draft" ? forms.emailDraftReady : forms.successTalent);
+      setStatus(
+        result.mode === "email_draft"
+          ? `${forms.emailDraftReady}${result.attachmentSkipped ? ` ${forms.emailDraftAttachmentNote}` : ""}`
+          : forms.successTalent,
+      );
       setCurrentStep(0);
       form.reset();
     } catch {
@@ -297,7 +302,7 @@ export function TalentForm({ forms }: Props) {
   );
 }
 
-function saveLocalTalent(payload: Record<string, FormDataEntryValue | { name: string; size: number; type: string } | string>) {
+function saveLocalTalent(payload: Record<string, TalentPayloadValue>) {
   const key = "brachilenos.talentBank";
   const nextTalent = { ...payload, createdAt: new Date().toISOString() };
 
